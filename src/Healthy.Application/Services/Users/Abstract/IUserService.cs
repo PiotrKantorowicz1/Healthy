@@ -4,7 +4,7 @@ using Healthy.Core.Pagination;
 using Healthy.Core.Queries.Users;
 using Healthy.Core.Types;
 
-namespace Healthy.Application.Services
+namespace Healthy.Application.Services.Users.Abstract
 {
     public interface IUserService
     {

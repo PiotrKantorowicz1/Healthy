@@ -1,7 +1,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Healthy.Application.Services
+namespace Healthy.Application.Services.Users.Abstract
 {
     public interface IAvatarService
     {
