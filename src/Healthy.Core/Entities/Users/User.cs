@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using Healthy.Common.Exceptions;
 using Healthy.Common.Extensions;
 using Healthy.Core.Services;
 using Healthy.Core.Types;

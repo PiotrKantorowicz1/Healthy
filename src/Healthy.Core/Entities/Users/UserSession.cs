@@ -1,4 +1,5 @@
 using System;
+using Healthy.Common.Exceptions;
 using Healthy.Core.Types;
 
 namespace Healthy.Core.Entities.Users

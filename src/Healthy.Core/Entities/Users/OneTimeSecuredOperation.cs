@@ -1,4 +1,5 @@
 using System;
+using Healthy.Common.Exceptions;
 using Healthy.Common.Extensions;
 using Healthy.Core.Types;
 

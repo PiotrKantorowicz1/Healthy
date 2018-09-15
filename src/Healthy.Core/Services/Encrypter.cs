@@ -1,7 +1,7 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
-using Healthy.Common.Extensions.cs;
+using Healthy.Common.Extensions;
 
 namespace Healthy.Core.Services
 {
