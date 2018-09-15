@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Healthy.Core.Base
+namespace Healthy.Common.Specifications
 {
     public interface IAsyncSpecification<in T>
     {

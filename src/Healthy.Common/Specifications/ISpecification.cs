@@ -1,4 +1,4 @@
-namespace Healthy.Core.Base
+namespace Healthy.Common.Specifications
 {
     public interface ISpecification<in T>
     {

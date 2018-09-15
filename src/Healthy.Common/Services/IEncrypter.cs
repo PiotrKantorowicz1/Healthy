@@ -1,4 +1,4 @@
-namespace Healthy.Core.Services
+namespace Healthy.Common.Services
 {
     public interface IEncrypter
     {

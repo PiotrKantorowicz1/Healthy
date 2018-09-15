@@ -2,7 +2,7 @@ using System;
 using System.Text.RegularExpressions;
 using Healthy.Common.Exceptions;
 using Healthy.Common.Extensions;
-using Healthy.Core.Services;
+using Healthy.Common.Services;
 using Healthy.Core.Types;
 
 namespace Healthy.Core.Entities.Users
