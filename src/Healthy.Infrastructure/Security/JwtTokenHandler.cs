@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Healthy.Core.Extensions;
 using Healthy.Core.Types;
+using Healthy.Infrastructure.Security.Settings;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 

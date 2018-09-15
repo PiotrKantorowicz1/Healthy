@@ -1,5 +1,6 @@
 using System.Reflection;
 using Autofac;
+using Healthy.Infrastructure.Mongo.Settings;
 using MongoDB.Driver;
 
 namespace Healthy.Infrastructure.Mongo

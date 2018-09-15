@@ -1,4 +1,4 @@
-namespace Healthy.Infrastructure.Mongo
+namespace Healthy.Infrastructure.Mongo.Settings
 {
     public class MongoDbSettings
     {
