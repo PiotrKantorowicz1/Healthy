@@ -5,6 +5,7 @@ namespace Healthy.Core.Domain.Users.Entities
         public const string User = "user";
         public const string Editor = "editor";
         public const string Admin = "admin";
+        public const string Owner = "owner";
 
         public static bool IsValid(string role)
         {
@@ -14,7 +15,8 @@ namespace Healthy.Core.Domain.Users.Entities
             }
             role = role.ToLowerInvariant();
 
-            return role == User || role == Admin || role == Editor;
+            return role == User || role == Admin || role == Editor 
+                || role == Owner;
         }
     }
 }
