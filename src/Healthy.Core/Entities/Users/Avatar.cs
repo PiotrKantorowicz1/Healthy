@@ -1,5 +1,5 @@
 using System;
-using Healthy.Common.Extensions.cs;
+using Healthy.Common.Extensions;
 using Healthy.Core.Types;
 
 namespace Healthy.Core.Entities.Users

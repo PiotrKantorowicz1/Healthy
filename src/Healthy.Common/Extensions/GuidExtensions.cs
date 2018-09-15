@@ -1,6 +1,6 @@
 using System;
 
-namespace Healthy.Common.Extensions.cs
+namespace Healthy.Common.Extensions
 {
     public static class GuidExtensions
     {

@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Healthy.Common.Types;
 
-namespace Healthy.Common.Extensions.cs
+namespace Healthy.Common.Extensions
 {
     public static class MaybeExtensions
     {
