@@ -7,7 +7,7 @@ using MongoDB.Driver;
 
 namespace Healthy.Infrastructure.IoC
 {
-    public class DataModule : Autofac.Module
+    public class InfrastructureModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
