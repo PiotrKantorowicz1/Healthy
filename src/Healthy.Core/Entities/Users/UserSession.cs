@@ -1,5 +1,5 @@
 using System;
-using Healthy.Core.Base;
+using Healthy.Core.Types;
 
 namespace Healthy.Core.Entities.Users
 {

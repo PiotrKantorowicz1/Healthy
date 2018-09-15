@@ -1,4 +1,4 @@
-namespace Healthy.Core.Base
+namespace Healthy.Core.Types
 {
     public abstract class ValueObject<T> where T : ValueObject<T>
     {

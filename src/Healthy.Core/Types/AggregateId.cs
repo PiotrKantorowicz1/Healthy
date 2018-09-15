@@ -1,6 +1,6 @@
 using System;
 
-namespace Healthy.Core.Base
+namespace Healthy.Core.Types
 {
     public class AggregateId : IEquatable<AggregateId>
     {
