@@ -4,15 +4,11 @@ namespace Healthy.Core.Base
 {
     public class Entity : IEntity
     {
-        public Guid Id { get; protected set; } = Guid.NewGuid();
+        public Guid Id { get; protected set; }
 
         protected Entity()
         {
-        }
-
-        protected Entity(Guid id)
-        {
-            Id = id;
+            Id = Guid.NewGuid();
         }
     }
 }
