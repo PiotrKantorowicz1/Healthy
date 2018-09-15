@@ -1,6 +1,6 @@
 using System;
 
-namespace Healthy.Core.Domain
+namespace Healthy.Core.Domain.BaseClasses
 {
     public interface IEntity
     {

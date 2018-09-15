@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
 using Healthy.Core.Domain.Users.Services;
-using Healthy.Core.Domain;
+using Healthy.Core.Domain.BaseClasses;
 
 namespace Healthy.Core.Domain.Users.Entities
 {

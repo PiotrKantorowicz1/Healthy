@@ -1,4 +1,4 @@
-namespace Healthy.Core.Domain
+namespace Healthy.Core.Domain.BaseClasses
 {
     public abstract class ValueObject<T> where T : ValueObject<T>
     {
