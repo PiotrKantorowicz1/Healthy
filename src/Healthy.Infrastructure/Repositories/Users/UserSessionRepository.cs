@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using Healthy.Core.Domain.Users.Entities;
 using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Types;
-using Healthy.Data.Repositories.Users.Queries;
+using Healthy.Infrastructure.Repositories.Users.Queries;
 using MongoDB.Driver;
 
-namespace Healthy.Data.Repositories.Users
+namespace Healthy.Infrastructure.Repositories.Users
 {
     public class UserSessionRepository : IUserSessionRepository
     {

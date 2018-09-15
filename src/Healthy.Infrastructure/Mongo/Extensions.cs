@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Humanizer;
 using MongoDB.Driver;
 
-namespace Healthy.Data.Mongo
+namespace Healthy.Infrastructure.Mongo
 {
     public static class Extensions
     {

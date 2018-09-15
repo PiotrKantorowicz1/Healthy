@@ -4,11 +4,11 @@ using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Pagination;
 using Healthy.Core.Queries.Users;
 using Healthy.Core.Types;
-using Healthy.Data.Mongo;
-using Healthy.Data.Repositories.Users.Queries;
+using Healthy.Infrastructure.Mongo;
+using Healthy.Infrastructure.Repositories.Users.Queries;
 using MongoDB.Driver;
 
-namespace Healthy.Data.Repositories.Users
+namespace Healthy.Infrastructure.Repositories.Users
 {
     public class UserRepository : IUserRepository
     {

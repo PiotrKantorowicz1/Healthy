@@ -4,7 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 
-namespace Healthy.Data.Mongo
+namespace Healthy.Infrastructure.Mongo
 {
     public class MongoDbInitializer : IDatabaseInitializer
     {

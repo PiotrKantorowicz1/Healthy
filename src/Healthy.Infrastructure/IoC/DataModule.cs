@@ -1,11 +1,11 @@
 using Autofac;
 using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Domain.Users.Services;
-using Healthy.Data.Mongo;
-using Healthy.Data.Repositories.Users;
+using Healthy.Infrastructure.Mongo;
+using Healthy.Infrastructure.Repositories.Users;
 using MongoDB.Driver;
 
-namespace Healthy.Data.IoC
+namespace Healthy.Infrastructure.IoC
 {
     public class DataModule : Autofac.Module
     {

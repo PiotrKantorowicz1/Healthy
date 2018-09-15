@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using Healthy.Core.Domain.Users.Entities;
-using Healthy.Data.Mongo;
+using Healthy.Infrastructure.Mongo;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace Healthy.Data.Repositories.Users.Queries
+namespace Healthy.Infrastructure.Repositories.Users.Queries
 {
     public static class UserSessionQueries
     {

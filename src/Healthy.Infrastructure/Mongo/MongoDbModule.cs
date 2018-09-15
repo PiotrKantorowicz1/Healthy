@@ -2,7 +2,7 @@ using System.Reflection;
 using Autofac;
 using MongoDB.Driver;
 
-namespace Healthy.Data.Mongo
+namespace Healthy.Infrastructure.Mongo
 {
     public class MongoDbModule : Autofac.Module
     {

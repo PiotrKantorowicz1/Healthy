@@ -4,7 +4,7 @@ using Healthy.Core.Pagination;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace Healthy.Data.Mongo
+namespace Healthy.Infrastructure.Mongo
 {
     public static class Pagination
     {

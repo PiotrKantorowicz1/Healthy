@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Healthy.Data.Mongo
+namespace Healthy.Infrastructure.Mongo
 {
     public interface IDatabaseInitializer
     {
