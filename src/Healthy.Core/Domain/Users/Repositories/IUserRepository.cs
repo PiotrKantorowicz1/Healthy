@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Healthy.Core.Pagination;
 using Healthy.Core.Types;
-using Healthy.Core.Domain.Users;
+using Healthy.Core.Domain.Users.Entities;
 using Healthy.Core.Queries.Users;
 
-namespace Healthy.Core.Repositories
+namespace Healthy.Core.Domain.Users.Repositories
 {
     public interface IUserRepository
     {

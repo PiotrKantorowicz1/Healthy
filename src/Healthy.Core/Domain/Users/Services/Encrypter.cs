@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Healthy.Core.Extensions;
 
-namespace Healthy.Core.Services
+namespace Healthy.Core.Domain.Users.Services
 {
     public class Encrypter : IEncrypter
     {

@@ -1,4 +1,4 @@
-namespace Healthy.Core.Domain.Users
+namespace Healthy.Core.Domain.Users.Entities
 {
     public static class States
     {

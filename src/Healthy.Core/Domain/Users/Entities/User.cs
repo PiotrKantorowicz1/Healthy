@@ -2,10 +2,10 @@ using System;
 using System.Text.RegularExpressions;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
-using Healthy.Core.Services;
+using Healthy.Core.Domain.Users.Services;
 using Healthy.Core.Domain;
 
-namespace Healthy.Core.Domain.Users
+namespace Healthy.Core.Domain.Users.Entities
 {
     public class User : Entity, ITimestampable
     {

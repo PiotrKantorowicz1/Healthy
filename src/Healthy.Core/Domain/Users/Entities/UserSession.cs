@@ -2,7 +2,7 @@ using System;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Domain;
 
-namespace Healthy.Core.Domain.Users
+namespace Healthy.Core.Domain.Users.Entities
 {
     public class UserSession : ITimestampable
     {

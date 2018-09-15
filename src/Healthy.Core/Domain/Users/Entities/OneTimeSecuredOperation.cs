@@ -3,7 +3,7 @@ using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
 using Healthy.Core.Domain;
 
-namespace Healthy.Core.Domain.Users
+namespace Healthy.Core.Domain.Users.Entities
 {
     public class OneTimeSecuredOperation : Entity, ITimestampable
     {
