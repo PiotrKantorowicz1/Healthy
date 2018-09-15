@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
+using Healthy.Common.Pagination;
 using Healthy.Common.Types;
 using Healthy.Core.Entities.Users;
+using Healthy.Core.Queries.Users;
 
 namespace Healthy.Core.Repositories
 {
@@ -13,7 +15,7 @@ namespace Healthy.Core.Repositories
         Task<Maybe<User>> GetByEmailAsync(string email, string provider);
         Task<Maybe<User>> GetByNameAsync(string name);
         Task<Maybe<string>> GetStateAsync(string userId);
-        //Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsers query);
+        Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsers query);
         Task AddAsync(User user);
         Task UpdateAsync(User user);
         Task DeleteAsync(string userId);
