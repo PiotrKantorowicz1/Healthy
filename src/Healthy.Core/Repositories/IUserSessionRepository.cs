@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using Healthy.Common.Types;
-using Healthy.Core.Entities.Users;
+using Healthy.Core.Types;
+using Healthy.Core.Domain.Users;
 
 namespace Healthy.Core.Repositories
 {

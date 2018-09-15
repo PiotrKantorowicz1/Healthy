@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
-using Healthy.Common.Exceptions;
-using Healthy.Common.Extensions;
-using Healthy.Core.Entities.Users;
+using Healthy.Core.Exceptions;
+using Healthy.Core.Domain.Users;
 using Healthy.Core.Repositories;
 
 namespace Healthy.Core.Extensions

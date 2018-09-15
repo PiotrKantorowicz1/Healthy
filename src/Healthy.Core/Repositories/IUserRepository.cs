@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Healthy.Common.Pagination;
-using Healthy.Common.Types;
-using Healthy.Core.Entities.Users;
+using Healthy.Core.Pagination;
+using Healthy.Core.Types;
+using Healthy.Core.Domain.Users;
 using Healthy.Core.Queries.Users;
 
 namespace Healthy.Core.Repositories

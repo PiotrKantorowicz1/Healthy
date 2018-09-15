@@ -1,4 +1,4 @@
-using Healthy.Common.Pagination;
+using Healthy.Core.Pagination;
 
 namespace Healthy.Core.Queries.Users
 {
