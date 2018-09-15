@@ -3,10 +3,11 @@ using Healthy.Core.Pagination;
 using Healthy.Core.Types;
 using Healthy.Core.Domain.Users.Entities;
 using Healthy.Core.Queries.Users;
+using Healthy.Core.Domain.BaseClasses;
 
 namespace Healthy.Core.Domain.Users.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository
     {
         Task<bool> ExistsAsync(string name); 
         Task<Maybe<User>> GetOwnerAsync();

@@ -5,7 +5,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Application.Services.Users.Abstract
 {
-    public interface IAuthenticationService
+    public interface IAuthenticationService : IService
     {
         Task<Maybe<UserSession>> GetSessionAsync(Guid id);
 

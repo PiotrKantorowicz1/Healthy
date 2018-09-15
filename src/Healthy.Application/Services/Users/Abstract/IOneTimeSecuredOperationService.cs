@@ -5,7 +5,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Application.Services.Users.Abstract
 {
-    public interface IOneTimeSecuredOperationService
+    public interface IOneTimeSecuredOperationService : IService
     {
         Task<Maybe<OneTimeSecuredOperation>> GetAsync(Guid id);
         Task CreateAsync(Guid id, string type, string user, DateTime expiry);

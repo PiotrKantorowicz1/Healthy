@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Healthy.Application.Services.Users.Abstract
 {
-    public interface IAvatarService
+    public interface IAvatarService : IService
     {
          Task<string> GetUrlAsync(string userId);
          Task AddOrUpdateAsync(string userId, int avatar);

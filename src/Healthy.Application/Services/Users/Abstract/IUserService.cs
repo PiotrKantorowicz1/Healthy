@@ -6,7 +6,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Application.Services.Users.Abstract
 {
-    public interface IUserService
+    public interface IUserService : IService
     {
         Task<bool> IsNameAvailableAsync(string name);
         Task<Maybe<User>> GetAsync(string userId);

@@ -4,7 +4,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Application.Services.Users.Abstract
 {
-    public interface IFacebookService
+    public interface IFacebookService : IService
     {
         Task<Maybe<FacebookUser>> GetUserAsync(string accessToken);
         Task<bool> ValidateTokenAsync(string accessToken);
