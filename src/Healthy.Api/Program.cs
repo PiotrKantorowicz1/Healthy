@@ -1,5 +1,6 @@
 namespace Healthy.Api
 {
+    using Healthy.Infrastructure.Logging;
     using System.IO;
     using Microsoft.AspNetCore.Hosting;
 
