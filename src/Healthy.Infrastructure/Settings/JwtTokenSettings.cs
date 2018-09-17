@@ -1,4 +1,4 @@
-namespace Healthy.Infrastructure.Security.Settings
+namespace Healthy.Infrastructure.Settings
 {
     public class JwtTokenSettings
     {
