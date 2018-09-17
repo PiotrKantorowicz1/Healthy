@@ -21,7 +21,6 @@ namespace Healthy.Infrastructure.IoC
             builder.RegisterModule<MongoDbModule>();
             builder.RegisterType<Encrypter>().As<IEncrypter>().SingleInstance();
             builder.RegisterType<MongoDbInitializer>().As<IDatabaseInitializer>();
-            builder.RegisterType<JwtTokenHandler>().As<IJwtTokenHandler>().SingleInstance();
             
             builder.RegisterAssemblyTypes(assembly)
                    .Where(x => x.IsAssignableTo<IRepository>())

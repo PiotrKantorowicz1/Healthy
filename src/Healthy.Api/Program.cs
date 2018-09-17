@@ -3,18 +3,17 @@ namespace Healthy.Api
     using Healthy.Infrastructure.Logging;
     using System.IO;
     using Microsoft.AspNetCore.Hosting;
+    using Healthy.Infrastructure.Host;
 
     public class Program
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseKestrel()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();
+           WebServiceHost
+                .Create<Startup>(args: args)
+                .UseAutofac(Framework.Bootstrapper.LifetimeScope)
+                .Build()
+                .Run();
         }
     }
 }

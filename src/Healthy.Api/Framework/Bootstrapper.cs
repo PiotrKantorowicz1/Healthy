@@ -49,7 +49,7 @@ namespace Healthy.Api.Framework
                 builder.RegisterModule<InfrastructureModule>();
                 builder.RegisterModule<ApplicationModule>();
 
-                var assembly = typeof(Startup).GetTypeInfo().Assembly;
+                SecurityContainer.Register(builder, _configuration);
 
             });
             LifetimeScope = container;
@@ -72,7 +72,7 @@ namespace Healthy.Api.Framework
                 ctx.Response.Headers.Add("Access-Control-Allow-Methods", "POST,PUT,GET,OPTIONS,DELETE");
                 ctx.Response.Headers.Add("Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, Content-Type, Accept");
             };
-            Logger.Information("Collectively.Services.Users API has started.");
+            Logger.Information("Healthy API has started.");
         }
     }
 }
