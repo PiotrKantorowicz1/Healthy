@@ -3,6 +3,7 @@ using Autofac;
 using Healthy.Api.NancyExtensions;
 using Healthy.Application.IoC;
 using Healthy.Infrastructure.Extensions;
+using Healthy.Infrastructure.Handlers;
 using Healthy.Infrastructure.IoC;
 using Healthy.Infrastructure.Mongo;
 using Healthy.Infrastructure.Security;
@@ -41,6 +42,8 @@ namespace Healthy.Api.Framework
             base.ConfigureApplicationContainer(container);
             container.Update(builder =>
             {
+                var assembly = typeof(Startup).GetTypeInfo().Assembly;
+
                 builder.RegisterType<CustomJsonSerializer>().As<JsonSerializer>().SingleInstance();
                 builder.RegisterInstance(_configuration.GetSettings<MongoDbSettings>());
                 builder.RegisterInstance(_configuration.GetSettings<FaceBookSettings>());
@@ -48,6 +51,10 @@ namespace Healthy.Api.Framework
 
                 builder.RegisterModule<InfrastructureModule>();
                 builder.RegisterModule<ApplicationModule>();
+              
+                builder.RegisterAssemblyTypes(assembly)
+                       .AsClosedTypesOf(typeof(ICommandHandler<>))
+                       .InstancePerLifetimeScope();
 
                 SecurityContainer.Register(builder, _configuration);
 
