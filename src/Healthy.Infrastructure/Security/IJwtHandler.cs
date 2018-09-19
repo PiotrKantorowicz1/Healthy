@@ -5,7 +5,7 @@ namespace Healthy.Infrastructure.Security
     public interface IJwtHandler
     {
         JsonWebToken CreateToken(string userId, string role = null,
-            IDictionary<string, string> claims = null);
+            string state = "active", IDictionary<string, string> claims = null);
 
         JsonWebTokenPayload GetTokenPayload(string accessToken);
     }

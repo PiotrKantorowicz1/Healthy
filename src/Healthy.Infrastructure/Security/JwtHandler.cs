@@ -12,6 +12,7 @@ namespace Healthy.Infrastructure.Security
 {
     public class JwtHandler : IJwtHandler
     {
+        private static readonly string StateClaim = "state";
         private static readonly ISet<string> DefaultClaims = new HashSet<string>
         {
             JwtRegisteredClaimNames.Sub,
@@ -19,6 +20,7 @@ namespace Healthy.Infrastructure.Security
             JwtRegisteredClaimNames.Jti,
             JwtRegisteredClaimNames.Iat,
             ClaimTypes.Role,
+            StateClaim
         };
 
         private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
@@ -41,7 +43,7 @@ namespace Healthy.Infrastructure.Security
             };
         }
 
-        public JsonWebToken CreateToken(string userId, string role = null,
+        public JsonWebToken CreateToken(string userId, string role = null, string state = "active",
             IDictionary<string, string> claims = null)
         {
             if (string.IsNullOrWhiteSpace(userId))
@@ -56,6 +58,7 @@ namespace Healthy.Infrastructure.Security
                 new Claim(JwtRegisteredClaimNames.UniqueName, userId),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
+                new Claim(StateClaim, state)
             };
             if (!string.IsNullOrWhiteSpace(role))
             {
@@ -97,6 +100,7 @@ namespace Healthy.Infrastructure.Security
             {
                 Subject = jwt.Subject,
                 Role = jwt.Claims.SingleOrDefault(x => x.Type == ClaimTypes.Role)?.Value,
+                State = jwt.Claims.SingleOrDefault(x => x.Type == ClaimTypes.StateClaim)?.Value,
                 Expires = jwt.ValidTo.ToTimestamp(),
                 Claims = jwt.Claims.Where(x => !DefaultClaims.Contains(x.Type))
                     .ToDictionary(k => k.Type, v => v.Value)
