@@ -1,6 +1,8 @@
 using System.Reflection;
 using Autofac;
 using Healthy.Api.NancyExtensions;
+using Healthy.Application.Dispatchers;
+using Healthy.Application.Dtos.Users;
 using Healthy.Application.IoC;
 using Healthy.Infrastructure.Extensions;
 using Healthy.Infrastructure.Handlers;
@@ -42,7 +44,7 @@ namespace Healthy.Api.Framework
             base.ConfigureApplicationContainer(container);
             container.Update(builder =>
             {
-                var assembly = typeof(Startup).GetTypeInfo().Assembly;
+                var assembly = typeof(UserDto).GetTypeInfo().Assembly;
 
                 builder.RegisterType<CustomJsonSerializer>().As<JsonSerializer>().SingleInstance();
                 builder.RegisterInstance(_configuration.GetSettings<MongoDbSettings>());
@@ -54,6 +56,10 @@ namespace Healthy.Api.Framework
               
                 builder.RegisterAssemblyTypes(assembly)
                        .AsClosedTypesOf(typeof(ICommandHandler<>))
+                       .InstancePerLifetimeScope();
+
+                builder.RegisterType<CommandDispatcher>()
+                       .As<ICommandDispatcher>()
                        .InstancePerLifetimeScope();
 
                 SecurityContainer.Register(builder, _configuration);

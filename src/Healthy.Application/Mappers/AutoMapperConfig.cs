@@ -11,7 +11,9 @@ namespace Healthy.Application.Mappers
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<User, UserDto>()
-                    .ForMember(x => x.AvatarUrl, o => o.MapFrom(s => s.Avatar == null ? string.Empty : s.Avatar.Url));;
+                    .ForMember(x => x.AvatarUrl, o => o.MapFrom(s => s.Avatar == null ? string.Empty : s.Avatar.Url));
+                cfg.CreateMap<dynamic, AvailableResourceDto>()
+                    .ForMember(x => x.IsAvailable, o => o.MapFrom(s => s));
                 cfg.CreateMap<UserSession, UserSessionDto>();
             });
 

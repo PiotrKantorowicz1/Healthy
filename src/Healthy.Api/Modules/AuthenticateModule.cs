@@ -19,9 +19,9 @@ namespace Healthy.Api.Modules
         public AuthenticationModule(
             IAuthenticationService authenticationService,
             IUserService userService,
-            IJwtTokenHandler jwtTokenHandler, 
+            IJwtTokenHandler jwtTokenHandler,
             ICommandHandler<SignIn> signInHandler,
-            ICommandHandler<RefreshUserSession> refreshSessionHandler) 
+            ICommandHandler<RefreshUserSession> refreshSessionHandler)
             : base(requireAuthentication: false)
         {
             _authenticationService = authenticationService;
@@ -32,6 +32,9 @@ namespace Healthy.Api.Modules
             {
                 var command = BindRequest<SignIn>();
                 await signInHandler.HandleAsync(command);
+                command.SessionId = Guid.NewGuid();
+                command.IpAddress = Request.UserHostAddress;
+                command.UserAgent = Request.Headers.UserAgent;
                 var session = await HandleSessionAsync(command.SessionId);
                 if (session.HasNoValue)
                 {
@@ -55,7 +58,7 @@ namespace Healthy.Api.Modules
             });
         }
 
-        private async Task<Maybe<JwtSession>> HandleSessionAsync(Guid sessionId) 
+        private async Task<Maybe<JwtSession>> HandleSessionAsync(Guid sessionId)
         {
             var session = await _authenticationService.GetSessionAsync(sessionId);
             if (session.HasNoValue)
@@ -63,7 +66,7 @@ namespace Healthy.Api.Modules
                 return null;
             }
             var user = await _userService.GetAsync(session.Value.UserId);
-            var token = _jwtTokenHandler.Create(user.Value.UserId, 
+            var token = _jwtTokenHandler.Create(user.Value.UserId,
                 user.Value.Role, state: user.Value.State);
 
             return new JwtSession
@@ -73,6 +76,6 @@ namespace Healthy.Api.Modules
                 SessionId = session.Value.Id,
                 Key = session.Value.Key
             };
-        }        
+        }
     }
 }
