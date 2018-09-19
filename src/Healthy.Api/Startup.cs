@@ -1,47 +1,85 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Healthy.Api.Framework.Extensions;
+using Healthy.Infrastructure.Settings;
+using Healthy.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Healthy.Infrastructure.Mongo;
+using Healthy.Infrastructure.IoC;
+using Healthy.Application.IoC;
 
 namespace Healthy.Api
 {
     public class Startup
     {
+        private static readonly string[] Headers = new[] { "x-total-count" };
+        public IConfiguration Configuration { get; }
+        public IContainer Container { get; private set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCustomMvc();
+            services.AddRedis();
+            services.AddJwt();
+            services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", cors =>
+                        cors.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials()
+                            .WithExposedHeaders(Headers));
+            });
+
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
+                    .AsImplementedInterfaces();
+
+            builder.RegisterInstance(Configuration.GetSettings<MongoDbSettings>()).SingleInstance();
+            builder.RegisterModule<InfrastructureModule>();
+            builder.RegisterModule<ApplicationModule>();
+            builder.Populate(services);
+            Container = builder.Build();
+
+            return new AutofacServiceProvider(Container);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IApplicationLifetime applicationLifetime)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.EnvironmentName == "local")
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
+
+            app.UseCors("CorsPolicy");
+            app.UseAllForwardedHeaders();
+            app.UseErrorHandler();
+            app.UseAuthentication();
+            app.UseAccessTokenValidator();
+            app.UseMvc();
+
+            var databaseSettings = Container.Resolve<MongoDbSettings>();
+            var databaseInitializer = Container.Resolve<IDatabaseInitializer>();
+            databaseInitializer.InitializeAsync();
+            if (databaseSettings.Seed)
             {
-                app.UseHsts();
+                var databaseSeeder = Container.Resolve<IDatabaseSeeder>();
+                databaseSeeder.SeedAsync();
             }
 
-            app.UseHttpsRedirection();
-            app.UseMvc();
+            applicationLifetime.ApplicationStopped.Register(() => Container.Dispose());
         }
     }
 }

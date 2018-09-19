@@ -1,5 +1,6 @@
 ﻿using Healthy.Api.Framework.Middlewares;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -16,6 +17,8 @@ namespace Healthy.Api.Framework.Extensions
     {
         public static IMvcCoreBuilder AddCustomMvc(this IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             return services
                 .AddMvcCore()
                 .AddJsonFormatters()

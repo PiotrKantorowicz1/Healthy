@@ -2,7 +2,7 @@
 
 namespace Healthy.Application.Services.Users.Abstract
 {
-    public interface IAccessTokenService
+    public interface IAccessTokenService : IService
     {
         Task<bool> IsCurrentActiveToken();
         Task DeactivateCurrentAsync(string userId);

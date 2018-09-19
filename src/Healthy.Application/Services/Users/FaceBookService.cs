@@ -44,7 +44,6 @@ namespace Healthy.Application.Services.Users
             try
             {
                 var user = await GetUserAsync(accessToken);
-
                 return user.HasValue;
             }
             catch
