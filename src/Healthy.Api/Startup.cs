@@ -1,55 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+
 namespace Healthy.Api
 {
-    using System;
-    using System.Collections.Generic;
-    using Autofac;
-    using Autofac.Extensions.DependencyInjection;
-    using Healthy.Api.Framework;
-    using Healthy.Infrastructure.Logging;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using Nancy.Owin;
-
     public class Startup
     {
-        public string EnvironmentName {get;set;}
-        public IConfiguration Configuration { get; set; }
-        public IContainer ApplicationContainer { get; set; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
-        {
-            services.AddSerilog(Configuration);
-            services.AddWebEncoders();
-            services.AddCors();
-            ApplicationContainer = GetServiceContainer(services);
+        public IConfiguration Configuration { get; }
 
-            return new AutofacServiceProvider(ApplicationContainer);
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseSerilog(loggerFactory);
-            app.UseCors(builder => builder.AllowAnyHeader()
-	            .AllowAnyMethod()
-	            .AllowAnyOrigin()
-	            .AllowCredentials());
-            app.UseOwin().UseNancy(x => x.Bootstrapper = new Bootstrapper(Configuration));
-        }
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
+            }
 
-        protected static IContainer GetServiceContainer(IEnumerable<ServiceDescriptor> services)
-        {
-            var builder = new ContainerBuilder();
-            builder.Populate(services);
-
-            return builder.Build();
+            app.UseHttpsRedirection();
+            app.UseMvc();
         }
     }
 }

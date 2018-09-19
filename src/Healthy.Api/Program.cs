@@ -1,19 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
 namespace Healthy.Api
 {
-    using Healthy.Infrastructure.Logging;
-    using System.IO;
-    using Microsoft.AspNetCore.Hosting;
-    using Healthy.Infrastructure.Host;
-
     public class Program
     {
         public static void Main(string[] args)
         {
-           WebServiceHost
-                .Create<Startup>(args: args)
-                .UseAutofac(Framework.Bootstrapper.LifetimeScope)
-                .Build()
-                .Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>();
     }
 }
