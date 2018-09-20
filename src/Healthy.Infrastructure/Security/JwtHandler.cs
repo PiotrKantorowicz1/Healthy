@@ -100,7 +100,7 @@ namespace Healthy.Infrastructure.Security
             {
                 Subject = jwt.Subject,
                 Role = jwt.Claims.SingleOrDefault(x => x.Type == ClaimTypes.Role)?.Value,
-                State = jwt.Claims.SingleOrDefault(x => x.Type == ClaimTypes.StateClaim)?.Value,
+                State = jwt.Claims.SingleOrDefault(x => x.Type == StateClaim)?.Value,
                 Expires = jwt.ValidTo.ToTimestamp(),
                 Claims = jwt.Claims.Where(x => !DefaultClaims.Contains(x.Type))
                     .ToDictionary(k => k.Type, v => v.Value)

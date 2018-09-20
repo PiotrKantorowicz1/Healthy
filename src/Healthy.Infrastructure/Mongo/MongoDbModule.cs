@@ -1,7 +1,5 @@
-using System.Reflection;
 using Autofac;
 using Healthy.Infrastructure.Settings;
-using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
 namespace Healthy.Infrastructure.Mongo

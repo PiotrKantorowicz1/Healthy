@@ -1,4 +1,3 @@
-using System.IO;
 using System.Threading.Tasks;
 using Healthy.Application.Services.Users.Abstract;
 

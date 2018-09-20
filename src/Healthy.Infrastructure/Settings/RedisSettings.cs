@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Healthy.Infrastructure.Settings
+﻿namespace Healthy.Infrastructure.Settings
 {
     public class RedisSettings
     {
