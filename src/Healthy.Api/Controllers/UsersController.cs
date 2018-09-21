@@ -6,11 +6,11 @@ using Healthy.Api.Framework.Extensions;
 using Healthy.Application.Dispatchers;
 using Healthy.Application.Services.Users.Abstract;
 using Healthy.Core.Contracts.Commands.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Healthy.Api.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
     public class UsersController : BaseController
     {
@@ -23,6 +23,7 @@ namespace Healthy.Api.Controllers
         }
 
         [HttpPost("sign-up")]
+        [AllowAnonymous]
         public async Task<IActionResult> SignUp(SignUp command)
         {
             command.BindId(c => c.Id);

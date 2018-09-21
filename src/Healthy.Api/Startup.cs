@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Healthy.Infrastructure.Mongo;
 using Healthy.Infrastructure.IoC;
 using Healthy.Application.IoC;
+using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Api
 {
@@ -46,10 +47,12 @@ namespace Healthy.Api
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                     .AsImplementedInterfaces();
 
+            builder.Populate(services);
+
             builder.RegisterInstance(Configuration.GetSettings<MongoDbSettings>()).SingleInstance();
             builder.RegisterModule<InfrastructureModule>();
             builder.RegisterModule<ApplicationModule>();
-            builder.Populate(services);
+
             Container = builder.Build();
 
             return new AutofacServiceProvider(Container);

@@ -1,7 +1,7 @@
 namespace Healthy.Core.Contracts.Commands
 {
     //Marker interface
-    public class ICommand
+    public interface ICommand
     {
     }
 }

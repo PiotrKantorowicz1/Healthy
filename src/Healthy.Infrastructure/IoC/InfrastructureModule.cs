@@ -23,7 +23,7 @@ namespace Healthy.Infrastructure.IoC
             builder.RegisterAssemblyTypes(assembly)
                    .Where(x => x.IsAssignableTo<IRepository>())
                    .AsImplementedInterfaces()
-                   .InstancePerLifetimeScope(); 
+                   .InstancePerLifetimeScope();
         }
     }
 }

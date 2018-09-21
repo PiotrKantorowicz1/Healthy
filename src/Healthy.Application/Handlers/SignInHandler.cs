@@ -12,6 +12,7 @@ namespace Healthy.Application.Handlers
     public class SignInHandler : ICommandHandler<SignIn>
     {
         private static readonly ILogger Logger = Log.Logger;
+
         private readonly IHandler _handler;
         private readonly IUserService _userService;
         private readonly IFacebookService _facebookService;

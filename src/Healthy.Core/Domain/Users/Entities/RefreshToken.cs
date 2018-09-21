@@ -20,7 +20,7 @@ namespace Healthy.Core.Domain.Users.Entities
         public RefreshToken(User user, IPasswordHasher<User> passwordHasher)
         {
             Id = Guid.NewGuid();
-            UserId = user.Id;
+            UserId = user.UserId;
             CreatedAt = DateTime.UtcNow;
             Token = CreateToken(user, passwordHasher);
         }
