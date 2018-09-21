@@ -1,7 +1,10 @@
+using System;
+
 namespace Healthy.Core.Contracts.Commands.Users
 {
     public class SignUp : ICommand
     {
+        public Guid Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }

@@ -17,6 +17,7 @@ namespace Healthy.Api.Controllers
         private static readonly string AcceptLanguageHeader = "accept-language";
         private static readonly string DefaultCulture = "en-us";
         private static readonly string PageLink = "page";
+
         private readonly ICommandDispatcher _commandDispatcher;
 
         public BaseController(ICommandDispatcher commandDispatcher)
