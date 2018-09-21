@@ -3,6 +3,7 @@ using Healthy.Core;
 using Healthy.Core.Domain.Users.Entities;
 using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Exceptions;
+using Healthy.Core.Types;
 using Healthy.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
@@ -41,7 +42,7 @@ namespace Healthy.Application.Services.Users
             await _refreshTokenRepository.AddAsync(new RefreshToken(user.Value, _passwordHasher));
         }
 
-        public async Task<JsonWebToken> CreateAccessTokenAsync(string token)
+        public async Task<Maybe<JsonWebToken>> CreateAccessTokenAsync(string token)
         {
             var refreshToken = await _refreshTokenRepository.GetAsync(token);
             if (refreshToken == null)
@@ -49,20 +50,20 @@ namespace Healthy.Application.Services.Users
                 throw new ServiceException(ErrorCodes.RefreshTokenNotFound,
                     "Refresh token was not found.");
             }
-            if (refreshToken.Revoked)
+            if (refreshToken.Value.Revoked)
             {
                 throw new ServiceException(ErrorCodes.RefreshTokenAlreadyRevoked,
-                    $"Refresh token: '{refreshToken.Id}' was revoked.");
+                    $"Refresh token: '{refreshToken.Value.Id}' was revoked.");
             }
-            var user = await _userRepository.GetByUserIdAsync(refreshToken.UserId);
+            var user = await _userRepository.GetByUserIdAsync(refreshToken.Value.UserId);
             if (user == null)
             {
                 throw new ServiceException(ErrorCodes.UserNotFound,
-                    $"User: '{refreshToken.UserId}' was not found.");
+                    $"User: '{refreshToken.Value.UserId}' was not found.");
             }
             var claims = await _claimsProvider.GetAsync(user.Value.UserId);
             var jwt = _jwtHandler.CreateToken(user.Value.UserId, user.Value.Role, user.Value.State, claims);
-            jwt.RefreshToken = refreshToken.Token;
+            jwt.RefreshToken = refreshToken.Value.Token;
 
             return jwt;
         }
@@ -70,13 +71,13 @@ namespace Healthy.Application.Services.Users
         public async Task RevokeAsync(string token, string userId)
         {
             var refreshToken = await _refreshTokenRepository.GetAsync(token);
-            if (refreshToken == null || refreshToken.UserId != userId)
+            if (refreshToken == null || refreshToken.Value.UserId != userId)
             {
                 throw new ServiceException(ErrorCodes.RefreshTokenNotFound,
                     "Refresh token was not found.");
             }
-            refreshToken.Revoke();
-            await _refreshTokenRepository.UpdateAsync(refreshToken);
+            refreshToken.Value.Revoke();
+            await _refreshTokenRepository.UpdateAsync(refreshToken.Value);
         }
     }
 }

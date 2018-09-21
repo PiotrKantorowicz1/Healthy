@@ -1,5 +1,6 @@
 ﻿using Healthy.Core.Domain.Users.Entities;
 using Healthy.Core.Domain.Users.Repositories;
+using Healthy.Core.Types;
 using Healthy.Infrastructure.Repositories.Users.Queries;
 using MongoDB.Driver;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Healthy.Infrastructure.Repositories.Users
             _database = database;
         }
 
-        public async Task<RefreshToken> GetAsync(string token)
+        public async Task<Maybe<RefreshToken>> GetAsync(string token)
             => await _database.RefreshTokens().GetAsync(token);
 
         public async Task AddAsync(RefreshToken token)
