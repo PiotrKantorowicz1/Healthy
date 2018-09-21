@@ -7,7 +7,7 @@ namespace Healthy.Core.Domain.Users.Entities
 {
     public class RefreshToken : Entity
     {
-        public Guid UserId { get; private set; }
+        public string UserId { get; private set; }
         public string Token { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime? RevokedAt { get; private set; }

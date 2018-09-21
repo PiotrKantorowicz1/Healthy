@@ -4,9 +4,8 @@ using Healthy.Core.Domain.BaseClasses;
 
 namespace Healthy.Core.Domain.Users.Entities
 {
-    public class UserSession : ITimestampable
+    public class UserSession : Entity, ITimestampable
     {
-        public Guid Id { get; protected set; }
         public string UserId { get; protected set; }
         public string Key { get; protected set; }
         public string UserAgent { get; protected set; }

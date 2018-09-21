@@ -1,13 +1,12 @@
 ﻿using Healthy.Infrastructure.Security;
-using System;
 using System.Threading.Tasks;
 
 namespace Healthy.Application.Services.Users.Abstract
 {
-    public interface IRefreshTokenService
+    public interface IRefreshTokenService : IService
     {
-        Task AddAsync(Guid userId);
+        Task AddAsync(string userId);
         Task<JsonWebToken> CreateAccessTokenAsync(string refreshToken);
-        Task RevokeAsync(string refreshToken, Guid userId);
+        Task RevokeAsync(string refreshToken, string userId);
     }
 }
