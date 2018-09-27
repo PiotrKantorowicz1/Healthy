@@ -4,6 +4,13 @@ namespace Healthy.Core
     {
         public static string Success => "success";
         public static string UserNotFound => "user_not_found";
+        public static string InvalidCategory => "invalid_category";
+        public static string NameNotProvided => "name_not_provided";
+        public static string InvalidProductName => "invalid_product_name";
+        public static string DescriptionNotProvided => "description_not_provided";
+        public static string InvalidDescription => "invalid_description";
+        public static string CategoryNotProvided => "category_not_provided";
+        public static string NutritionValueNotProvided => "nutrition_value_not_provided";
         public static string UserIdInUse => "user_id_in_use";
         public static string InactiveUser => "inactive_user";
         public static string SessionNotFound => "session_not_found";
