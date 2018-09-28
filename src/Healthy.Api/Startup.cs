@@ -12,7 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Healthy.Infrastructure.Mongo;
 using Healthy.Infrastructure.IoC;
 using Healthy.Application.IoC;
-using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Api
 {
