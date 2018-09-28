@@ -3,7 +3,7 @@ using Healthy.Core.Domain.BaseClasses;
 
 namespace Healthy.Core.Domain.Diets.Entities
 {
-    public class ProductSpecs : ValueObject<ProductSpecs>
+    public class NutritionValues : ValueObject<NutritionValues>
     {
         public double EnergyValue { get; set; }
         public double Fats { get; set; }
@@ -11,7 +11,7 @@ namespace Healthy.Core.Domain.Diets.Entities
         public double Sugars { get; set; }
         public double Protein { get; set; }
 
-        public ProductSpecs(double energyValue, double fats, double carbo, double sugars, double protein)
+        public NutritionValues(double energyValue, double fats, double carbo, double sugars, double protein)
         {
             if (EnergyValue < 0)
             {
@@ -41,11 +41,11 @@ namespace Healthy.Core.Domain.Diets.Entities
             Protein = protein;
         }
 
-         public static ProductSpecs Create(double energyValue, double fats, 
+         public static NutritionValues Create(double energyValue, double fats, 
             double carbo, double sugars, double protein)
-            => new ProductSpecs(energyValue, fats, carbo, sugars, protein);
+            => new NutritionValues(energyValue, fats, carbo, sugars, protein);
 
-        protected override bool EqualsCore(ProductSpecs other) 
+        protected override bool EqualsCore(NutritionValues other) 
             => EnergyValue.Equals(other.EnergyValue) && Fats.Equals(other.Fats) && Carbo.Equals(other.Carbo)
                 && Sugars.Equals(other.Sugars) && Protein.Equals(other.Protein); 
 

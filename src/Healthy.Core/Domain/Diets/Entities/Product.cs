@@ -9,7 +9,8 @@ namespace Healthy.Core.Domain.Diets.Entities
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public ProductSpecs NutritionsValue { get; set; }
+        public double Quantity { get; set; }
+        public NutritionValues NutritionsValues { get; set; }
         public ProductCategory Category { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -18,10 +19,14 @@ namespace Healthy.Core.Domain.Diets.Entities
         {
         }
 
-        public Product(Guid id, string name, string description, ProductSpecs nutritionValue,
-            Category category)
+        public Product(Guid id, string name, string description, double quantity, 
+            NutritionValues nutritionValue, Category category)
         {
             Id = id;
+            SetName(name);
+            SetDescription(description);
+            SetQuantity(quantity);
+            SetNutritionValue(nutritionValue);
             SetCategory(category);
             UpdatedAt = DateTime.UtcNow;
             CreatedAt = DateTime.UtcNow;
@@ -59,14 +64,33 @@ namespace Healthy.Core.Domain.Diets.Entities
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetNutritionValue(ProductSpecs nutritionValue)
+        public void SetQuantity(double quantity)
         {
-            if (nutritionValue == null)
+            if (quantity < 0 || quantity > 500)
             {
-                throw new DomainException(ErrorCodes.NutritionValueNotProvided,
+                throw new DomainException(ErrorCodes.InvalidQuantity,
+                    "Product quantity can not be less than 0 and grather than 500.");
+            }
+
+            Quantity = quantity;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetNutritionValue(NutritionValues nutritionValues)
+        {
+            if (nutritionValues == null)
+            {
+                throw new DomainException(ErrorCodes.NutritionValuesNotProvided,
                     "Product nutrition value can not be null.");
             }
-            NutritionsValue = nutritionValue;
+
+            var energyValue = nutritionValues.EnergyValue * Quantity;
+            var fats = nutritionValues.Fats * Quantity;
+            var protein = nutritionValues.Protein * Quantity;
+            var carbo = nutritionValues.Carbo * Quantity;
+            var sugars = nutritionValues.Sugars * Quantity;
+
+            NutritionsValues = nutritionValues;
             UpdatedAt = DateTime.UtcNow;
         }
 
