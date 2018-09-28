@@ -20,6 +20,10 @@ namespace Healthy.Core.Domain.Diets.Entities
             protected set { _products = new HashSet<Product>(value); }
         }
 
+        protected Meal()
+        {         
+        }
+
         public Meal(Guid id, int mealNumber)
         {
             Id = id;
