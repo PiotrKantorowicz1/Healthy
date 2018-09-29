@@ -7,7 +7,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Core.Domain.Diets.Entities
 {
-    public class Suplementation : Entity, ITimestampable
+    public class Supplementation : Entity, ITimestampable
     {
         ISet<DailySupplementation> _dailySupplementations = new HashSet<DailySupplementation>();
         public Guid UserId { get; set; }
@@ -21,11 +21,11 @@ namespace Healthy.Core.Domain.Diets.Entities
             protected set { _dailySupplementations = new HashSet<DailySupplementation>(value); }
         }
 
-        protected Suplementation()
+        protected Supplementation()
         {
         }
 
-        public Suplementation(Guid id, Guid userId, Interval interval)
+        public Supplementation(Guid id, Guid userId, Interval interval)
         {
             Id = id;
             UserId = userId;
@@ -44,7 +44,7 @@ namespace Healthy.Core.Domain.Diets.Entities
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void AddProduct(DailySupplementation dailySupplementation)
+        public void AddDailySupplementation(DailySupplementation dailySupplementation)
         {
             _dailySupplementations.Add(new DailySupplementation(dailySupplementation.Id, 
                 dailySupplementation.Day));
@@ -62,7 +62,7 @@ namespace Healthy.Core.Domain.Diets.Entities
         public DailySupplementation GetDailySupplementationOrFail(Guid id)
         {
             var product = GetDailySupplementation(id);
-            if (product.HasValue)
+            if (product.HasNoValue)
             {
                 throw new DomainException(ErrorCodes.DailySupplementationNotFound,
                     $"Daily supplementation with id: '{id}' was not found.");

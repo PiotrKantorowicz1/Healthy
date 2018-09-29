@@ -11,6 +11,7 @@ before_script:
   - chmod -R a+x scripts
 script:
   - ./scripts/build.sh
+  - ./scripts/tests.sh
 after_success:
   - ./scripts/publish.sh
 notifications:

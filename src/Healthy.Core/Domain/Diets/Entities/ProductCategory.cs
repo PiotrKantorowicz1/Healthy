@@ -13,7 +13,7 @@ namespace Healthy.Core.Domain.Diets.Entities
         {
         }
 
-        protected ProductCategory(Guid id, string name)
+        public ProductCategory(Guid id, string name)
         {
             if (id == Guid.Empty)
             {
