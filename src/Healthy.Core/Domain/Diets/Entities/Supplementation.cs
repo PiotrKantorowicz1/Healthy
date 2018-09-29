@@ -44,7 +44,7 @@ namespace Healthy.Core.Domain.Diets.Entities
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void AddProduct(DailySupplementation dailySupplementation)
+        public void AddDailySupplementation(DailySupplementation dailySupplementation)
         {
             _dailySupplementations.Add(new DailySupplementation(dailySupplementation.Id, 
                 dailySupplementation.Day));
