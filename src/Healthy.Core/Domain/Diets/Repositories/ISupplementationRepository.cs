@@ -8,7 +8,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Core.Domain.Diets.Repositories
 {
-    public interface ISuplementationRepository : IRepository
+    public interface ISupplementationRepository : IRepository
     {
         Task<Maybe<Supplementation>> GetByIdAsync(Guid id);
         Task<Maybe<Supplementation>> GetByUserIdAsync(Guid userId);
