@@ -23,8 +23,8 @@ namespace Healthy.Tests.Initializers
             NutritionValues = new NutritionValues(140, 10, 2, 22, 12);
             Category = new Category(Guid.NewGuid(), "Meats");
             ProductCategory = new ProductCategory(Guid.NewGuid(), "Butters");
-            Product = new Product(Guid.NewGuid(), "Mlekovita butter", "Super duper butter futer", 3,
-                NutritionValues, Category);
+            Product = new Product(Guid.NewGuid(), "Mlekovita butter", "Super duper butter futer", 
+                3, NutritionValues, Category);
             Meal = new Meal(Guid.NewGuid(), 2);
             Day = new Day("Monday", "WorkoutDay", DateTime.UtcNow);
             Slot = new Slot(3, 12);

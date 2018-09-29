@@ -14,6 +14,6 @@ case "$TRAVIS_BRANCH" in
 esac
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-docker build -t Healthy.Api:$DOCKER_TAG .
+docker build -t healthy:$DOCKER_TAG .
 docker tag Healthy.Api:$DOCKER_TAG $DOCKER_USERNAME/Healthy.Api:$DOCKER_TAG
 docker push $DOCKER_USERNAME/Healthy.Api:$DOCKER_TAG
