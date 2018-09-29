@@ -1,75 +1,89 @@
 using System;
 using Healthy.Core.Domain.Diets.Entities;
 using Healthy.Core.Exceptions;
-using It = Machine.Specifications.It;
-using Machine.Specifications;
 using Xunit;
+using Healthy.Core.Domain.Users.Entities;
+using Healthy.Tests.Initializers;
 
 namespace Healthy.Tests.Diets.Domain
 {
-    public class DomainTests
-    {
-        public abstract class DomainTestsBase
+    public class DomainTests : DietTestsInitializer
+    {       
+        public DomainTests()
         {
-            protected static Category Category;
-            protected static Day Day;
-            protected static DailySupplementation DailySupplementation;
-            protected static Interval Interval;
-            protected static Meal Meal;
-            protected static NutritionValues NutritionValues;
-            protected static Product Product;
-            protected static ProductCategory ProductCategory;
-            protected static Slot Slot;
-            protected static Supplementation Supplementation;
-            protected static Exception Exception;
-
-            protected static void Initialize()
-            {
-                NutritionValues = new NutritionValues(140, 10, 2, 22, 12);
-                Category = new Category(Guid.NewGuid(), "Meats");
-                ProductCategory = new ProductCategory(Guid.NewGuid(), "Butters");
-                Product = new Product(Guid.NewGuid(), "Mlekovita butter", "Super duper butter futer", 3,
-                    NutritionValues, Category);
-                Meal = new Meal(Guid.NewGuid(), 2);
-                Meal.AddProduct(Product, Category);
-                Day = new Day("Monday", "WorkoutDay", DateTime.UtcNow);
-                Slot = new Slot(3, 12);
-                DailySupplementation = new DailySupplementation(Guid.NewGuid(), Day);
-                DailySupplementation.AddMeal(Meal);
-                DailySupplementation.AddSlot(Slot);
-                Interval = new Interval(new DateTime(2018, 09, 27), DateTime.UtcNow);
-                Supplementation = new Supplementation(Guid.NewGuid(), Guid.NewGuid(), Interval);
-                Supplementation.AddDailySupplementation(DailySupplementation);
-            }
+            base.Initialize();
         }
 
-        [Subject("Category")]
-        public class When_exception_should_be_ivoked_by_empty_name : DomainTestsBase
+        [Fact]
+        public void Set_category_name_should_be_raise_error_when_category_name_is_not_set()
         {
-            Establish context = () => Initialize();
+            //arrange
+            var category = Category;
 
-            Because of = () => Exception = Catch.Exception(() => Category.SetName(""));
+            //act
+            Action act = () => Category.SetName("");
 
-            It should_throw_domain_exception = () =>
-            {
-                Exception.ShouldBeOfExactType<DomainException>();
-            };
+            //assert
+            Assert.Throws<DomainException>(act);
         }
 
-        [Subject("Category")]
-        public class When_exception_should_be_ivoked_by_to_many_characters_in_name : DomainTestsBase
+        [Fact]
+        public void Set_category_name_should_be_raise_error_when_category_name_is_too_long()
         {
-            Establish context = () => Initialize();
+            //arrange
+            var category = Category;
 
-            Because of = () => Exception = Catch.Exception(() => Category.SetName(@"SWRlYWx5IHNhIGphayBnd2l
-            hemR5IC0gbmllIG1vem5hIGljaCBvc2lhZ25hYywgYWxlIG1vsKJDJSSHBJDkj23em5hIHNpZSBuaW1pIGtpZXJvd2FjLg0K"));
+            //act
+            Action act = () => category.SetName(@"YXNkaW9manNpYXVoZ2Zpb3Nwa29pZHNoZ29wc2tmZG9pa
+                HNqYWlnb2thamRzb2lnZmhqcGFqYTlbcGZqYXNkZ2lhc2RqZmdwW2FzamdkOWFpc1tkZ2ZoYXNnZmlh
+                c2RmZ2FzaWRnZmg5MGFzcGRvZ2FzZmdrZGE=");
 
-            It should_throw_domain_exception = () =>
-            {
-                Exception.ShouldBeOfExactType<DomainException>();
-            };
+            //assert
+            Assert.Throws<DomainException>(act);
+        }
+
+        [Fact]
+        public void Get_slot_should_be_raise_error_when_this_slot_not_found()
+        {
+            //arrange
+            var slot = Slot;
+            var dailySupplementation = DailySupplementation;
+            dailySupplementation.AddSlot(slot);
+
+            //act
+            Action act = () => dailySupplementation.GetSlotOrFail(500);
+
+            //assert
+            Assert.Throws<DomainException>(act);
         }
 
 
+        [Fact]
+        public void Set_day_should_be_raise_error_when_day_is_null()
+        {
+            //arrange
+            var dailySupplementation = DailySupplementation;
+
+            //act
+            Action act = () => dailySupplementation.SetDay(null);
+
+            //assert
+            Assert.Throws<DomainException>(act);
+        }
+
+        [Fact]
+        public void Get_meal_should_be_raise_error_when_meal_not_found()
+        {
+            //arrange
+            var dailySupplementation = DailySupplementation;
+            var meal = Meal;
+            dailySupplementation.AddMeal(meal);
+
+            //act
+            Action act = () => dailySupplementation.GetMealOrFail(Guid.Empty);
+
+            //assert
+            Assert.Throws<DomainException>(act);
+        }
     }
 }

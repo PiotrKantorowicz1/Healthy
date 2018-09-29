@@ -62,7 +62,7 @@ namespace Healthy.Core.Domain.Diets.Entities
         public DailySupplementation GetDailySupplementationOrFail(Guid id)
         {
             var product = GetDailySupplementation(id);
-            if (product.HasValue)
+            if (product.HasNoValue)
             {
                 throw new DomainException(ErrorCodes.DailySupplementationNotFound,
                     $"Daily supplementation with id: '{id}' was not found.");

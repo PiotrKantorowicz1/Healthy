@@ -61,7 +61,7 @@ namespace Healthy.Core.Domain.Diets.Entities
         public Product GetProductOrFail(Guid id)
         {
             var product = GetProduct(id);
-            if (product.HasValue)
+            if (product.HasNoValue)
             {
                 throw new DomainException(ErrorCodes.ProductNotFound,
                     $"Meal product with id: '{id}' was not found.");

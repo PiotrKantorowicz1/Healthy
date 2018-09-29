@@ -86,7 +86,7 @@ namespace Healthy.Core.Domain.Diets.Entities
         public Meal GetMealOrFail(Guid id)
         {
             var meal = GetMeal(id);
-            if (meal.HasValue)
+            if (meal.HasNoValue)
             {
                 throw new DomainException(ErrorCodes.MealNotFound,
                     $"Meal with id: '{id}' was not found.");
@@ -97,7 +97,7 @@ namespace Healthy.Core.Domain.Diets.Entities
         public Slot GetSlotOrFail(int slotNumber)
         {
             var slot = GetSlot(slotNumber);
-            if (slot.HasValue)
+            if (slot.HasNoValue)
             {
                 throw new DomainException(ErrorCodes.SlotNotFound,
                     $"Slot with slot number : '{slotNumber}' was not found.");
