@@ -4,11 +4,14 @@ using Healthy.Core.Exceptions;
 using Xunit;
 using Healthy.Core.Domain.Users.Entities;
 using Healthy.Tests.Initializers;
+using System.Linq;
+using Healthy.Core;
+using FluentAssertions;
 
 namespace Healthy.Tests.Diets.Domain
 {
     public class DomainTests : DietTestsInitializer
-    {       
+    {
         public DomainTests()
         {
             base.Initialize();
@@ -17,73 +20,92 @@ namespace Healthy.Tests.Diets.Domain
         [Fact]
         public void Set_category_name_should_be_raise_error_when_category_name_is_not_set()
         {
-            //arrange
-            var category = Category;
-
-            //act
             Action act = () => Category.SetName("");
 
-            //assert
-            Assert.Throws<DomainException>(act);
+            var ex = Assert.Throws<DomainException>(act);
+            Assert.Equal(ErrorCodes.InvalidCategory, ex.Code);
         }
 
         [Fact]
         public void Set_category_name_should_be_raise_error_when_category_name_is_too_long()
         {
-            //arrange
-            var category = Category;
-
-            //act
-            Action act = () => category.SetName(@"YXNkaW9manNpYXVoZ2Zpb3Nwa29pZHNoZ29wc2tmZG9pa
+            Action act = () => Category.SetName(@"YXNkaW9manNpYXVoZ2Zpb3Nwa29pZHNoZ29wc2tmZG9pa
                 HNqYWlnb2thamRzb2lnZmhqcGFqYTlbcGZqYXNkZ2lhc2RqZmdwW2FzamdkOWFpc1tkZ2ZoYXNnZmlh
                 c2RmZ2FzaWRnZmg5MGFzcGRvZ2FzZmdrZGE=");
 
-            //assert
-            Assert.Throws<DomainException>(act);
+            var ex = Assert.Throws<DomainException>(act);
+            Assert.Equal(ErrorCodes.InvalidCategory, ex.Code);
         }
 
         [Fact]
         public void Get_slot_should_be_raise_error_when_this_slot_not_found()
         {
-            //arrange
-            var slot = Slot;
-            var dailySupplementation = DailySupplementation;
-            dailySupplementation.AddSlot(slot);
+            Action act = () => DailySupplementation.GetSlotOrFail(500);
 
-            //act
-            Action act = () => dailySupplementation.GetSlotOrFail(500);
-
-            //assert
-            Assert.Throws<DomainException>(act);
+            var ex = Assert.Throws<DomainException>(act);
+            Assert.Equal(ErrorCodes.SlotNotFound, ex.Code);
         }
 
 
         [Fact]
         public void Set_day_should_be_raise_error_when_day_is_null()
         {
-            //arrange
-            var dailySupplementation = DailySupplementation;
+            Action act = () => DailySupplementation.SetDay(null);
 
-            //act
-            Action act = () => dailySupplementation.SetDay(null);
-
-            //assert
-            Assert.Throws<DomainException>(act);
+            var ex = Assert.Throws<DomainException>(act);
+            Assert.Equal(ErrorCodes.InvalidDay, ex.Code);
         }
 
         [Fact]
         public void Get_meal_should_be_raise_error_when_meal_not_found()
         {
-            //arrange
+            Action act = () => DailySupplementation.GetMealOrFail(Guid.NewGuid());
+
+            var ex = Assert.Throws<DomainException>(act);
+            Assert.Equal(ErrorCodes.MealNotFound, ex.Code);
+        }
+
+        [Fact]
+        public void Add_slot_should_be_raise_error_when_daily_supplementation_have_too_many_slots()
+        {
             var dailySupplementation = DailySupplementation;
-            var meal = Meal;
-            dailySupplementation.AddMeal(meal);
 
-            //act
-            Action act = () => dailySupplementation.GetMealOrFail(Guid.Empty);
+            for (int i = 0; i <= 12; i++)
+            {
+                dailySupplementation.AddSlot(new Slot(1, 5 + i));
+            }
 
-            //assert
-            Assert.Throws<DomainException>(act);
+            Action act = () => dailySupplementation.AddSlot(Slot);
+
+            var ex = Assert.Throws<DomainException>(act);
+            Assert.Equal(ErrorCodes.ToManySlots, ex.Code);
+        }
+
+        [Fact]
+        public void Set_meal_number_should_be_raise_error_when_meal_number_is_less_than_zero()
+        {
+            Action act = () => Meal.SetMealNumber(-1);
+
+            var ex = Assert.Throws<DomainException>(act);
+            Assert.Equal(ErrorCodes.InvalidMealNumber, ex.Code);
+        }
+
+        [Fact]
+        public void Set_meal_number_should_be_raise_error_when_meal_number_is_grather_than_12()
+        {
+            Action act = () => Meal.SetMealNumber(13);
+
+            var ex = Assert.Throws<DomainException>(act);
+            Assert.Equal(ErrorCodes.InvalidMealNumber, ex.Code);
+        }
+
+        [Fact]
+        public void Get_Product_should_be_raise_error_when_product_not_found()
+        {
+            Action act = () => Meal.GetProductOrFail(Guid.NewGuid());
+
+            var ex = Assert.Throws<DomainException>(act);
+            Assert.Equal(ErrorCodes.ProductNotFound, ex.Code);
         }
     }
 }
