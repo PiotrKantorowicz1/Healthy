@@ -17,12 +17,12 @@ namespace Healthy.Core.Domain.Diets.Entities
         {
             if (id == Guid.Empty)
             {
-                throw new ArgumentException("Category id can not be empty.", nameof(id));
+                throw new ArgumentException("Product category id can not be empty.", nameof(id));
             }
 
             if (name.Empty())
             {
-                throw new ArgumentException("Category name can not be empty.", nameof(name));
+                throw new ArgumentException("Product category name can not be empty.", nameof(name));
             }
 
             Id = id;

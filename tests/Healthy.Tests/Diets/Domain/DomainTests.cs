@@ -202,6 +202,6 @@ namespace Healthy.Tests.Diets.Domain
 
             var ex = Assert.Throws<DomainException>((Action) Act);
             Assert.Equal(ErrorCodes.DailySupplementationNotFound, ex.Code);
-        }    
+        }       
     }
 }
