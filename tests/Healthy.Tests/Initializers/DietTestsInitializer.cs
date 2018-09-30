@@ -1,7 +1,5 @@
 using System;
 using Healthy.Core.Domain.Diets.Entities;
-using Healthy.Core.Exceptions;
-using Healthy.Core.Domain.Users.Entities;
 
 namespace Healthy.Tests.Initializers
 {
@@ -14,6 +12,7 @@ namespace Healthy.Tests.Initializers
         protected Meal Meal;
         protected NutritionValues NutritionValues;
         protected Product Product;
+        protected MealItem MealItem;
         protected ProductCategory ProductCategory;
         protected Slot Slot;
         protected Supplementation Supplementation;
@@ -24,8 +23,9 @@ namespace Healthy.Tests.Initializers
             Category = new Category(Guid.NewGuid(), "Meats");
             ProductCategory = new ProductCategory(Guid.NewGuid(), "Butters");
             Product = new Product(Guid.NewGuid(), "Mlekovita butter", "Super duper butter futer", 
-                3, NutritionValues, Category);
+                NutritionValues, Category);
             Meal = new Meal(Guid.NewGuid(), 2);
+            MealItem = new MealItem(Guid.NewGuid(), "maslo", 32, NutritionValues);
             Day = new Day("Monday", "WorkoutDay", DateTime.UtcNow);
             Slot = new Slot(3, 12);
             DailySupplementation = new DailySupplementation(Guid.NewGuid(), Day);

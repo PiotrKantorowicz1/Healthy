@@ -9,19 +9,19 @@ namespace Healthy.Core.Domain.Diets.Entities
 {
     public class Meal : Entity, ITimestampable
     {
-        public ISet<Product> _products = new HashSet<Product>();
-        public int MealNumber { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public DateTime CreatedAt { get; set; }
+        private ISet<MealItem> _mealItems = new HashSet<MealItem>();
+        public int MealNumber { get; protected set; }
+        public DateTime UpdatedAt { get; protected set; }
+        public DateTime CreatedAt { get; protected set; }
 
-        public IEnumerable<Product> Products
+        public IEnumerable<MealItem> MealItems
         {
-            get { return _products; }
-            protected set { _products = new HashSet<Product>(value); }
+            get => _mealItems;
+            protected set => _mealItems = new HashSet<MealItem>(value);
         }
 
         protected Meal()
-        {         
+        {
         }
 
         public Meal(Guid id, int mealNumber)
@@ -37,39 +37,40 @@ namespace Healthy.Core.Domain.Diets.Entities
             if (mealNumber < 0 || mealNumber > 12)
             {
                 throw new DomainException(ErrorCodes.InvalidMealNumber,
-                    "Meal number can not be less than 0 and grather than 12.");
+                    "Meal number can not be less than 0 and greater than 12.");
             }
+
             MealNumber = mealNumber;
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void AddProduct(Product product, Category category)
+        public void AddMealItem(MealItem item)
         {
-            _products.Add(new Product(product.Id, product.Name, product.Description, 
-                product.Quantity, product.NutritionsValues, category));
+            _mealItems.Add(new MealItem(item.Id, item.Name, item.Quantity, item.NutritionValuesSummary));
 
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void RemoveProduct(Guid id)
+        public void RemoveMealItem(Guid id)
         {
-            var product = GetProductOrFail(id);
-            _products.Remove(product);
+            var mealItem = GetMealItemOrFail(id);
+            _mealItems.Remove(mealItem);
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public Product GetProductOrFail(Guid id)
+        public MealItem GetMealItemOrFail(Guid id)
         {
-            var product = GetProduct(id);
+            var product = GetMealItem(id);
             if (product.HasNoValue)
             {
-                throw new DomainException(ErrorCodes.ProductNotFound,
-                    $"Meal product with id: '{id}' was not found.");
+                throw new DomainException(ErrorCodes.MealItemNotFound,
+                    $"Meal item with id: '{id}' was not found.");
             }
+
             return product.Value;
         }
 
-        public Maybe<Product> GetProduct(Guid id)
-            => Products.SingleOrDefault(x => x.Id == id);
+        private Maybe<MealItem> GetMealItem(Guid id)
+            => MealItems.SingleOrDefault(x => x.Id == id);
     }
 }

@@ -6,8 +6,8 @@ namespace Healthy.Core.Domain.Diets.Entities
 {
     public class ProductCategory : ValueObject<ProductCategory>
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        public Guid Id { get; protected set; }
+        public string Name { get; protected set; }
 
         protected ProductCategory()
         {
@@ -19,10 +19,12 @@ namespace Healthy.Core.Domain.Diets.Entities
             {
                 throw new ArgumentException("Category id can not be empty.", nameof(id));
             }
+
             if (name.Empty())
             {
                 throw new ArgumentException("Category name can not be empty.", nameof(name));
             }
+
             Id = id;
             Name = name;
         }

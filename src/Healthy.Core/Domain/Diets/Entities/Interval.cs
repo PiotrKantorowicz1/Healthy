@@ -5,15 +5,16 @@ namespace Healthy.Core.Domain.Diets.Entities
 {
     public class Interval : ValueObject<Interval>
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime StartDate { get; protected set; }
+        public DateTime EndDate { get; protected set; }
 
         public Interval(DateTime startDate, DateTime endDate)
         {
             if (startDate >= endDate)
             {
-                throw new ArgumentException("Start date can not be grather than end date.", nameof(startDate));
+                throw new ArgumentException("Start date can not be greater than end date.", nameof(startDate));
             }
+
             StartDate = startDate;
             EndDate = endDate;
         }
@@ -27,8 +28,8 @@ namespace Healthy.Core.Domain.Diets.Entities
         protected override int GetHashCodeCore()
         {
             var hash = 13;
-            hash = (hash * 7) + StartDate.GetHashCode(); 
-            hash = (hash * 7) + EndDate.GetHashCode(); 
+            hash = (hash * 7) + StartDate.GetHashCode();
+            hash = (hash * 7) + EndDate.GetHashCode();
 
             return hash;
         }

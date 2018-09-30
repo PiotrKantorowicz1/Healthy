@@ -9,23 +9,23 @@ namespace Healthy.Core.Domain.Diets.Entities
 {
     public class DailySupplementation : Entity, ITimestampable
     {
-        public ISet<Meal> _meals = new HashSet<Meal>();
-        public ISet<Slot> _slots = new HashSet<Slot>();
-        public Day Day { get; set; }
-        public string State { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-        public DateTime CreatedAt { get; set; }
+        private ISet<Meal> _meals = new HashSet<Meal>();
+        private ISet<Slot> _slots = new HashSet<Slot>();
+        public Day Day { get; protected set; }
+        public string State { get; protected set; }
+        public DateTime? UpdatedAt { get; protected set; }
+        public DateTime CreatedAt { get; protected set; }
 
         public IEnumerable<Slot> Slots
         {
-            get { return _slots; }
-            protected set { _slots = new HashSet<Slot>(value); }
+            get => _slots;
+            protected set => _slots = new HashSet<Slot>(value);
         }
 
         public IEnumerable<Meal> Meals
         {
-            get { return _meals; }
-            protected set { _meals = new HashSet<Meal>(value); }
+            get => _meals;
+            protected set => _meals = new HashSet<Meal>(value);
         }
 
         protected DailySupplementation()
@@ -48,6 +48,7 @@ namespace Healthy.Core.Domain.Diets.Entities
                 throw new DomainException(ErrorCodes.InvalidDay,
                     "day can not be null");
             }
+
             Day = day;
             UpdatedAt = DateTime.UtcNow;
         }
@@ -59,6 +60,7 @@ namespace Healthy.Core.Domain.Diets.Entities
                 throw new DomainException(ErrorCodes.ToManySlots,
                     $"Limit of 12 supplementation slots was reached.");
             }
+
             _slots.Add(new Slot(slot.SlotNumber, slot.Hour));
             UpdatedAt = DateTime.UtcNow;
         }
@@ -91,6 +93,7 @@ namespace Healthy.Core.Domain.Diets.Entities
                 throw new DomainException(ErrorCodes.MealNotFound,
                     $"Meal with id: '{id}' was not found.");
             }
+
             return meal.Value;
         }
 
@@ -102,13 +105,14 @@ namespace Healthy.Core.Domain.Diets.Entities
                 throw new DomainException(ErrorCodes.SlotNotFound,
                     $"Slot with slot number : '{slotNumber}' was not found.");
             }
+
             return slot.Value;
         }
 
-        public Maybe<Meal> GetMeal(Guid id)
+        private Maybe<Meal> GetMeal(Guid id)
             => Meals.SingleOrDefault(x => x.Id == id);
 
-        public Maybe<Slot> GetSlot(int slotNumber)
+        private Maybe<Slot> GetSlot(int slotNumber)
             => Slots.SingleOrDefault(x => x.SlotNumber == slotNumber);
     }
 }

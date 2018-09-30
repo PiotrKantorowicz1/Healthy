@@ -5,8 +5,8 @@ namespace Healthy.Core.Domain.Diets.Entities
 {
     public class Slot : ValueObject<Slot>
     {
-        public int SlotNumber { get; set; }
-        public int Hour { get; set; }
+        public int SlotNumber { get; protected set; }
+        public int Hour { get; protected set; }
 
         public Slot(int slotNumber, int hour)
         {
@@ -14,10 +14,12 @@ namespace Healthy.Core.Domain.Diets.Entities
             {
                 throw new ArgumentException("Slot number can not equals 0.", nameof(slotNumber));
             }
+
             if (hour < 0 || hour > 24)
             {
                 throw new ArgumentException("Hour can not be less than 0 and grather than 24.", nameof(hour));
             }
+
             SlotNumber = slotNumber;
             Hour = hour;
         }

@@ -9,16 +9,16 @@ namespace Healthy.Core.Domain.Diets.Entities
 {
     public class Supplementation : Entity, ITimestampable
     {
-        ISet<DailySupplementation> _dailySupplementations = new HashSet<DailySupplementation>();
-        public Guid UserId { get; set; }
-        public Interval Interval { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-        public DateTime CreatedAt { get; set; }
+        private ISet<DailySupplementation> _dailySupplementations = new HashSet<DailySupplementation>();
+        public Guid UserId { get; protected set; }
+        public Interval Interval { get; protected set; }
+        public DateTime? UpdatedAt { get; protected set; }
+        public DateTime CreatedAt { get; protected set; }
 
         public IEnumerable<DailySupplementation> DailySupplementations
         {
-            get { return _dailySupplementations; }
-            protected set { _dailySupplementations = new HashSet<DailySupplementation>(value); }
+            get => _dailySupplementations;
+            protected set => _dailySupplementations = new HashSet<DailySupplementation>(value);
         }
 
         protected Supplementation()
@@ -40,13 +40,14 @@ namespace Healthy.Core.Domain.Diets.Entities
                 throw new DomainException(ErrorCodes.IntervalNotProvided,
                     "Interval can not be null.");
             }
+
             Interval = interval;
             UpdatedAt = DateTime.UtcNow;
         }
 
         public void AddDailySupplementation(DailySupplementation dailySupplementation)
         {
-            _dailySupplementations.Add(new DailySupplementation(dailySupplementation.Id, 
+            _dailySupplementations.Add(new DailySupplementation(dailySupplementation.Id,
                 dailySupplementation.Day));
 
             UpdatedAt = DateTime.UtcNow;
@@ -67,10 +68,11 @@ namespace Healthy.Core.Domain.Diets.Entities
                 throw new DomainException(ErrorCodes.DailySupplementationNotFound,
                     $"Daily supplementation with id: '{id}' was not found.");
             }
+
             return product.Value;
         }
 
-        public Maybe<DailySupplementation> GetDailySupplementation(Guid id)
+        private Maybe<DailySupplementation> GetDailySupplementation(Guid id)
             => DailySupplementations.SingleOrDefault(x => x.Id == id);
     }
 }

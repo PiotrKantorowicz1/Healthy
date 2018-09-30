@@ -7,25 +7,23 @@ namespace Healthy.Core.Domain.Diets.Entities
 {
     public class Product : Entity, ITimestampable
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public double Quantity { get; set; }
-        public NutritionValues NutritionsValues { get; set; }
-        public ProductCategory Category { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public string Name { get; protected set; }
+        public string Description { get; protected set; }
+        public NutritionValues NutritionValues { get; protected set; }
+        public ProductCategory Category { get; protected set; }
+        public DateTime? UpdatedAt { get; protected set; }
+        public DateTime CreatedAt { get; protected set; }
 
         protected Product()
         {
         }
 
-        public Product(Guid id, string name, string description, double quantity, 
+        public Product(Guid id, string name, string description,
             NutritionValues nutritionValue, Category category)
         {
             Id = id;
             SetName(name);
             SetDescription(description);
-            SetQuantity(quantity);
             SetNutritionValue(nutritionValue);
             SetCategory(category);
             UpdatedAt = DateTime.UtcNow;
@@ -39,11 +37,13 @@ namespace Healthy.Core.Domain.Diets.Entities
                 throw new DomainException(ErrorCodes.NameNotProvided,
                     "Product name cannot be empty.");
             }
+
             if (name.Length > 150)
             {
                 throw new DomainException(ErrorCodes.InvalidProductName,
                     "Product name is too long.");
             }
+
             Name = name;
             UpdatedAt = DateTime.UtcNow;
         }
@@ -55,24 +55,14 @@ namespace Healthy.Core.Domain.Diets.Entities
                 throw new DomainException(ErrorCodes.DescriptionNotProvided,
                     "Product description cannot be empty.");
             }
+
             if (description.Length > 500)
             {
                 throw new DomainException(ErrorCodes.InvalidDescription,
                     "Product description is too long.");
             }
+
             Description = description;
-            UpdatedAt = DateTime.UtcNow;
-        }
-
-        public void SetQuantity(double quantity)
-        {
-            if (quantity < 0 || quantity > 500)
-            {
-                throw new DomainException(ErrorCodes.InvalidQuantity,
-                    "Product quantity can not be less than 0 and grather than 500.");
-            }
-
-            Quantity = quantity;
             UpdatedAt = DateTime.UtcNow;
         }
 
@@ -84,13 +74,7 @@ namespace Healthy.Core.Domain.Diets.Entities
                     "Product nutrition value can not be null.");
             }
 
-            var energyValue = nutritionValues.EnergyValue * Quantity;
-            var fats = nutritionValues.Fats * Quantity;
-            var protein = nutritionValues.Protein * Quantity;
-            var carbo = nutritionValues.Carbo * Quantity;
-            var sugars = nutritionValues.Sugars * Quantity;
-
-            NutritionsValues = nutritionValues;
+            NutritionValues = nutritionValues;
             UpdatedAt = DateTime.UtcNow;
         }
 
@@ -101,6 +85,7 @@ namespace Healthy.Core.Domain.Diets.Entities
                 throw new DomainException(ErrorCodes.CategoryNotProvided,
                     "Product category can not be null.");
             }
+
             Category = ProductCategory.Create(category);
             UpdatedAt = DateTime.UtcNow;
         }

@@ -22,10 +22,10 @@ namespace Healthy.Core.Domain.Diets.Entities
         public void SetName(string name)
         {
             if (name.Empty())
-                throw new DomainException(ErrorCodes.InvalidCategory, 
+                throw new DomainException(ErrorCodes.InvalidCategory,
                     "Category name can not be empty.");
             if (name.Length > 100)
-                throw new DomainException(ErrorCodes.InvalidCategory, 
+                throw new DomainException(ErrorCodes.InvalidCategory,
                     "Category name is too long.");
             if (Name.EqualsCaseInvariant(name))
                 return;
