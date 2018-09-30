@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Healthy.Application.Services.Users.Abstract;
 using Healthy.Core;
-using Healthy.Core.Domain.Users.Entities;
+using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Domain.Users.Services;
 using Healthy.Core.Exceptions;

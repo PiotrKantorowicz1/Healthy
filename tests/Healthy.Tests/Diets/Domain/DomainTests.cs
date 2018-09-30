@@ -1,9 +1,9 @@
 using System;
-using Healthy.Core.Domain.Diets.Entities;
 using Healthy.Core.Exceptions;
 using Xunit;
 using Healthy.Tests.Initializers;
 using Healthy.Core;
+using Healthy.Core.Domain.Shared;
 
 namespace Healthy.Tests.Diets.Domain
 {

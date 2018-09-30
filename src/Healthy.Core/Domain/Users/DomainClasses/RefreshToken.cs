@@ -3,7 +3,7 @@ using Healthy.Core.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using System;
 
-namespace Healthy.Core.Domain.Users.Entities
+namespace Healthy.Core.Domain.Users.DomainClasses
 {
     public class RefreshToken : Entity
     {

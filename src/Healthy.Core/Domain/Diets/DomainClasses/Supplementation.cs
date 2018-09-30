@@ -6,7 +6,7 @@ using Healthy.Core.Domain.Shared;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Types;
 
-namespace Healthy.Core.Domain.Diets.Entities
+namespace Healthy.Core.Domain.Diets.DomainClasses
 {
     public class Supplementation : Entity, ITimestampable
     {

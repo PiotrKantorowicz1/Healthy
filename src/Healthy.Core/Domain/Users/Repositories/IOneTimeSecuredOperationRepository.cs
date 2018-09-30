@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Healthy.Core.Types;
-using Healthy.Core.Domain.Users.Entities;
 using Healthy.Core.Domain.BaseClasses;
+using Healthy.Core.Domain.Users.DomainClasses;
 
 namespace Healthy.Core.Domain.Users.Repositories
 {

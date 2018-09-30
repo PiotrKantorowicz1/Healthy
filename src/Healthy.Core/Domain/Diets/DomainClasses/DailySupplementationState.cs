@@ -1,4 +1,4 @@
-namespace Healthy.Core.Domain.Diets.Entities
+namespace Healthy.Core.Domain.Diets.DomainClasses
 {
     public class DailySupplementationState
     {

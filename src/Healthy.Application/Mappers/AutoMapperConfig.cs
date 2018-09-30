@@ -1,6 +1,6 @@
 using AutoMapper;
 using Healthy.Application.Dtos.Users;
-using Healthy.Core.Domain.Users.Entities;
+using Healthy.Core.Domain.Users.DomainClasses;
 
 namespace Healthy.Application.Mappers
 {

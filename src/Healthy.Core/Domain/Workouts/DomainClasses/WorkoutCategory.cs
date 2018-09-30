@@ -2,7 +2,7 @@ using System;
 using Healthy.Core.Domain.BaseClasses;
 using Healthy.Core.Extensions;
 
-namespace Healthy.Core.Domain.Workouts.Entities
+namespace Healthy.Core.Domain.Workouts.DomainClasses
 {
     public class WorkoutCategory : ValueObject<WorkoutCategory>
     {

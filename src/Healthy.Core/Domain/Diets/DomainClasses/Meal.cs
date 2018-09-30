@@ -5,7 +5,7 @@ using Healthy.Core.Domain.BaseClasses;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Types;
 
-namespace Healthy.Core.Domain.Diets.Entities
+namespace Healthy.Core.Domain.Diets.DomainClasses
 {
     public class Meal : Entity, ITimestampable
     {

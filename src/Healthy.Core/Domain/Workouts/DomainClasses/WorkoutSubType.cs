@@ -1,4 +1,4 @@
-namespace Healthy.Core.Domain.Workouts.Entities
+namespace Healthy.Core.Domain.Workouts.DomainClasses
 {
     public class WorkoutSubType
     {

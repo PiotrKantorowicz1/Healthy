@@ -1,6 +1,6 @@
-﻿using Healthy.Core.Domain.Users.Entities;
-using Healthy.Core.Types;
+﻿using Healthy.Core.Types;
 using System.Threading.Tasks;
+using Healthy.Core.Domain.Users.DomainClasses;
 
 namespace Healthy.Core.Domain.Users.Repositories
 {

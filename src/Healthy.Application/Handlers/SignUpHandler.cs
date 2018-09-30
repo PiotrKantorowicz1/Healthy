@@ -1,10 +1,10 @@
 ﻿using Healthy.Application.Services.Users.Abstract;
 using Healthy.Core.Contracts.Commands.Users;
-using Healthy.Core.Domain.Users.Entities;
 using Healthy.Core.Extensions;
 using Healthy.Infrastructure.Handlers;
 using System;
 using System.Threading.Tasks;
+using Healthy.Core.Domain.Users.DomainClasses;
 
 namespace Healthy.Application.Handlers
 {

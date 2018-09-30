@@ -1,4 +1,4 @@
-namespace Healthy.Core.Domain.Users.Entities
+namespace Healthy.Core.Domain.Users.DomainClasses
 {
     public static class Roles
     {

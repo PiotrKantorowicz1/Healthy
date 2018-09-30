@@ -2,7 +2,7 @@ using System;
 using Healthy.Core.Domain.BaseClasses;
 using Healthy.Core.Extensions;
 
-namespace Healthy.Core.Domain.Diets.Entities
+namespace Healthy.Core.Domain.Diets.DomainClasses
 {
     public class ProductCategory : ValueObject<ProductCategory>
     {

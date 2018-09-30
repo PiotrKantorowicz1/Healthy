@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Healthy.Application.Services.Users.Abstract;
-using Healthy.Core.Domain.Users.Entities;
+using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Types;
 using Healthy.Infrastructure.Settings;
 
