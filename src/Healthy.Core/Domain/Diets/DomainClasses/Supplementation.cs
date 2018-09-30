@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Healthy.Core.Domain.BaseClasses;
-using Healthy.Core.Domain.Shared;
+using Healthy.Core.Domain.Shared.DomainClasses;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Types;
 

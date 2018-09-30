@@ -1,7 +1,7 @@
 using System;
 using Healthy.Core.Domain.BaseClasses;
 
-namespace Healthy.Core.Domain.Shared
+namespace Healthy.Core.Domain.Shared.DomainClasses
 {
     public class Slot : ValueObject<Slot>
     {
