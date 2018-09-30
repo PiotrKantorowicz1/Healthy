@@ -1,5 +1,6 @@
 using System;
 using Healthy.Core.Domain.Diets.Entities;
+using Healthy.Core.Domain.Shared;
 
 namespace Healthy.Tests.Initializers
 {
