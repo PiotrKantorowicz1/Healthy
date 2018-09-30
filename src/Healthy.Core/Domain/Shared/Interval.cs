@@ -1,7 +1,7 @@
 using System;
 using Healthy.Core.Domain.BaseClasses;
 
-namespace Healthy.Core.Domain.Diets.Entities
+namespace Healthy.Core.Domain.Shared
 {
     public class Interval : ValueObject<Interval>
     {
