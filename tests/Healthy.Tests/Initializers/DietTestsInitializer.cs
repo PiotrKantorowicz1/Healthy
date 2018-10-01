@@ -32,7 +32,7 @@ namespace Healthy.Tests.Initializers
             Slot = new Slot(3, 12);
             DailySupplementation = new DailySupplementation(Guid.NewGuid(), Day);
             Interval = new Interval(new DateTime(2018, 09, 27), DateTime.UtcNow);
-            Supplementation = new Supplementation(Guid.NewGuid(), Guid.NewGuid(), Interval);
+            Supplementation = new Supplementation(Guid.NewGuid(), $"{Guid.NewGuid()}", Interval);
         }
     }
 }

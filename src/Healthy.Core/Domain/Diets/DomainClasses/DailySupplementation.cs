@@ -37,7 +37,7 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
         {
             Id = id;
             SetDay(day);
-            State = "Pending";
+            State = "pending";
             UpdatedAt = DateTime.UtcNow;
             CreatedAt = DateTime.UtcNow;
         }

@@ -6,6 +6,7 @@ namespace Healthy.Core
         public static string UserNotFound => "user_not_found";
         public static string ProductNotFound => "product_not_found";
         public static string SlotNotFound => "slot_not_found";
+        public static string DailyWorkoutNotFound => "daily_workout_not_found";
         public static string MealNotFound => "meal_not_found";
         public static string MealItemNotFound => "meal_item_not_found";
         public static string DailySupplementationNotFound => "daily_supplementation_not_found";

@@ -2,7 +2,7 @@ namespace Healthy.Core.Domain.Shared.DomainClasses
 {
     public class DayType
     {
-        public const string Training = "WorkoutDay";
-        public const string NonTraining = "NonTraining";
+        public const string Training = "workoutDay";
+        public const string NonTraining = "nonTraining";
     }
 }

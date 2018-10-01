@@ -11,7 +11,7 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
     public class Supplementation : Entity, ITimestampable
     {
         private ISet<DailySupplementation> _dailySupplementations = new HashSet<DailySupplementation>();
-        public Guid UserId { get; protected set; }
+        public string UserId { get; protected set; }
         public Interval Interval { get; protected set; }
         public DateTime? UpdatedAt { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
@@ -26,7 +26,7 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
         {
         }
 
-        public Supplementation(Guid id, Guid userId, Interval interval)
+        public Supplementation(Guid id, string userId, Interval interval)
         {
             Id = id;
             UserId = userId;
