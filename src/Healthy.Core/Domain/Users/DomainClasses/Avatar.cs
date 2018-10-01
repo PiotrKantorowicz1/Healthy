@@ -14,7 +14,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
         {
         }
 
-        protected Avatar(string name, string url)
+        public Avatar(string name, string url)
         {
             if (name.Empty())
             {

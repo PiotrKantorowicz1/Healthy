@@ -7,9 +7,9 @@ using Healthy.Core.Domain.Shared.DomainClasses;
 
 namespace Healthy.Tests.Diets.Domain
 {
-    public class DomainTests : DietTestsInitializer
+    public class DietTests : DietTestsInitializer
     {
-        public DomainTests()
+        public DietTests()
         {
             Initialize();
         }
