@@ -46,7 +46,8 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
 
         public void AddMealItem(MealItem item)
         {
-            _mealItems.Add(new MealItem(item.Id, item.Name, item.Quantity, item.NutritionValuesSummary));
+            _mealItems.Add(new MealItem(item.Id, item.MealId, item.ProductId, 
+                item.Name, item.Quantity, item.NutritionValuesSummary));
 
             UpdatedAt = DateTime.UtcNow;
         }

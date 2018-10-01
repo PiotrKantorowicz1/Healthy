@@ -26,7 +26,8 @@ namespace Healthy.Tests.Initializers
             Product = new Product(Guid.NewGuid(), "Mlekovita butter", "Super duper butter futer", 
                 NutritionValues, Category);
             Meal = new Meal(Guid.NewGuid(), 2);
-            MealItem = new MealItem(Guid.NewGuid(), "maslo", 32, NutritionValues);
+            MealItem = new MealItem(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(),  "maslo", 
+                32, NutritionValues);
             Day = new Day("Monday", "WorkoutDay", DateTime.UtcNow);
             Slot = new Slot(3, 12);
             DailySupplementation = new DailySupplementation(Guid.NewGuid(), Day);
