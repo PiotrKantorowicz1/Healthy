@@ -27,9 +27,9 @@ namespace Healthy.Application.Handlers
                     command.Role.Empty() ? Roles.User : command.Role, Providers.Healthy,
                     password: command.Password, name: command.Name,
                     activate: command.State == "active"))
-                .OnSuccess(async () =>
+                .OnSuccess(() =>
                 {
-                    var user = await _userService.GetAsync(userId);
+                    //var user = await _userService.GetAsync(userId);
                 })
                 .OnError((ex, logger) =>
                 {

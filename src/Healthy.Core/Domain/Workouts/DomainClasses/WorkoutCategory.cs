@@ -10,7 +10,7 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
         public string Name { get; protected set; }
 
         protected WorkoutCategory()
-        {
+        {            
         }
 
         public WorkoutCategory(Guid id, string name)

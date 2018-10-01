@@ -4,13 +4,26 @@ namespace Healthy.Core.Contracts.Commands.Users
 {
     public class SignUp : ICommand
     {
-        public Guid Id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Name { get; set; }
-        public string Role { get; set; }
-        public string State { get; set; }
-        public string AccessToken { get; set; }
-        public string Provider { get; set; }
+        public Guid Id { get; }
+        public string Email { get; }
+        public string Password { get; }
+        public string Name { get; }
+        public string Role { get; }
+        public string State { get; }
+        public string AccessToken { get; }
+        public string Provider { get; }
+        
+        public SignUp(Guid id, string email, string password, string name, 
+            string role, string state, string accessToken, string provider)
+        {
+            Id = id;
+            Email = email;
+            Password = password;
+            Name = name;
+            Role = role;
+            State = state;
+            AccessToken = accessToken;
+            Provider = provider;
+        }
     }
 }

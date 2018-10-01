@@ -4,8 +4,15 @@ namespace Healthy.Core.Contracts.Commands.Users
 {
     public class RefreshUserSession : ICommand
     {
-        public Guid SessionId { get; set; }
-        public Guid NewSessionId { get; set; }
-        public string Key { get; set; }
+        public RefreshUserSession(string key, Guid sessionId, Guid newSessionId)
+        {
+            SessionId = sessionId;
+            NewSessionId = newSessionId;
+            Key = key;
+        }
+
+        public Guid SessionId { get; }
+        public Guid NewSessionId { get; }
+        public string Key { get; }
     }
 }

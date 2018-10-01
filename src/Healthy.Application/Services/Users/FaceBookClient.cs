@@ -37,7 +37,7 @@ namespace Healthy.Application.Services.Users
         public async Task PostAsync(string endpoint, string accessToken, object data, string args = null)
         {
             var payload = GetJsonContent(data);
-            var response = await _httpClient.PostAsync($"{endpoint}?access_token={accessToken}&{args}", payload);
+            await _httpClient.PostAsync($"{endpoint}?access_token={accessToken}&{args}", payload);
         }
 
         private static StringContent GetJsonContent(object data)

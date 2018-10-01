@@ -30,6 +30,7 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
         {
             Id = id;
             UserId = userId;
+            Interval = interval;
             UpdatedAt = DateTime.UtcNow;
             CreatedAt = DateTime.UtcNow;
         }
