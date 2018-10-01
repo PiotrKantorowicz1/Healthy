@@ -1,6 +1,6 @@
 using System;
 
-namespace Healthy.Core.Contracts.Commands.Users
+namespace Healthy.Contracts.Commands.Users
 {
     public class SignIn : ICommand
     {

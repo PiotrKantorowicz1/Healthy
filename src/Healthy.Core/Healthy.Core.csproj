@@ -12,4 +12,8 @@
     <Folder Include="Domain\Workouts\Repositories" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Healthy.Contracts\Healthy.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

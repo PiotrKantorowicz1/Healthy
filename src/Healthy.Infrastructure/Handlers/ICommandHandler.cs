@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Healthy.Core.Contracts.Commands;
+using Healthy.Contracts.Commands;
 
 namespace Healthy.Infrastructure.Handlers
 {

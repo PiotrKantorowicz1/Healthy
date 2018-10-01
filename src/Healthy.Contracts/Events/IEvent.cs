@@ -1,4 +1,4 @@
-namespace Healthy.Core.Contracts.Events
+namespace Healthy.Contracts.Events
 {
     //Marker interface
     public interface IEvent

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Healthy.Core.Contracts.Events;
+using Healthy.Contracts.Events;
 
 namespace Healthy.Core.Domain.BaseClasses
 {

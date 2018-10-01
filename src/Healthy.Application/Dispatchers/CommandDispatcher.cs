@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Autofac;
-using Healthy.Core.Contracts.Commands;
+using Healthy.Contracts.Commands;
 using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Dispatchers

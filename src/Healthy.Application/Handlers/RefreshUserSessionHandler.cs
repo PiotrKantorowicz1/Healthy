@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Healthy.Application.Services.Users.Abstract;
-using Healthy.Core.Contracts.Commands.Users;
+using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers
