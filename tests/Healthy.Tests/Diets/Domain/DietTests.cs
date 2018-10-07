@@ -122,7 +122,7 @@ namespace Healthy.Tests.Diets.Domain
                 c2RmZ2FzaWRnZmg5MGFzcGRvZ2FzZmdrZGE=");
 
             var ex = Assert.Throws<DomainException>((Action) Act);
-            Assert.Equal(ErrorCodes.InvalidProductName, ex.Code);
+            Assert.Equal(ErrorCodes.InvalidName, ex.Code);
         }
 
 

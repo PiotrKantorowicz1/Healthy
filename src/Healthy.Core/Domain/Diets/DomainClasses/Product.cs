@@ -40,7 +40,7 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
 
             if (name.Length > 150)
             {
-                throw new DomainException(ErrorCodes.InvalidProductName,
+                throw new DomainException(ErrorCodes.InvalidName,
                     "Product name is too long.");
             }
 
