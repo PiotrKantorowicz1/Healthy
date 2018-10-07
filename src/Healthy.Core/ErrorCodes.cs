@@ -6,6 +6,7 @@ namespace Healthy.Core
         public static string UserNotFound => "user_not_found";
         public static string ProductNotFound => "product_not_found";
         public static string SlotNotFound => "slot_not_found";
+        public static string DurationNotProvided => "duration_not_provided";
         public static string DailyWorkoutNotFound => "daily_workout_not_found";
         public static string ExerciseDetailsNotProvided => "exercise_details_not_provided";
         public static string MealNotFound => "meal_not_found";
@@ -24,6 +25,7 @@ namespace Healthy.Core
         public static string NutritionValuesNotProvided => "nutrition_value_not_provided";
         public static string InvalidQuantity => "invalidQuantity";
         public static string ToManySlots => "to_many_slots";
+        public static string WorkoutNotFound => "workout_not_found";
         public static string UserIdInUse => "user_id_in_use";
         public static string InactiveUser => "inactive_user";
         public static string SessionNotFound => "session_not_found";

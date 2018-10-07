@@ -3,6 +3,7 @@ using Healthy.Core.Exceptions;
 using Xunit;
 using Healthy.Tests.Initializers;
 using Healthy.Core;
+using Healthy.Core.Domain.Diets.DomainClasses;
 using Healthy.Core.Domain.Shared.DomainClasses;
 
 namespace Healthy.Tests.Diets.Domain

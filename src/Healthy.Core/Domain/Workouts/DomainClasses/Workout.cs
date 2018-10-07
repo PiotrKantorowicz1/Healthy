@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Healthy.Core.Domain.BaseClasses;
+using Healthy.Core.Domain.Shared.DomainClasses;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
 using Healthy.Core.Types;
@@ -12,8 +13,7 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
     {
         private ISet<WorkoutGroup> _workoutGroups = new HashSet<WorkoutGroup>();
         public string Name { get; protected set; }
-        public string UserId { get; protected set; }
-        public TimeSpan Duration { get; protected set; }
+        public Interval Duration { get; protected set; }
         public string WorkoutType { get; protected set; }
         public string WorkoutSubType { get; protected set; }
         public DateTime? UpdatedAt { get; protected set; }
@@ -29,11 +29,10 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
         {
         }
 
-        public Workout(Guid id, string userId, string name, TimeSpan duration, string workoutType,
+        public Workout(Guid id, string name, Interval duration, string workoutType,
             string workoutSubType)
         {
             Id = Id;
-            UserId = userId;
             SetName(name);
             SetDuration(duration);
             WorkoutType = workoutType;
@@ -60,8 +59,14 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetDuration(TimeSpan duration)
+        public void SetDuration(Interval duration)
         {
+            if (duration == null)
+            {
+                throw new DomainException(ErrorCodes.DurationNotProvided,
+                    "Duration can not be null.");
+            }
+
             Duration = duration;
             UpdatedAt = DateTime.UtcNow;
         }
