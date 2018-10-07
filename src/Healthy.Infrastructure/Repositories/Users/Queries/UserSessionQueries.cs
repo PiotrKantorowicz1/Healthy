@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Healthy.Core.Domain.Users.Entities;
+using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Infrastructure.Mongo;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;

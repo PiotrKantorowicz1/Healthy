@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Healthy.Contracts\Healthy.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

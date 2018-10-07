@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Healthy.Core.Domain.Users.Entities;
+using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Types;
 using Healthy.Infrastructure.Repositories.Users.Queries;

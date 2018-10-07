@@ -1,10 +1,10 @@
 ﻿using Healthy.Application.Services.Users.Abstract;
-using Healthy.Core.Contracts.Commands.Users;
-using Healthy.Core.Domain.Users.Entities;
-using Healthy.Core.Extensions;
 using Healthy.Infrastructure.Handlers;
 using System;
 using System.Threading.Tasks;
+using Healthy.Contracts.Commands.Users;
+using Healthy.Core.Domain.Users.DomainClasses;
+using Healthy.Core.Extensions;
 
 namespace Healthy.Application.Handlers
 {
@@ -27,9 +27,9 @@ namespace Healthy.Application.Handlers
                     command.Role.Empty() ? Roles.User : command.Role, Providers.Healthy,
                     password: command.Password, name: command.Name,
                     activate: command.State == "active"))
-                .OnSuccess(async () =>
+                .OnSuccess(() =>
                 {
-                    var user = await _userService.GetAsync(userId);
+                    //var user = await _userService.GetAsync(userId);
                 })
                 .OnError((ex, logger) =>
                 {

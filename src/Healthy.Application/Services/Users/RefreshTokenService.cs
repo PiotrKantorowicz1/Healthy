@@ -1,12 +1,12 @@
 ﻿using Healthy.Application.Services.Users.Abstract;
 using Healthy.Core;
-using Healthy.Core.Domain.Users.Entities;
 using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Types;
 using Healthy.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Healthy.Core.Domain.Users.DomainClasses;
 
 namespace Healthy.Application.Services.Users
 {

@@ -42,7 +42,6 @@ namespace Healthy.Core.Domain.Users.Services
             if (value.Empty())
                 throw new ArgumentException("Can not generate salt from empty value.", nameof(value));
 
-            var random = new Random();
             var saltBytes = new byte[SaltSize];
 
             var rng = RandomNumberGenerator.Create();

@@ -1,11 +1,11 @@
 ﻿using Healthy.Api.Attributes;
 using Healthy.Application.Dispatchers;
-using Healthy.Core.Contracts.Commands;
 using Healthy.Core.Pagination;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Healthy.Contracts.Commands;
 
 namespace Healthy.Api.Controllers
 {

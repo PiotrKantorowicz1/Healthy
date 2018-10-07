@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Healthy.Application.Services.Users.Abstract;
-using Healthy.Core.Contracts.Commands.Users;
-using Healthy.Core.Domain.Users.Entities;
+using Healthy.Contracts.Commands.Users;
+using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Types;
 using Healthy.Infrastructure.Handlers;
 using Serilog;

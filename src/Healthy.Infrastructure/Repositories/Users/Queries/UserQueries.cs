@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Healthy.Core.Domain.Users.Entities;
+using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Extensions;
 using Healthy.Core.Queries.Users;
 using Healthy.Infrastructure.Mongo;

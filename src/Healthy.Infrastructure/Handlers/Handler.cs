@@ -8,10 +8,6 @@ namespace Healthy.Infrastructure.Handlers
     {
         private readonly ISet<IHandlerTask> _handlerTasks = new HashSet<IHandlerTask>();
 
-        public Handler()
-        {
-        }
-
         public IHandlerTask Run(Action run)
         {
             var handlerTask = new HandlerTask(this, run);

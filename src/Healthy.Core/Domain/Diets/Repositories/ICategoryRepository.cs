@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Healthy.Core.Domain.BaseClasses;
-using Healthy.Core.Domain.Diets.Entities;
+using Healthy.Core.Domain.Diets.DomainClasses;
 using Healthy.Core.Pagination;
 using Healthy.Core.Queries.Diets;
 using Healthy.Core.Types;

@@ -1,9 +1,9 @@
-﻿using Healthy.Core.Domain.Users.Entities;
-using Healthy.Core.Extensions;
+﻿using Healthy.Core.Extensions;
 using Healthy.Infrastructure.Mongo;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System.Threading.Tasks;
+using Healthy.Core.Domain.Users.DomainClasses;
 
 namespace Healthy.Infrastructure.Repositories.Users.Queries
 {
