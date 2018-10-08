@@ -8,7 +8,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Core.Domain.Diets.DomainClasses
 {
-    public class DailySupplementation : Entity, ITimestampable
+    public class DailySupplementation : AggregateRoot, ITimestampable
     {
         private ISet<Meal> _meals = new HashSet<Meal>();
         private ISet<Slot> _slots = new HashSet<Slot>();

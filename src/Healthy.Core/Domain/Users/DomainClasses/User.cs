@@ -7,7 +7,7 @@ using Healthy.Core.Domain.BaseClasses;
 
 namespace Healthy.Core.Domain.Users.DomainClasses
 {
-    public class User : Entity, ITimestampable
+    public class User : AggregateRoot, ITimestampable
     {
         private static readonly Regex NameRegex = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$",
             RegexOptions.Compiled);

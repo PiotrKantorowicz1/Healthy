@@ -4,12 +4,12 @@ using Healthy.Contracts.Events;
 
 namespace Healthy.Core.Domain.BaseClasses
 {
-    public class AggregateRoot : Entity, IAggregateRoot
+    public class AggregateRoot : IAggregateRoot
     {
         private readonly ISet<IEvent> _events = new HashSet<IEvent>();
         private readonly Dictionary<Type, Action<IEvent>> _eventHandlers = new Dictionary<Type, Action<IEvent>>();
         public IEnumerable<IEvent> Events => _events;
-        public AggregateId AggregateId { get; protected set; }
+        public Guid Id { get; protected set; }
         public int Version { get; protected set; }
 
         public void Replay(IEnumerable<IEvent> events)

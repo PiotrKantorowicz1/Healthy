@@ -5,31 +5,26 @@ using Healthy.Core.Extensions;
 
 namespace Healthy.Core.Domain.Workouts.DomainClasses
 {
-    public class WorkoutItem : Entity, ITimestampable
+    public class WorkoutItem 
     {
         public Guid WorkoutId { get; protected set; }
         public Guid ExerciseId { get; protected set; }
         public string ExerciseName { get; protected set; }
         public ExerciseDetails ExerciseDetails { get; protected set; }
         public string BodyGroup { get; protected set; }
-        public DateTime? UpdatedAt { get; protected set; }
-        public DateTime CreatedAt { get; protected set; }
 
         protected WorkoutItem()
         {           
         }
 
-        public WorkoutItem(Guid id, Guid workoutId, Guid exerciseId, string exerciseName,
+        public WorkoutItem(Guid workoutId, Guid exerciseId, string exerciseName,
             ExerciseDetails exerciseDetails, string bodyGroup)
         {
-            Id = id;
             WorkoutId = workoutId;
             ExerciseId = exerciseId;
             SetExerciseName(exerciseName);
             SetExerciseDetails(exerciseDetails);
             BodyGroup = bodyGroup;
-            UpdatedAt = DateTime.UtcNow;
-            CreatedAt = DateTime.UtcNow;
         }
 
         public void SetExerciseName(string exerciseName)
@@ -47,7 +42,6 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
             }
 
             ExerciseName = exerciseName;
-            UpdatedAt = DateTime.UtcNow;
         }
 
         public void SetExerciseDetails(ExerciseDetails exerciseDetails)
@@ -59,7 +53,6 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
             }
 
             ExerciseDetails = exerciseDetails;
-            UpdatedAt = DateTime.UtcNow;
         }
     }
 }

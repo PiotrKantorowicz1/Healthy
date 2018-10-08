@@ -4,7 +4,7 @@ using Healthy.Core.Domain.BaseClasses;
 
 namespace Healthy.Core.Domain.Users.DomainClasses
 {
-    public class UserSession : Entity, ITimestampable
+    public class UserSession : AggregateRoot, ITimestampable
     {
         public string UserId { get; protected set; }
         public string Key { get; protected set; }

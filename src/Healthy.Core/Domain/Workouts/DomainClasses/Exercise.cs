@@ -5,7 +5,7 @@ using Healthy.Core.Extensions;
 
 namespace Healthy.Core.Domain.Workouts.DomainClasses
 {
-    public class Exercise : Entity, ITimestampable
+    public class Exercise : AggregateRoot, ITimestampable
     {
         public string Name { get; protected set; }
         public string BodyGroup { get; protected set; }

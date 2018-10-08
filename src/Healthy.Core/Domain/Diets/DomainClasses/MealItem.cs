@@ -5,7 +5,7 @@ using Healthy.Core.Extensions;
 
 namespace Healthy.Core.Domain.Diets.DomainClasses
 {
-    public class MealItem : Entity
+    public class MealItem 
     {
         public Guid MealId { get; protected set; }
         public Guid ProductId { get; protected set; }
@@ -17,10 +17,9 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
         {
         }
 
-        public MealItem(Guid id, Guid mealId, Guid productId, string name, 
+        public MealItem(Guid mealId, Guid productId, string name, 
             double quantity, NutritionValues nutritionValuesSummary)
         {
-            Id = id;
             MealId = mealId;
             ProductId = productId;
             SetName(name);

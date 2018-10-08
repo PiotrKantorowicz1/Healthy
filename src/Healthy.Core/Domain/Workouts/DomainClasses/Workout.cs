@@ -9,7 +9,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Core.Domain.Workouts.DomainClasses
 {
-    public class Workout : Entity, ITimestampable
+    public class Workout : AggregateRoot, ITimestampable
     {
         private ISet<WorkoutGroup> _workoutGroups = new HashSet<WorkoutGroup>();
         public string Name { get; protected set; }

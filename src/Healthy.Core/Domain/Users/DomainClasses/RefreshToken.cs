@@ -5,7 +5,7 @@ using System;
 
 namespace Healthy.Core.Domain.Users.DomainClasses
 {
-    public class RefreshToken : Entity
+    public class RefreshToken : AggregateRoot
     {
         public string UserId { get; private set; }
         public string Token { get; private set; }

@@ -8,7 +8,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Core.Domain.Diets.DomainClasses
 {
-    public class Supplementation : Entity, ITimestampable
+    public class Supplementation : AggregateRoot, ITimestampable
     {
         private ISet<DailySupplementation> _dailySupplementations = new HashSet<DailySupplementation>();
         public string UserId { get; protected set; }

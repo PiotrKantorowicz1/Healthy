@@ -1,11 +1,12 @@
+using System;
 using System.Collections.Generic;
 using Healthy.Contracts.Events;
 
 namespace Healthy.Core.Domain.BaseClasses
 {
-    public interface IAggregateRoot : IEntity
+    public interface IAggregateRoot 
     {
-        AggregateId AggregateId { get; }
+        Guid Id { get; }
         IEnumerable<IEvent> Events { get; }
         int Version { get; }
     }

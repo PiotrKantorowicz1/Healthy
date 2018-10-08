@@ -5,7 +5,7 @@ using Healthy.Core.Extensions;
 
 namespace Healthy.Core.Domain.Diets.DomainClasses
 {
-    public class Product : Entity, ITimestampable
+    public class Product : AggregateRoot, ITimestampable
     {
         public string Name { get; protected set; }
         public string Description { get; protected set; }

@@ -8,7 +8,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Core.Domain.Workouts.DomainClasses
 {
-    public class DailyWorkout : Entity, ITimestampable
+    public class DailyWorkout : AggregateRoot, ITimestampable
     {
         private ISet<Workout> _workouts = new HashSet<Workout>();
         public Day Day { get; protected set; }
