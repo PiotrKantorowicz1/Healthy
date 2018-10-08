@@ -56,7 +56,7 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
 
         public void SetState(string state)
         {
-            if (DailySupplementationState.IsValid(state))
+            if (!DailySupplementationState.IsValid(state))
             {
                 throw new DomainException(ErrorCodes.InvalidDailySupplementationState,
                     "Daily supplementation state is invalid!");
