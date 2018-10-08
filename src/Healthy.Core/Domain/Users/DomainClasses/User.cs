@@ -2,8 +2,8 @@ using System;
 using System.Text.RegularExpressions;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
-using Healthy.Core.Domain.Users.Services;
 using Healthy.Core.Domain.BaseClasses;
+using Microsoft.AspNetCore.Identity;
 
 namespace Healthy.Core.Domain.Users.DomainClasses
 {
@@ -16,8 +16,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
         public string UserId { get; protected set; }
         public string Email { get; protected set; }
         public string Name { get; protected set; }
-        public string Password { get; protected set; }
-        public string Salt { get; protected set; }
+        public string PasswordHash { get; protected set; }
         public string Provider { get; protected set; }
         public string Role { get; protected set; }
         public string State { get; protected set; }
@@ -67,10 +66,12 @@ namespace Healthy.Core.Domain.Users.DomainClasses
 
                 return;
             }
+
             if (!email.IsEmail())
             {
                 throw new ArgumentException($"Invalid email {email}.", nameof(email));
             }
+
             if (Email.EqualsCaseInvariant(email))
             {
                 return;
@@ -87,26 +88,32 @@ namespace Healthy.Core.Domain.Users.DomainClasses
                 throw new DomainException(ErrorCodes.NameAlreadySet,
                     $"User name has been already set: {Name}");
             }
+
             if (name.Empty())
             {
                 throw new ArgumentException("User name can not be empty.", nameof(name));
             }
+
             if (Name.EqualsCaseInvariant(name))
             {
                 return;
             }
+
             if (name.Length < 2)
             {
                 throw new ArgumentException("User name is too short.", nameof(name));
             }
+
             if (name.Length > 50)
             {
                 throw new ArgumentException("User name is too long.", nameof(name));
             }
+
             if (NameRegex.IsMatch(name) == false)
             {
                 throw new ArgumentException("User name doesn't meet the required criteria.", nameof(name));
             }
+
             Name = name.ToLowerInvariant();
             UpdatedAt = DateTime.UtcNow;
         }
@@ -126,6 +133,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
             {
                 return;
             }
+
             Avatar = avatar;
             UpdatedAt = DateTime.UtcNow;
         }
@@ -143,6 +151,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
                 throw new DomainException(ErrorCodes.UserAlreadyLocked,
                     $"User with id: '{UserId}' was already locked.");
             }
+
             State = States.Locked;
             UpdatedAt = DateTime.UtcNow;
         }
@@ -154,6 +163,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
                 throw new DomainException(ErrorCodes.UserNotLocked,
                     $"User with id: '{UserId}' is not locked.");
             }
+
             State = States.Active;
             UpdatedAt = DateTime.UtcNow;
         }
@@ -165,6 +175,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
                 throw new DomainException(ErrorCodes.UserAlreadyActive,
                     $"User with id: '{UserId}' was already activated.");
             }
+
             State = States.Active;
             UpdatedAt = DateTime.UtcNow;
         }
@@ -176,6 +187,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
                 throw new DomainException(ErrorCodes.UserAlreadyUnconfirmed,
                     $"User with id: '{UserId}' was already set as unconfirmed.");
             }
+
             State = States.Unconfirmed;
             UpdatedAt = DateTime.UtcNow;
         }
@@ -187,43 +199,36 @@ namespace Healthy.Core.Domain.Users.DomainClasses
                 throw new DomainException(ErrorCodes.UserAlreadyDeleted,
                     $"User with id: '{UserId}' was already marked as deleted.");
             }
+
             State = States.Deleted;
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetPassword(string password, IEncrypter encrypter)
+        public void SetPassword(string password, IPasswordHasher<User> passwordHasher)
         {
             if (password.Empty())
             {
                 throw new DomainException(ErrorCodes.InvalidPassword,
                     "Password can not be empty.");
             }
+
             if (password.Length < 4)
             {
                 throw new DomainException(ErrorCodes.InvalidPassword,
                     "Password must contain at least 4 characters.");
-
             }
+
             if (password.Length > 100)
             {
                 throw new DomainException(ErrorCodes.InvalidPassword,
                     "Password can not contain more than 100 characters.");
             }
 
-            var salt = encrypter.GetSalt(password);
-            var hash = encrypter.GetHash(password, salt);
-
-            Password = hash;
-            Salt = salt;
+            PasswordHash = passwordHasher.HashPassword(this, password);
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public bool ValidatePassword(string password, IEncrypter encrypter)
-        {
-            var hashedPassword = encrypter.GetHash(password, Salt);
-            var areEqual = Password.Equals(hashedPassword);
-
-            return areEqual;
-        }
+        public bool ValidatePassword(string password, IPasswordHasher<User> passwordHasher)
+            => passwordHasher.VerifyHashedPassword(this, PasswordHash, password) != PasswordVerificationResult.Failed;
     }
 }

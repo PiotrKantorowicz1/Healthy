@@ -7,6 +7,7 @@ using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Domain.Users.Services;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Types;
+using Microsoft.AspNetCore.Identity;
 
 namespace Healthy.Application.Services.Users
 {
@@ -15,16 +16,19 @@ namespace Healthy.Application.Services.Users
         private readonly IUserRepository _userRepository;
         private readonly IUserSessionRepository _userSessionRepository;
         private readonly IFacebookService _facebookService;
+        private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IEncrypter _encrypter;
 
         public AuthenticationService(IUserRepository userRepository,
             IUserSessionRepository userSessionRepository,
             IFacebookService facebookService,
+            IPasswordHasher<User> passwordHasher,
             IEncrypter encrypter)
         {
             _userRepository = userRepository;
             _userSessionRepository = userSessionRepository;
             _facebookService = facebookService;
+            _passwordHasher = _passwordHasher;
             _encrypter = encrypter;
         }
 
@@ -45,7 +49,7 @@ namespace Healthy.Application.Services.Users
                 throw new ServiceException(ErrorCodes.InactiveUser,
                     $"User '{user.Value.Id}' is not active.");
             }
-            if (!user.Value.ValidatePassword(password, _encrypter))
+            if (!user.Value.ValidatePassword(password, _passwordHasher))
             {
                 throw new ServiceException(ErrorCodes.InvalidCredentials,
                     "Invalid credentials.");
