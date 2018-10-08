@@ -6,6 +6,10 @@ namespace Healthy.Core
         public static string UserNotFound => "user_not_found";
         public static string ProductNotFound => "product_not_found";
         public static string SlotNotFound => "slot_not_found";
+        public static string InvalidDailySupplementationState => "invalid_daily_supplementation_state";
+        public static string InvalidBodyGroup => "invalid_body_group";
+        public static string InvalidWorkoutType => "invalid_workout_type";
+        public static string InvalidWorkoutSubType => "invalid_workout_sub_type";
         public static string DurationNotProvided => "duration_not_provided";
         public static string DailyWorkoutNotFound => "daily_workout_not_found";
         public static string ExerciseDetailsNotProvided => "exercise_details_not_provided";

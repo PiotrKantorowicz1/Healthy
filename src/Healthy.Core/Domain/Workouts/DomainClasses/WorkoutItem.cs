@@ -1,5 +1,4 @@
 using System;
-using Healthy.Core.Domain.BaseClasses;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
 
@@ -24,7 +23,7 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
             ExerciseId = exerciseId;
             SetExerciseName(exerciseName);
             SetExerciseDetails(exerciseDetails);
-            BodyGroup = bodyGroup;
+            SetBodyGroup(bodyGroup);
         }
 
         public void SetExerciseName(string exerciseName)
@@ -53,6 +52,17 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
             }
 
             ExerciseDetails = exerciseDetails;
+        }
+        
+        public void SetBodyGroup(string bodyGroup)
+        {
+            if (!DomainClasses.BodyGroup.IsValid(bodyGroup))
+            {
+                throw new DomainException(ErrorCodes.InvalidBodyGroup,
+                    "Body group is invalid!");
+            }
+
+            BodyGroup = bodyGroup;
         }
     }
 }

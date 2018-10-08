@@ -37,7 +37,7 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
         {
             Id = id;
             SetDay(day);
-            State = "pending";
+            SetState("Pending");
             UpdatedAt = DateTime.UtcNow;
             CreatedAt = DateTime.UtcNow;
         }
@@ -51,6 +51,18 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
             }
 
             Day = day;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetState(string state)
+        {
+            if (DailySupplementationState.IsValid(state))
+            {
+                throw new DomainException(ErrorCodes.InvalidDailySupplementationState,
+                    "Daily supplementation state is invalid!");
+            }
+
+            State = state;
             UpdatedAt = DateTime.UtcNow;
         }
 

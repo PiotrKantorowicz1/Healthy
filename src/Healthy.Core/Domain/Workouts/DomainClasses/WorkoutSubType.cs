@@ -1,5 +1,3 @@
-using Healthy.Core.Domain.BaseClasses;
-
 namespace Healthy.Core.Domain.Workouts.DomainClasses
 {
     public static class WorkoutSubType

@@ -1,5 +1,4 @@
 using System;
-using Healthy.Core.Domain.BaseClasses;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
 
