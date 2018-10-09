@@ -28,7 +28,7 @@ namespace Healthy.Application.Services.Users
             _userRepository = userRepository;
             _userSessionRepository = userSessionRepository;
             _facebookService = facebookService;
-            _passwordHasher = _passwordHasher;
+            _passwordHasher = passwordHasher;
             _encrypter = encrypter;
         }
 

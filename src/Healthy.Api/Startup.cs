@@ -44,12 +44,12 @@ namespace Healthy.Api
 
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
-                    .AsImplementedInterfaces();
+                    .AsImplementedInterfaces()
+                    .InstancePerLifetimeScope();
 
-            builder.Populate(services);
-
+            builder.Populate(services);        
             builder.RegisterInstance(Configuration.GetSettings<MongoDbSettings>()).SingleInstance();
-            builder.RegisterModule<InfrastructureModule>();
+            builder.RegisterModule(new InfrastructureModule(Configuration));
             builder.RegisterModule<ApplicationModule>();
 
             Container = builder.Build();

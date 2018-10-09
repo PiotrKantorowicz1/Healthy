@@ -3,6 +3,7 @@ using Autofac;
 using Healthy.Application.Mappers;
 using Healthy.Application.Services;
 using Healthy.Application.Dispatchers;
+using Healthy.Contracts.Commands;
 using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.IoC
@@ -15,6 +16,10 @@ namespace Healthy.Application.IoC
                 .GetTypeInfo()
                 .Assembly;
 
+            var contractsAssembly = typeof(ICommand)
+                .GetTypeInfo()
+                .Assembly;
+
             builder.RegisterInstance(AutoMapperConfig.InitializeMapper());
 
             builder.RegisterAssemblyTypes(assembly)
@@ -22,13 +27,17 @@ namespace Healthy.Application.IoC
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
 
-            builder.RegisterType<CommandDispatcher>()
-                   .As<ICommandDispatcher>()
+            builder.RegisterAssemblyTypes(assembly, contractsAssembly)
+                   .AsClosedTypesOf(typeof(ICommandHandler<>))
+                   .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(assembly)
-                   .AsClosedTypesOf(typeof(ICommandHandler<>))
+            builder.RegisterType<CommandDispatcher>()
+                   .As<ICommandDispatcher>()
+                   .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
+
+
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Healthy.Infrastructure.Settings
 {
-    public class FaceBookSettings
+    public class FacebookSettings
     {
         public bool ServiceEnabled { get; set; }
         public string AvatarUrl { get; set; }

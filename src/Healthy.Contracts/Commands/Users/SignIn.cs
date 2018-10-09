@@ -11,7 +11,7 @@ namespace Healthy.Contracts.Commands.Users
         public string UserAgent { get; }
         public string AccessToken { get; }
         public string Provider { get; }
-
+        
         public SignIn(Guid sessionId, string email, string password, string ipAddress,
             string userAgent, string accessToken, string provider)
         {

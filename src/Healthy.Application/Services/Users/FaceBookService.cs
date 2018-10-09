@@ -9,9 +9,9 @@ namespace Healthy.Application.Services.Users
     public class FacebookService : IFacebookService
     {
         private readonly IFacebookClient _facebookClient;
-        private readonly FaceBookSettings _facebookSettings;
+        private readonly FacebookSettings _facebookSettings;
 
-        public FacebookService(IFacebookClient facebookClient, FaceBookSettings facebookSettings)
+        public FacebookService(IFacebookClient facebookClient, FacebookSettings facebookSettings)
         {
             _facebookClient = facebookClient;
             _facebookSettings = facebookSettings;
