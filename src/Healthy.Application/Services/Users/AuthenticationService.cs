@@ -35,6 +35,9 @@ namespace Healthy.Application.Services.Users
             _userRepository = userRepository;
             _userSessionRepository = userSessionRepository;
             _facebookService = facebookService;
+            _userService = userService;
+            _claimsProvider = claimsProvider;
+            _jwtHandler = jwtHandler;
             _passwordHasher = passwordHasher;
             _encrypter = encrypter;
         }
