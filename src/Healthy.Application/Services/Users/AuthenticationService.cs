@@ -7,6 +7,7 @@ using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Domain.Users.Services;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Types;
+using Healthy.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
 
 namespace Healthy.Application.Services.Users
@@ -16,6 +17,9 @@ namespace Healthy.Application.Services.Users
         private readonly IUserRepository _userRepository;
         private readonly IUserSessionRepository _userSessionRepository;
         private readonly IFacebookService _facebookService;
+        private readonly IUserService _userService;
+        private readonly IClaimsProvider _claimsProvider;
+        private readonly IJwtHandler _jwtHandler;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IEncrypter _encrypter;
 
@@ -23,7 +27,10 @@ namespace Healthy.Application.Services.Users
             IUserSessionRepository userSessionRepository,
             IFacebookService facebookService,
             IPasswordHasher<User> passwordHasher,
-            IEncrypter encrypter)
+            IEncrypter encrypter,
+            IUserService userService,
+            IClaimsProvider claimsProvider,
+            IJwtHandler jwtHandler)
         {
             _userRepository = userRepository;
             _userSessionRepository = userSessionRepository;
@@ -34,6 +41,29 @@ namespace Healthy.Application.Services.Users
 
         public async Task<Maybe<UserSession>> GetSessionAsync(Guid id)
             => await _userSessionRepository.GetByIdAsync(id);
+
+        public async Task<Maybe<JwtSession>> HandleSessionAsync(Guid sessionId)
+        {
+            var session = await GetSessionAsync(sessionId);
+            if (session.HasNoValue)
+            {
+                return null;
+            }
+
+            var user = await _userService.GetAsync(session.Value.UserId);
+            var claims = await _claimsProvider.GetAsync(user.Value.UserId);
+            var token = _jwtHandler.CreateToken(user.Value.UserId,
+                user.Value.Role, state: user.Value.State, claims: claims);
+
+            return new JwtSession
+            {
+                AccessToken = token.AccessToken,
+                Expires = token.Expires,
+                SessionId = session.Value.Id,
+                Role = token.Role,
+                Key = session.Value.Key
+            };
+        }
 
         public async Task SignInAsync(Guid sessionId, string email, string password,
             string ipAddress = null, string userAgent = null)

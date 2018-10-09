@@ -1,59 +1,66 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Healthy.Api.Framework.Extensions;
 using Healthy.Application.Dispatchers;
 using Healthy.Application.Services.Users.Abstract;
 using Healthy.Contracts.Commands.Users;
+using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Types;
 using Healthy.Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Healthy.Api.Controllers
 {
-    [ApiController]
     public class AuthenticationController : BaseController
     {
-        private readonly IUserService _userService;
         private readonly IAuthenticationService _authenticationService;
-        private readonly IJwtHandler _jwtHandler;
-        
-        public AuthenticationController(ICommandDispatcher commandDispatcher, IUserService userService, 
-            IAuthenticationService authenticationService, IJwtHandler jwtHandler) : base(commandDispatcher)
+
+        public AuthenticationController(ICommandDispatcher commandDispatcher,
+            IAuthenticationService authenticationService) 
+            : base(commandDispatcher)
         {
-            _userService = userService;
             _authenticationService = authenticationService;
-            _jwtHandler = jwtHandler;
         }
+
+        [HttpGet("me")]
+        public IActionResult Get() => Content($"Your id: '{UserId:N}'.");
 
         [HttpPost("sign-in")]
         [AllowAnonymous]
         public async Task<IActionResult> SignIn(SignIn command)
         {
-            await DispatchAsync(command);
-            return NoContent();
-        }
-        
-        private async Task<Maybe<JwtSession>> HandleSessionAsync(Guid sessionId) 
-        {
-            var session = await _authenticationService.GetSessionAsync(sessionId);
+            await DispatchAsync(command.BindId(c => c.SessionId));
+            var session = await _authenticationService.HandleSessionAsync(command.SessionId);
             if (session.HasNoValue)
             {
-                return null;
+                return StatusCode(401);
             }
-            var user = await _userService.GetAsync(session.Value.UserId);
-            var token = _jwtHandler.CreateToken(user.Value.UserId, 
-                user.Value.Role, state: user.Value.State);
 
-            return new JwtSession
+            return Ok(session.Value);
+        }
+
+        [HttpPost("sessions")]
+        public async Task<IActionResult> RefreshSession(RefreshUserSession command)
+        {
+            await DispatchAsync(command.BindId(c => c.NewSessionId));
+            var session = await _authenticationService.HandleSessionAsync(command.NewSessionId);
+            if (session.HasNoValue)
             {
-                AccessToken = token.AccessToken,
-                RefreshToken = token.RefreshToken,
-                Expires = token.Expires,
-                SessionId = session.Value.Id,
-                Role = token.Role,
-                Key = session.Value.Key
-            };
+                return StatusCode(403);
+            }
+
+            return Ok(session.Value);
+        }
+
+        [HttpPost("sign-out")]
+        public async Task<IActionResult> SignOut(SignOut command)
+        {
+            await DispatchAsync(command);
+
+            return NoContent();
         }        
     }
 }
