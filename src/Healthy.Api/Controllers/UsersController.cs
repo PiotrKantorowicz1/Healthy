@@ -1,9 +1,4 @@
-﻿using System.Threading.Tasks;
-using Healthy.Api.Framework.Extensions;
-using Healthy.Application.Dispatchers;
-using Healthy.Contracts.Commands.Users;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Healthy.Application.Dispatchers;
 
 namespace Healthy.Api.Controllers
 {

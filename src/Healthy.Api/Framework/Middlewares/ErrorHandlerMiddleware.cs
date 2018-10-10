@@ -1,5 +1,4 @@
-﻿using Autofac.Core;
-using Healthy.Core.Exceptions;
+﻿using Healthy.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;

@@ -1,5 +1,3 @@
-using Healthy.Contracts.Commands;
-
 namespace Healthy.Contracts.Commands.Users
 {
     public class ActivateAccount : ICommand

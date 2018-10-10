@@ -1,15 +1,9 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Healthy.Api.Framework.Extensions;
 using Healthy.Application.Dispatchers;
 using Healthy.Application.Services.Users.Abstract;
 using Healthy.Contracts.Commands.Users;
-using Healthy.Core.Domain.Users.DomainClasses;
-using Healthy.Core.Types;
-using Healthy.Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Healthy.Api.Controllers

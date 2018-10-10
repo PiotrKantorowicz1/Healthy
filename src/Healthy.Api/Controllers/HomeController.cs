@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Healthy.Application.Dispatchers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

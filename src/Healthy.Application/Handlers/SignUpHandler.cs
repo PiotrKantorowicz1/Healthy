@@ -27,10 +27,6 @@ namespace Healthy.Application.Handlers
                     command.Role.Empty() ? Roles.User : command.Role, Providers.Healthy,
                     password: command.Password, name: command.Name,
                     activate: command.State == "active"))
-                .OnSuccess(async () =>
-                {
-                    var user = await _userService.GetAsync(userId);
-                })
                 .OnError((ex, logger) =>
                 {
                     logger.Error(ex, "Error occured while signing up a user");
