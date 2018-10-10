@@ -80,7 +80,6 @@ namespace Healthy.Infrastructure.Security
             return new JsonWebToken
             {
                 AccessToken = token,
-                RefreshToken = string.Empty,
                 Expires = expires.ToTimestamp(),
                 Role = role ?? string.Empty,
                 Claims = customClaims.ToDictionary(c => c.Type, c => c.Value)
