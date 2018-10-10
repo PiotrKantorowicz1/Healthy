@@ -8,7 +8,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Core.Domain.Workouts.DomainClasses
 {
-    public class WorkoutGroup : Entity, ITimestampable
+    public class WorkoutGroup : AggregateRoot, ITimestampable
     {
         private ISet<WorkoutItem> _workoutItems = new HashSet<WorkoutItem>();
         public string Name { get; set; }
@@ -51,7 +51,7 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
 
         public void AddWorkoutItem(WorkoutItem workoutItem)
         {
-            _workoutItems.Add(new WorkoutItem(workoutItem.Id, workoutItem.WorkoutId, workoutItem.ExerciseId,
+            _workoutItems.Add(new WorkoutItem(workoutItem.WorkoutId, workoutItem.ExerciseId,
                 workoutItem.ExerciseName, workoutItem.ExerciseDetails, workoutItem.BodyGroup));
 
             UpdatedAt = DateTime.UtcNow;
@@ -76,7 +76,7 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
             return workoutItem.Value;
         }
 
-        private Maybe<WorkoutItem> GetWorkoutItem(Guid id)
-            => WorkoutItems.SingleOrDefault(x => x.Id == id);
+        private Maybe<WorkoutItem> GetWorkoutItem(Guid exerciseId)
+            => WorkoutItems.SingleOrDefault(x => x.ExerciseId == exerciseId);
     }
 }

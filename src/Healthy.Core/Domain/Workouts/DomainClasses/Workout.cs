@@ -9,7 +9,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Core.Domain.Workouts.DomainClasses
 {
-    public class Workout : Entity, ITimestampable
+    public class Workout : AggregateRoot, ITimestampable
     {
         private ISet<WorkoutGroup> _workoutGroups = new HashSet<WorkoutGroup>();
         public string Name { get; protected set; }
@@ -35,8 +35,8 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
             Id = Id;
             SetName(name);
             SetDuration(duration);
-            WorkoutType = workoutType;
-            WorkoutSubType = workoutSubType;
+            SetWorkoutType(workoutType);
+            SetWorkoutSubType(workoutSubType);
             UpdatedAt = DateTime.UtcNow;
             CreatedAt = DateTime.UtcNow;
         }
@@ -56,6 +56,30 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
             }
 
             Name = name;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetWorkoutType(string workoutType)
+        {
+            if (!DomainClasses.WorkoutType.IsValid(workoutType))
+            {
+                throw new DomainException(ErrorCodes.InvalidWorkoutType,
+                    "Workout type is invalid!");
+            }
+
+            WorkoutType = workoutType;
+            UpdatedAt = DateTime.UtcNow;
+        }
+        
+        public void SetWorkoutSubType(string workoutSubType)
+        {
+            if (!DomainClasses.WorkoutSubType.IsValid(workoutSubType))
+            {
+                throw new DomainException(ErrorCodes.InvalidWorkoutSubType,
+                    "Workout sub type is invalid!");
+            }
+
+            WorkoutSubType = workoutSubType;
             UpdatedAt = DateTime.UtcNow;
         }
 

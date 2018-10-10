@@ -8,7 +8,6 @@ namespace Healthy.Tests.Initializers
     {
         protected Avatar Avatar;
         protected OneTimeSecuredOperation OneTimeSecuredOperation;
-        protected RefreshToken RefreshToken;
         protected User User;
         protected UserSession UserSession;
 
@@ -18,7 +17,6 @@ namespace Healthy.Tests.Initializers
             OneTimeSecuredOperation = new OneTimeSecuredOperation(Guid.NewGuid(), "change_password", 
                 "pk-admin", "sdfsdkghuidfhgfiohjgidfsjhioj", DateTime.UtcNow);
             User = new User($"{Guid.NewGuid()}", "sdfsdfd@email.com", "admin", "healthy");
-            RefreshToken = new RefreshToken(User, new PasswordHasher<User>());
             UserSession = new UserSession(Guid.NewGuid(), "asIIIjfdsfKKFJ");
         }
     }

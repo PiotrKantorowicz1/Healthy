@@ -5,7 +5,7 @@ using Healthy.Core.Domain.BaseClasses;
 
 namespace Healthy.Core.Domain.Users.DomainClasses
 {
-    public class OneTimeSecuredOperation : Entity, ITimestampable
+    public class OneTimeSecuredOperation : AggregateRoot, ITimestampable
     {
         public string Type { get; protected set; }
         public string User { get; protected set; }

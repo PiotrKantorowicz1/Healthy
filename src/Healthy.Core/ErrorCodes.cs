@@ -6,6 +6,10 @@ namespace Healthy.Core
         public static string UserNotFound => "user_not_found";
         public static string ProductNotFound => "product_not_found";
         public static string SlotNotFound => "slot_not_found";
+        public static string InvalidDailySupplementationState => "invalid_daily_supplementation_state";
+        public static string InvalidBodyGroup => "invalid_body_group";
+        public static string InvalidWorkoutType => "invalid_workout_type";
+        public static string InvalidWorkoutSubType => "invalid_workout_sub_type";
         public static string DurationNotProvided => "duration_not_provided";
         public static string DailyWorkoutNotFound => "daily_workout_not_found";
         public static string ExerciseDetailsNotProvided => "exercise_details_not_provided";
@@ -30,8 +34,6 @@ namespace Healthy.Core
         public static string InactiveUser => "inactive_user";
         public static string SessionNotFound => "session_not_found";
         public static string InvalidSessionKey => "invalid_session_key";
-        public static string RefreshTokenAlreadyRevoked => "refresh_token_already_revoked";
-        public static string RefreshTokenNotFound => "refresh_token_not_found";
         public static string SessionExpired => "session_expired";
         public static string SessionRefreshed => "session_refreshed";
         public static string SessionDestroyed => "session_destroyed";

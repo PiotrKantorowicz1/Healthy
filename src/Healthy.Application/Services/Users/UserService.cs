@@ -3,28 +3,28 @@ using Healthy.Application.Services.Users.Abstract;
 using Healthy.Core;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Domain.Users.Repositories;
-using Healthy.Core.Domain.Users.Services;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
 using Healthy.Core.Pagination;
 using Healthy.Core.Queries.Users;
 using Healthy.Core.Types;
+using Microsoft.AspNetCore.Identity;
 
 namespace Healthy.Application.Services.Users
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IEncrypter _encrypter;
-        private readonly IOneTimeSecuredOperationService _seruredOperationService;
+        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IOneTimeSecuredOperationService _securedOperationService;
 
         public UserService(IUserRepository userRepository,
-            IEncrypter encrypter,
-            IOneTimeSecuredOperationService seruredOperationService)
+            IPasswordHasher<User> passwordHasher,
+            IOneTimeSecuredOperationService securedOperationService)
         {
             _userRepository = userRepository;
-            _encrypter = encrypter;
-            _seruredOperationService = seruredOperationService;
+            _passwordHasher = passwordHasher;
+            _securedOperationService = securedOperationService;
         }
 
         public async Task<bool> IsNameAvailableAsync(string name)
@@ -92,7 +92,7 @@ namespace Healthy.Application.Services.Users
             }
             user = new User(userId, email, role, provider);
             if (!password.Empty())
-                user.Value.SetPassword(password, _encrypter);
+                user.Value.SetPassword(password, _passwordHasher);
             if (name.NotEmpty())
             {
                 user.Value.SetName(name);
@@ -128,7 +128,7 @@ namespace Healthy.Application.Services.Users
 
         public async Task ActivateAsync(string email, string token)
         {
-            await _seruredOperationService.ConsumeAsync(OneTimeSecuredOperations.ActivateAccount,
+            await _securedOperationService.ConsumeAsync(OneTimeSecuredOperations.ActivateAccount,
                 email, token);
             var user = await _userRepository.GetByEmailAsync(email, Providers.Healthy);
             if (user.HasNoValue)

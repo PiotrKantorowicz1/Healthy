@@ -7,7 +7,7 @@ using Healthy.Core.Types;
 
 namespace Healthy.Core.Domain.Diets.DomainClasses
 {
-    public class Meal : Entity, ITimestampable
+    public class Meal : AggregateRoot, ITimestampable
     {
         private ISet<MealItem> _mealItems = new HashSet<MealItem>();
         public int MealNumber { get; protected set; }
@@ -46,7 +46,7 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
 
         public void AddMealItem(MealItem item)
         {
-            _mealItems.Add(new MealItem(item.Id, item.MealId, item.ProductId, 
+            _mealItems.Add(new MealItem(item.MealId, item.ProductId, 
                 item.Name, item.Quantity, item.NutritionValuesSummary));
 
             UpdatedAt = DateTime.UtcNow;
@@ -71,7 +71,7 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
             return product.Value;
         }
 
-        private Maybe<MealItem> GetMealItem(Guid id)
-            => MealItems.SingleOrDefault(x => x.Id == id);
+        private Maybe<MealItem> GetMealItem(Guid productId)
+            => MealItems.SingleOrDefault(x => x.ProductId == productId);
     }
 }

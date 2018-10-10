@@ -5,7 +5,7 @@ using Healthy.Core.Extensions;
 
 namespace Healthy.Core.Domain.Diets.DomainClasses
 {
-    public class Category : Entity
+    public class Category : AggregateRoot
     {
         public string Name { get; protected set; }
 

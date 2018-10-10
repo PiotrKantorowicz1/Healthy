@@ -5,7 +5,7 @@ using Healthy.Core.Extensions;
 
 namespace Healthy.Core.Domain.Workouts.DomainClasses
 {
-    public class Exercise : Entity, ITimestampable
+    public class Exercise : AggregateRoot, ITimestampable
     {
         public string Name { get; protected set; }
         public string BodyGroup { get; protected set; }
@@ -22,7 +22,7 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
         {
             Id = id;
             SetName(name);
-            BodyGroup = bodyGroup;
+            SetBodyGroup(bodyGroup);
             SetDescription(description);
             UpdatedAt = DateTime.UtcNow;
             CreatedAt = DateTime.UtcNow;
@@ -44,6 +44,18 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
 
             Name = name;
             UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetBodyGroup(string bodyGroup)
+        {
+            if (!DomainClasses.BodyGroup.IsValid(bodyGroup))
+            {
+                throw new DomainException(ErrorCodes.InvalidBodyGroup,
+                    "Body group is invalid!");
+            }
+
+            BodyGroup = bodyGroup;
+            UpdatedAt = UpdatedAt;
         }
         
         public void SetDescription(string description)

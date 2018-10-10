@@ -4,8 +4,8 @@ using Healthy.Application.Services.Users.Abstract;
 using Healthy.Core;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Domain.Users.Repositories;
-using Healthy.Core.Domain.Users.Services;
 using Healthy.Core.Exceptions;
+using Microsoft.AspNetCore.Identity;
 
 namespace Healthy.Application.Services.Users
 {
@@ -13,15 +13,15 @@ namespace Healthy.Application.Services.Users
     {
         private readonly IUserRepository _userRepository;
         private readonly IOneTimeSecuredOperationService _oneTimeSecuredOperationService;
-        private readonly IEncrypter _encrypter;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
         public PasswordService(IUserRepository userRepository,
             IOneTimeSecuredOperationService oneTimeSecuredOperationService,
-            IEncrypter encrypter)
+            IPasswordHasher<User> passwordHasher)
         {
             _userRepository = userRepository;
             _oneTimeSecuredOperationService = oneTimeSecuredOperationService;
-            _encrypter = encrypter;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task ChangeAsync(string userId, string currentPassword, string newPassword)
@@ -37,13 +37,13 @@ namespace Healthy.Application.Services.Users
                 throw new ServiceException(ErrorCodes.InvalidAccountType,
                     $"Password can not be changed for the account type: ;{user.Value.Provider}'.");
             }
-            if (!user.Value.ValidatePassword(currentPassword, _encrypter))
+            if (!user.Value.ValidatePassword(currentPassword, _passwordHasher))
             {
                 throw new ServiceException(ErrorCodes.InvalidCurrentPassword,
                     "Current password is invalid.");
             }
 
-            user.Value.SetPassword(newPassword, _encrypter);
+            user.Value.SetPassword(newPassword, _passwordHasher);
             await _userRepository.UpdateAsync(user.Value);
         }
 
@@ -70,7 +70,7 @@ namespace Healthy.Application.Services.Users
 
             await _oneTimeSecuredOperationService.ConsumeAsync(OneTimeSecuredOperations.ResetPassword,
                 email, token);
-            user.Value.SetPassword(password, _encrypter);
+            user.Value.SetPassword(password, _passwordHasher);
             await _userRepository.UpdateAsync(user.Value);
         }
     }

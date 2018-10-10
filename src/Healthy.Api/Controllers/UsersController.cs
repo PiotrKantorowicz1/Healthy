@@ -7,21 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Healthy.Api.Controllers
 {
-    [ApiController]
     public class UsersController : BaseController
     {
         public UsersController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
         }
 
-        [HttpPost("sign-up")]
-        [AllowAnonymous]
-        public async Task<IActionResult> SignUp(SignUp command)
-        {
-            command.BindId(c => c.Id);
-            await DispatchAsync(command);
-
-            return NoContent();
-        }
     }
 }
