@@ -34,8 +34,6 @@ namespace Healthy.Core
         public static string InactiveUser => "inactive_user";
         public static string SessionNotFound => "session_not_found";
         public static string InvalidSessionKey => "invalid_session_key";
-        public static string RefreshTokenAlreadyRevoked => "refresh_token_already_revoked";
-        public static string RefreshTokenNotFound => "refresh_token_not_found";
         public static string SessionExpired => "session_expired";
         public static string SessionRefreshed => "session_refreshed";
         public static string SessionDestroyed => "session_destroyed";
