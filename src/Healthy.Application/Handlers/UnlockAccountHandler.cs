@@ -1,7 +1,5 @@
-using System;
 using System.Threading.Tasks;
 using Healthy.Application.Services.Users.Abstract;
-using Healthy.Contracts.Commands;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Handlers;
 

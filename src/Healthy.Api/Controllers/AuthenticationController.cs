@@ -24,7 +24,7 @@ namespace Healthy.Api.Controllers
 
         [HttpPost("sign-in")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignIn(SignIn command)
+        public async Task<IActionResult> Post(SignIn command)
         {
             await DispatchAsync(command.BindId(c => c.SessionId));
             var session = await _authenticationService.HandleSessionAsync(command.SessionId);
@@ -37,7 +37,7 @@ namespace Healthy.Api.Controllers
         }
 
         [HttpPost("sessions")]
-        public async Task<IActionResult> RefreshSession(RefreshUserSession command)
+        public async Task<IActionResult> Post(RefreshUserSession command)
         {
             await DispatchAsync(command.BindId(c => c.NewSessionId));
             var session = await _authenticationService.HandleSessionAsync(command.NewSessionId);
@@ -50,7 +50,7 @@ namespace Healthy.Api.Controllers
         }
 
         [HttpPost("sign-out")]
-        public async Task<IActionResult> SignOut(SignOut command)
+        public async Task<IActionResult> Post(SignOut command)
         {
             await DispatchAsync(command);
 
