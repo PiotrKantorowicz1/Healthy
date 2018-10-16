@@ -4,7 +4,7 @@ using Healthy.Application.Services.Users.Abstract;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Handlers;
 
-namespace Healthy.Application.Handlers
+namespace Healthy.Application.Handlers.Users
 {
     public class ResetPasswordHandler : ICommandHandler<ResetPassword>
     {

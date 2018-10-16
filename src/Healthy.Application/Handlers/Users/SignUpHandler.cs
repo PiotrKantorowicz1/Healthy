@@ -6,7 +6,7 @@ using Healthy.Contracts.Commands.Users;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Extensions;
 
-namespace Healthy.Application.Handlers
+namespace Healthy.Application.Handlers.Users
 {
     public class SignUpHandler : ICommandHandler<SignUp>
     {

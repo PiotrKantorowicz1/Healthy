@@ -7,7 +7,7 @@ using Healthy.Core.Types;
 using Healthy.Infrastructure.Handlers;
 using Serilog;
 
-namespace Healthy.Application.Handlers
+namespace Healthy.Application.Handlers.Users
 {
     public class SignInHandler : ICommandHandler<SignIn>
     {

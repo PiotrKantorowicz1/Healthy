@@ -3,25 +3,25 @@ using Healthy.Application.Services.Users.Abstract;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Handlers;
 
-namespace Healthy.Application.Handlers
+namespace Healthy.Application.Handlers.Users
 {
-    public class LockAccountHandler : ICommandHandler<LockAccount>
+    public class UnlockAccountHandler : ICommandHandler<UnlockAccount>
     {
         private readonly IHandler _handler;
         private readonly IUserService _userService;
 
-        public LockAccountHandler(IHandler handler,
+        public UnlockAccountHandler(IHandler handler,
             IUserService userService)
         {
             _handler = handler;
             _userService = userService;
         }
 
-        public async Task HandleAsync(LockAccount command)
+        public async Task HandleAsync(UnlockAccount command)
             => await _handler
-                .Run(async () => await _userService.LockAsync(command.LockUserId))
+                .Run(async () => await _userService.UnlockAsync(command.UnlockUserId))
                 .OnError((ex, logger) =>
-                    logger.Error($"Error occured while locking an account for user: '{command.UserId}'."))
+                    logger.Error($"Error occured while unlocking an account for user: '{command.UserId}'."))
                 .ExecuteAsync();
     }
 }

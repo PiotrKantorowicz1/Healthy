@@ -3,25 +3,25 @@ using Healthy.Application.Services.Users.Abstract;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Handlers;
 
-namespace Healthy.Application.Handlers
+namespace Healthy.Application.Handlers.Users
 {
-    public class ChangePasswordHandler : ICommandHandler<ChangePassword>
+    public class SetNewPasswordHandler : ICommandHandler<SetNewPassword>
     {
         private readonly IHandler _handler;
         private readonly IPasswordService _passwordService;
 
-        public ChangePasswordHandler(IHandler handler,
+        public SetNewPasswordHandler(IHandler handler,
             IPasswordService passwordService)
         {
             _handler = handler;
             _passwordService = passwordService;
         }
 
-        public async Task HandleAsync(ChangePassword command)
+        public async Task HandleAsync(SetNewPassword command)
             => await _handler
-                .Run(async () => await _passwordService.ChangeAsync(command.UserId,
-                    command.CurrentPassword, command.NewPassword))
-                .OnError((ex, logger) => logger.Error(ex, "Error when trying to change password."))
+                .Run(async () => await _passwordService.SetNewAsync(command.Email, 
+                    command.Token, command.Password))
+                .OnError((ex, logger) => logger.Error(ex, "Error when trying to set new password."))
                 .ExecuteAsync();
     }
 }

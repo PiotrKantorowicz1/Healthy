@@ -3,24 +3,25 @@ using Healthy.Application.Services.Users.Abstract;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Handlers;
 
-namespace Healthy.Application.Handlers
+namespace Healthy.Application.Handlers.Users
 {
-    public class ChangeUsernameHandler : ICommandHandler<ChangeUsername>
+    public class LockAccountHandler : ICommandHandler<LockAccount>
     {
         private readonly IHandler _handler;
         private readonly IUserService _userService;
 
-        public ChangeUsernameHandler(IHandler handler,
+        public LockAccountHandler(IHandler handler,
             IUserService userService)
         {
             _handler = handler;
             _userService = userService;
         }
 
-        public async Task HandleAsync(ChangeUsername command)
+        public async Task HandleAsync(LockAccount command)
             => await _handler
-                .Run(async () => await _userService.ChangeNameAsync(command.UserId, command.Name))
-                .OnError((ex, logger) => logger.Error(ex, "Error occured while changing username"))
+                .Run(async () => await _userService.LockAsync(command.LockUserId))
+                .OnError((ex, logger) =>
+                    logger.Error($"Error occured while locking an account for user: '{command.UserId}'."))
                 .ExecuteAsync();
     }
 }
