@@ -20,17 +20,18 @@ namespace Healthy.Application.Dispatchers
             foreach (var @event in events)
             {
                 var eventType = @event.GetType();
-                var handlerType = typeof (IEventHandler<>).MakeGenericType(eventType);
+                var handlerType = typeof(IEventHandler<>).MakeGenericType(eventType);
                 await DispatchAsync(handlerType, @event);
             }
         }
 
         private async Task DispatchAsync(Type handlerType, IEvent @event)
         {
-            if(_context.TryResolve(handlerType, out object handler))
+            if (_context.TryResolve(handlerType, out var handler))
             {
                 var method = handler.GetType().GetMethod("HandleAsync");
-                await (Task)method.Invoke(handler, new object[] { @event });
+                if (method != null) 
+                    await (Task) method.Invoke(handler, new object[] {@event});
             }
         }
     }

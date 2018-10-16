@@ -41,13 +41,11 @@ namespace Healthy.Application.IoC
                    .As<IEventDispatcher>()
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
-            
+
             builder.RegisterType<QueryDispatcher>()
                    .As<IQueryDispatcher>()
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
-
-
         }
     }
 }
