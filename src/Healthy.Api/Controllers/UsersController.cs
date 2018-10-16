@@ -19,7 +19,7 @@ namespace Healthy.Api.Controllers
             return NoContent();
         }
         
-        [HttpPut("{unlockUserId/unlock}")]
+        [HttpPut("{unlockUserId}/unlock")]
         public async Task<IActionResult> Put(string unlockUserId, UnlockAccount command)
         {
             await DispatchAsync(command.Bind(c => c.UnlockUserId, unlockUserId));
