@@ -16,7 +16,7 @@ namespace Healthy.Api.Controllers
         [HttpPost("name")]
         public async Task<IActionResult> Post(ChangeUsername command)
         {
-            await DispatchAsync(command.Bind(c => c.UserId, UserId).UserId);
+            await DispatchAsync(command.Bind(c => c.UserId, UserId));
             return NoContent();
         }      
 
@@ -38,14 +38,14 @@ namespace Healthy.Api.Controllers
         [HttpPost("password")]
         public async Task<IActionResult> Post(ChangePassword command)
         {
-            await DispatchAsync(command.Bind(c => c.UserId, UserId).UserId);
+            await DispatchAsync(command.Bind(c => c.UserId, UserId));
             return NoContent();
         }
              
         [HttpPost("account")]
         public async Task<IActionResult> Post(DeleteAccount command)
         {
-            await DispatchAsync(command.Bind(c => c.UserId, UserId).UserId);
+            await DispatchAsync(command.Bind(c => c.UserId, UserId));
             return NoContent();
         }
     }
