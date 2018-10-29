@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Healthy.Api.Framework.Extensions;
 using Healthy.Application.Dispatchers;
 using Healthy.Contracts.Commands.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -15,7 +16,7 @@ namespace Healthy.Api.Controllers
         [HttpPost("name")]
         public async Task<IActionResult> Post(ChangeUsername command)
         {
-            await DispatchAsync(command);
+            await DispatchAsync(command.Bind(c => c.UserId, UserId).UserId);
             return NoContent();
         }      
 
@@ -37,14 +38,14 @@ namespace Healthy.Api.Controllers
         [HttpPost("password")]
         public async Task<IActionResult> Post(ChangePassword command)
         {
-            await DispatchAsync(command);
+            await DispatchAsync(command.Bind(c => c.UserId, UserId).UserId);
             return NoContent();
         }
              
         [HttpPost("account")]
         public async Task<IActionResult> Post(DeleteAccount command)
         {
-            await DispatchAsync(command);
+            await DispatchAsync(command.Bind(c => c.UserId, UserId).UserId);
             return NoContent();
         }
     }
