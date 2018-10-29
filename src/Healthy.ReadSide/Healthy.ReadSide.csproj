@@ -10,4 +10,9 @@
     <ProjectReference Include="..\Healthy.Infrastructure\Healthy.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers" />
+    <Folder Include="Services" />
+  </ItemGroup>
+
 </Project>
