@@ -3,10 +3,12 @@ using Autofac;
 using Healthy.Core.Domain.BaseClasses;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Domain.Users.Services;
+using Healthy.Core.Types;
 using Healthy.Infrastructure.Extensions;
 using Healthy.Infrastructure.Files;
 using Healthy.Infrastructure.Handlers;
 using Healthy.Infrastructure.Mongo;
+using Healthy.Infrastructure.Redis;
 using Healthy.Infrastructure.Security;
 using Healthy.Infrastructure.Settings;
 using Microsoft.AspNetCore.Identity;
@@ -31,20 +33,38 @@ namespace Healthy.Infrastructure.IoC
                 .Assembly;
 
             builder.Register((c, p) =>
-            {
-                var settings = c.Resolve<MongoDbSettings>();
-
-                return new MongoClient(settings.ConnectionString);
-            }).SingleInstance();
+                {
+                    var settings = c.Resolve<MongoDbSettings>();
+    
+                    return new MongoClient(settings.ConnectionString);
+                }).SingleInstance();
 
             builder.Register((c, p) =>
-            {
-                var mongoClient = c.Resolve<MongoClient>();
-                var settings = c.Resolve<MongoDbSettings>();
-                var database = mongoClient.GetDatabase(settings.Database);
+                {
+                    var mongoClient = c.Resolve<MongoClient>();
+                    var settings = c.Resolve<MongoDbSettings>();
+                    var database = mongoClient.GetDatabase(settings.Database);
+    
+                    return database;
+                }).As<IMongoDatabase>();
 
-                return database;
-            }).As<IMongoDatabase>();
+            builder.RegisterType<RedisDatabaseFactory>()
+                .As<IRedisDatabaseFactory>()
+                .SingleInstance();
+
+            builder.Register((c, p) =>
+                {
+                    var settings = c.Resolve<RedisSettings>();
+                    var databaseFactory = c.Resolve<IRedisDatabaseFactory>();
+                    var database = databaseFactory.GetDatabase(settings.Database);
+
+                    return database;
+                }).As<Maybe<RedisDatabase>>()
+                .SingleInstance();
+
+            builder.RegisterType<RedisCache>()
+                .As<ICache>()
+                .SingleInstance();
 
             builder.RegisterInstance(_configuration.GetSettings<FacebookSettings>())
                 .SingleInstance();
