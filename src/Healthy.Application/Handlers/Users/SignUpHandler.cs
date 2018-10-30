@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Healthy.Application.Dispatchers;
 using Healthy.Contracts.Commands.Users;
-using Healthy.Contracts.Events.Users;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Extensions;
 

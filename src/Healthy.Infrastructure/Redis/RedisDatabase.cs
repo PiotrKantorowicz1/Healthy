@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using StackExchange.Redis;
 
 namespace Healthy.Infrastructure.Redis

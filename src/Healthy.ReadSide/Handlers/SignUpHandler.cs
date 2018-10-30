@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Healthy.Contracts.Commands;
 using Healthy.Contracts.Events.Users;
 using Healthy.Infrastructure.Handlers;
 
