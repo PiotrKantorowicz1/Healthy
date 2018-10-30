@@ -14,7 +14,7 @@ namespace Healthy.ReadSide.Services
             _cache = cache;
         }
 
-        public async Task AddAsync(User user)
+        public async Task AddAsync(UserRM user)
             => await _cache.AddAsync(GetCacheKey(user.UserId), user);
         
         public async Task DeleteAsync(string userId)

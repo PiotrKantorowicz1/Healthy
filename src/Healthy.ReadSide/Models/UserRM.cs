@@ -2,9 +2,9 @@ using System;
 
 namespace Healthy.ReadSide.Models
 {
-    public class User
+    public class UserRM
     {
-        public Avatar Avatar { get; set; }
+        public AvatarRM Avatar { get; set; }
         public string UserId { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }

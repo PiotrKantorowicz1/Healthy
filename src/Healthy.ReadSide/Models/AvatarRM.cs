@@ -1,6 +1,6 @@
 namespace Healthy.ReadSide.Models
 {
-    public class Avatar
+    public class AvatarRM
     {
         public string Name { get; set; }
         public string Url { get; set; }

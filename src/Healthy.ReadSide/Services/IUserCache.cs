@@ -6,7 +6,7 @@ namespace Healthy.ReadSide.Services
 {
     public interface IUserCache
     {
-        Task AddAsync(User user);
+        Task AddAsync(UserRM user);
         Task DeleteAsync(string userId);
         Task AddRemarkAsync(string userId, Guid remarkId);
         Task DeleteRemarkAsync(string userId, Guid remarkId);                    
