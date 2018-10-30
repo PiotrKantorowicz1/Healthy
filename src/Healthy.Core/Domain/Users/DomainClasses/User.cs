@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using Healthy.Contracts.Events.Users;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
 using Healthy.Core.Domain.BaseClasses;
@@ -40,6 +41,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
             UpdatedAt = DateTime.UtcNow;
             UserId = userId;
             Name = $"user-{Id:N}";
+            AddEvent(new SignedUp(userId, provider, role, States.Incomplete));
         }
 
         public void SetUserId(string userId)
