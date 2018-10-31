@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
 using Healthy.Contracts.Events.Users;
 using Healthy.Core.Domain.Users.Repositories;
-using Healthy.Core.Exceptions;
-using Healthy.Core.Extensions;
 using Healthy.Infrastructure.Handlers;
 using Healthy.ReadSide.Models;
 using Healthy.ReadSide.Services;

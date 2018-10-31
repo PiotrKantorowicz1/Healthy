@@ -1,6 +1,5 @@
 using System.Reflection;
 using Autofac;
-using Healthy.Application.Mappers;
 using Healthy.Application.Services;
 using Healthy.Application.Dispatchers;
 using Healthy.Contracts.Commands;
@@ -19,8 +18,6 @@ namespace Healthy.Application.IoC
             var contractsAssembly = typeof(ICommand)
                 .GetTypeInfo()
                 .Assembly;
-
-            builder.RegisterInstance(AutoMapperConfig.InitializeMapper());
 
             builder.RegisterAssemblyTypes(assembly)
                    .Where(x => x.IsAssignableTo<IService>())
