@@ -7,7 +7,7 @@ using Healthy.Infrastructure.Handlers;
 using Healthy.ReadSide.Models;
 using Healthy.ReadSide.Services;
 
-namespace Healthy.ReadSide.Handlers
+namespace Healthy.ReadSide.Handlers.EventHandlers
 {
     public class SignUpHandler : IEventHandler<SignedUp>
     {
@@ -29,24 +29,18 @@ namespace Healthy.ReadSide.Handlers
             => await _handler
                 .Run(async () =>
                 {
-                    var user = _userRepository.GetByUserIdAsync(@event.UserId);
+                    var user = await _userRepository.GetByUserIdAsync(@event.UserId);
                     var userReadModel = new UserRM
                     {
-                        UserId = user.Result.Value.UserId,
-                        Email = user.Result.Value.Email,
-                        Name = user.Result.Value.Name,
-                        Provider = user.Result.Value.Provider,
-                        Role = user.Result.Value.Role,
-                        State = user.Result.Value.State,
-                        ExternalUserId = user.Result.Value.ExternalUserId,
-                        CreatedAt = user.Result.Value.CreatedAt,
-                        UpdatedAt = user.Result.Value.UpdatedAt,
-                        Avatar = new AvatarRM
-                        {
-                            IsEmpty = user.Result.Value.Avatar.IsEmpty,
-                            Name = user.Result.Value.Avatar.Name,
-                            Url = user.Result.Value.Avatar.Urlgit
-                        }
+                        UserId = user.Value.UserId,
+                        Email = user.Value.Email,
+                        Name = user.Value.Name,
+                        Provider = user.Value.Provider,
+                        Role = user.Value.Role,
+                        State = user.Value.State,
+                        ExternalUserId = user.Value.ExternalUserId,
+                        AvatarUrl = user.Value.Avatar.Url,
+                        CreatedAt = user.Value.CreatedAt,
                     };
 
                     await _userCache.AddAsync(userReadModel);
