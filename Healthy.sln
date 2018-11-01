@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthy.Contracts", "src\He
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthy.Storage", "src\Healthy.Storage\Healthy.Storage.csproj", "{F23D42D8-A774-4EAC-A08F-7CF5D2CDA6B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthy.Read", "src\Healthy.Read\Healthy.Read.csproj", "{EEF24B30-C4BB-4A47-A167-62C0C1F525C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{F23D42D8-A774-4EAC-A08F-7CF5D2CDA6B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F23D42D8-A774-4EAC-A08F-7CF5D2CDA6B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F23D42D8-A774-4EAC-A08F-7CF5D2CDA6B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF24B30-C4BB-4A47-A167-62C0C1F525C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF24B30-C4BB-4A47-A167-62C0C1F525C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF24B30-C4BB-4A47-A167-62C0C1F525C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF24B30-C4BB-4A47-A167-62C0C1F525C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{4E625557-BC77-402C-84FE-D366FFFB81BE} = {EB355BA7-8F90-419C-AA98-B335D60C8AA7}
 		{8DC7AAD6-B70B-4849-AEA6-512C7E44821D} = {5A0B9FD0-131C-4F65-BF57-D82EF31916CB}
 		{F23D42D8-A774-4EAC-A08F-7CF5D2CDA6B6} = {5A0B9FD0-131C-4F65-BF57-D82EF31916CB}
+		{EEF24B30-C4BB-4A47-A167-62C0C1F525C5} = {5A0B9FD0-131C-4F65-BF57-D82EF31916CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B95B887-162D-48F9-B1FF-D6E1D18E8CE1}
