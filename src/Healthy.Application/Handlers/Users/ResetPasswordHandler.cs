@@ -6,7 +6,7 @@ using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class ResetPasswordHandler : ICommandHandler<ResetPassword>
+    public sealed class ResetPasswordHandler : ICommandHandler<ResetPassword>
     {
         private readonly IHandler _handler;
         private readonly IPasswordService _passwordService;

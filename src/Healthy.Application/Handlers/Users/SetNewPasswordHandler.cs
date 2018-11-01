@@ -5,7 +5,7 @@ using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class SetNewPasswordHandler : ICommandHandler<SetNewPassword>
+    public sealed class SetNewPasswordHandler : ICommandHandler<SetNewPassword>
     {
         private readonly IHandler _handler;
         private readonly IPasswordService _passwordService;

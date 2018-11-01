@@ -10,7 +10,7 @@ using Healthy.Infrastructure.Dispatchers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class SignUpHandler : ICommandHandler<SignUp>
+    public sealed class SignUpHandler : ICommandHandler<SignUp>
     {
         private readonly IHandler _handler;
         private readonly IUserService _userService;

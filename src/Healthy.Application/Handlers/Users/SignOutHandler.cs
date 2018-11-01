@@ -5,7 +5,7 @@ using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class SignOutHandler : ICommandHandler<SignOut>
+    public sealed class SignOutHandler : ICommandHandler<SignOut>
     {
         private readonly IHandler _handler;
         private readonly IAuthenticationService _authenticationService;

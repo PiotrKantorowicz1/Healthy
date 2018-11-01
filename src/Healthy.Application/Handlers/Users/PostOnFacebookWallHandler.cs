@@ -5,7 +5,7 @@ using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class PostOnFacebookWallHandler : ICommandHandler<PostOnFacebookWall>
+    public sealed class PostOnFacebookWallHandler : ICommandHandler<PostOnFacebookWall>
     {
         private readonly IHandler _handler;
         private readonly IFacebookService _facebookService;

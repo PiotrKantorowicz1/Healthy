@@ -5,7 +5,7 @@ using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class LockAccountHandler : ICommandHandler<LockAccount>
+    public sealed class LockAccountHandler : ICommandHandler<LockAccount>
     {
         private readonly IHandler _handler;
         private readonly IUserService _userService;

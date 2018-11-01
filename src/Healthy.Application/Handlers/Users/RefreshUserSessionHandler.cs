@@ -5,7 +5,7 @@ using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class RefreshUserSessionHandler : ICommandHandler<RefreshUserSession>
+    public sealed class RefreshUserSessionHandler : ICommandHandler<RefreshUserSession>
     {
         private readonly IHandler _handler;
         private readonly IAuthenticationService _authenticationService;

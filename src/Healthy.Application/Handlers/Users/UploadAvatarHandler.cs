@@ -8,7 +8,7 @@ using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class UploadAvatarHandler : ICommandHandler<UploadAvatar>
+    public sealed class UploadAvatarHandler : ICommandHandler<UploadAvatar>
     {
         private readonly IHandler _handler;
         private readonly IAvatarService _avatarService;

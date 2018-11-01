@@ -5,7 +5,7 @@ using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class RemoveAvatarHandler : ICommandHandler<RemoveAvatar>
+    public sealed class RemoveAvatarHandler : ICommandHandler<RemoveAvatar>
     {
         private readonly IHandler _handler;
         private readonly IAvatarService _avatarService;

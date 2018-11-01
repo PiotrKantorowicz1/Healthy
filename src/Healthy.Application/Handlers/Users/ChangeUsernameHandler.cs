@@ -5,7 +5,7 @@ using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class ChangeUsernameHandler : ICommandHandler<ChangeUsername>
+    public sealed class ChangeUsernameHandler : ICommandHandler<ChangeUsername>
     {
         private readonly IHandler _handler;
         private readonly IUserService _userService;

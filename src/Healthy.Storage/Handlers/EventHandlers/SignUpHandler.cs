@@ -7,7 +7,7 @@ using Healthy.Storage.Models.Users;
 
 namespace Healthy.Storage.Handlers.EventHandlers
 {
-    public class SignUpHandler : IEventHandler<SignedUp>
+    public sealed class SignUpHandler : IEventHandler<SignedUp>
     {
         private readonly IHandler _handler;
         private readonly IUserRepository _userRepository;

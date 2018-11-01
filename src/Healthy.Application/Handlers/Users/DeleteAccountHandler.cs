@@ -5,7 +5,7 @@ using Healthy.Infrastructure.Handlers;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class DeleteAccountHandler : ICommandHandler<DeleteAccount>
+    public sealed class DeleteAccountHandler : ICommandHandler<DeleteAccount>
     {
         private readonly IHandler _handler;
         private readonly IUserService _userService;

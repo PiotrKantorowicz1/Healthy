@@ -9,7 +9,7 @@ using Serilog;
 
 namespace Healthy.Application.Handlers.Users
 {
-    public class SignInHandler : ICommandHandler<SignIn>
+    public sealed class SignInHandler : ICommandHandler<SignIn>
     {
         private static readonly ILogger Logger = Log.Logger;
 
