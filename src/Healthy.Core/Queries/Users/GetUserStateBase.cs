@@ -7,3 +7,4 @@ namespace Healthy.Core.Queries.Users
         public string Id { get; set; }
     }
 }
+
