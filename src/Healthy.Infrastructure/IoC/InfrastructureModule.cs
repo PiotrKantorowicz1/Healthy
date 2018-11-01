@@ -4,6 +4,7 @@ using Healthy.Core.Domain.BaseClasses;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Domain.Users.Services;
 using Healthy.Core.Types;
+using Healthy.Infrastructure.Dispatchers;
 using Healthy.Infrastructure.Extensions;
 using Healthy.Infrastructure.Files;
 using Healthy.Infrastructure.Handlers;
@@ -99,6 +100,21 @@ namespace Healthy.Infrastructure.IoC
 
             builder.RegisterAssemblyTypes(assembly)
                 .Where(x => x.IsAssignableTo<IRepository>())
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+                      
+            builder.RegisterType<CommandDispatcher>()
+                .As<ICommandDispatcher>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+            
+            builder.RegisterType<EventDispatcher>()
+                .As<IEventDispatcher>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<QueryDispatcher>()
+                .As<IQueryDispatcher>()
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }

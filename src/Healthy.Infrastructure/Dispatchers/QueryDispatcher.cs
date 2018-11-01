@@ -3,7 +3,7 @@ using Autofac;
 using Healthy.Core.Pagination;
 using Healthy.Infrastructure.Handlers;
 
-namespace Healthy.Application.Dispatchers
+namespace Healthy.Infrastructure.Dispatchers
 {
     public class QueryDispatcher : IQueryDispatcher
     {

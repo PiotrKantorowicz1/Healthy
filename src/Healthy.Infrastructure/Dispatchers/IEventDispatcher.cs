@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Healthy.Contracts.Events;
 
-namespace Healthy.Application.Dispatchers
+namespace Healthy.Infrastructure.Dispatchers
 {
     public interface IEventDispatcher
     {

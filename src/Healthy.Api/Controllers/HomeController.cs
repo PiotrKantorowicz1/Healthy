@@ -1,4 +1,4 @@
-using Healthy.Application.Dispatchers;
+using Healthy.Infrastructure.Dispatchers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +10,6 @@ namespace Healthy.Api.Controllers
         public HomeController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
         }
-
 
         [HttpGet]
         [AllowAnonymous]

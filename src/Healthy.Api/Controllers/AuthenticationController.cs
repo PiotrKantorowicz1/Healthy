@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Healthy.Api.Framework.Extensions;
-using Healthy.Application.Dispatchers;
 using Healthy.Application.Services.Users.Abstract;
 using Healthy.Contracts.Commands.Users;
+using Healthy.Infrastructure.Dispatchers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

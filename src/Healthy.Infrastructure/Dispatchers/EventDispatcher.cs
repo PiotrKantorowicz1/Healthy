@@ -4,7 +4,7 @@ using Autofac;
 using Healthy.Contracts.Events;
 using Healthy.Infrastructure.Handlers;
 
-namespace Healthy.Application.Dispatchers
+namespace Healthy.Infrastructure.Dispatchers
 {
     public class EventDispatcher : IEventDispatcher
     {

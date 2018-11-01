@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Healthy.Contracts.Commands;
 
-namespace Healthy.Application.Dispatchers
+namespace Healthy.Infrastructure.Dispatchers
 {
     public interface ICommandDispatcher
     {

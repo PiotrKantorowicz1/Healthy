@@ -1,6 +1,6 @@
 using System;
 
-namespace Healthy.Storage.Dtos.Users
+namespace Healthy.Read.Dtos.Users
 {
     public class UserDto
     {

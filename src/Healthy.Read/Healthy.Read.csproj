@@ -4,4 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Healthy.Application\Healthy.Application.csproj" />
+    <ProjectReference Include="..\Healthy.Core\Healthy.Core.csproj" />
+    <ProjectReference Include="..\Healthy.Infrastructure\Healthy.Infrastructure.csproj" />
+    <ProjectReference Include="..\Healthy.Storage\Healthy.Storage.csproj" />
+  </ItemGroup>
+
 </Project>
