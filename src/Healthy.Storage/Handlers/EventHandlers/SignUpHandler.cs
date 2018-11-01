@@ -2,10 +2,10 @@ using System.Threading.Tasks;
 using Healthy.Contracts.Events.Users;
 using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Infrastructure.Handlers;
-using Healthy.ReadSide.Models;
-using Healthy.ReadSide.Services;
+using Healthy.Storage.Caching;
+using Healthy.Storage.Models.Users;
 
-namespace Healthy.ReadSide.Handlers.EventHandlers
+namespace Healthy.Storage.Handlers.EventHandlers
 {
     public class SignUpHandler : IEventHandler<SignedUp>
     {

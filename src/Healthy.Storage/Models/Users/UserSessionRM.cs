@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Healthy.Application.Dtos.Users
+namespace Healthy.Storage.Models.Users
 {
-    public class UserSessionDto
+    public class UserSessionRM
     {
         public Guid Id { get; set; }
         public string UserId { get; set; }

@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Healthy.Application\Healthy.Application.csproj" />
-    <ProjectReference Include="..\Healthy.ReadSide\Healthy.ReadSide.csproj" />
+    <ProjectReference Include="..\Healthy.Storage\Healthy.Storage.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using Healthy.ReadSide.Models;
+using Healthy.Storage.Models.Users;
 
-namespace Healthy.ReadSide.Services
+namespace Healthy.Storage.Caching
 {
     public interface IUserCache
     {
