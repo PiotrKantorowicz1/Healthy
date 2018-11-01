@@ -16,7 +16,7 @@ namespace Healthy.Core.Domain.Users.Repositories
         Task<Maybe<User>> GetByEmailAsync(string email, string provider);
         Task<Maybe<User>> GetByNameAsync(string name);
         Task<Maybe<string>> GetStateAsync(string userId);
-        Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsers query);
+        Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsersBase query);
         Task AddAsync(User user);
         Task UpdateAsync(User user);
         Task DeleteAsync(string userId);

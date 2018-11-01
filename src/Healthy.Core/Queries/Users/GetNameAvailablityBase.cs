@@ -2,7 +2,7 @@ using Healthy.Core.Pagination;
 
 namespace Healthy.Core.Queries.Users
 {
-    public class GetUserByName : IQuery
+    public class GetNameAvailabilityBase : PagedQueryBase
     {
         public string Name { get; set; }
     }

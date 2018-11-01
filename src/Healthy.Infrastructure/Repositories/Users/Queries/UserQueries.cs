@@ -64,7 +64,7 @@ namespace Healthy.Infrastructure.Repositories.Users.Queries
         }
 
         public static IMongoQueryable<User> Query(this IMongoCollection<User> users,
-            BrowseUsers query)
+            BrowseUsersBase query)
         {
             var values = users.AsQueryable();
 

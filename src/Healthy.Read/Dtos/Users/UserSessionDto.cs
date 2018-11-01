@@ -2,7 +2,7 @@ using System;
 
 namespace Healthy.Read.Dtos.Users
 {
-    public class UserSessionDto
+    public class UserSessionDto 
     {
         public Guid Id { get; set; }
         public string UserId { get; set; }

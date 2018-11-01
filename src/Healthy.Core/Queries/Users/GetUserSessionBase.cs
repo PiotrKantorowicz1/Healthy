@@ -3,7 +3,7 @@ using Healthy.Core.Pagination;
 
 namespace Healthy.Core.Queries.Users
 {
-    public class GetUserSession : IQuery
+    public class GetUserSessionBase : PagedQueryBase
     {
         public Guid Id { get; set; }
     }

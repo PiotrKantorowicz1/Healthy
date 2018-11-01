@@ -14,7 +14,7 @@ namespace Healthy.Application.Services.Users.Abstract
         Task<Maybe<User>> GetByExternalUserIdAsync(string externalUserId);
         Task<Maybe<User>> GetByEmailAsync(string email, string provider);
         Task<Maybe<string>> GetStateAsync(string userId);
-        Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsers query);
+        Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsersBase query);
 
         Task SignUpAsync(string userId, string email, string role,
             string provider, string password = null,

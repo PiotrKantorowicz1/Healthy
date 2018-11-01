@@ -45,7 +45,7 @@ namespace Healthy.Application.Services.Users
         public async Task<Maybe<string>> GetStateAsync(string userId)
             => await _userRepository.GetStateAsync(userId);
 
-        public async Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsers query)
+        public async Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsersBase query)
             => await _userRepository.BrowseAsync(query);
 
         public async Task SignUpAsync(string userId, string email, string role,

@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Infrastructure.Redis;
-using Healthy.Storage.Models.Users;
 
 namespace Healthy.Storage.Caching
 {
@@ -14,7 +14,7 @@ namespace Healthy.Storage.Caching
             _cache = cache;
         }
 
-        public async Task AddAsync(UserRM user)
+        public async Task AddAsync(User user)
             => await _cache.AddAsync(GetCacheKey(user.UserId), user);
         
         public async Task DeleteAsync(string userId)

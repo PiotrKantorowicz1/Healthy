@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
 using Healthy.Contracts.Events.Users;
+using Healthy.Core;
 using Healthy.Core.Domain.Users.Repositories;
+using Healthy.Core.Exceptions;
 using Healthy.Infrastructure.Handlers;
 using Healthy.Storage.Caching;
-using Healthy.Storage.Models.Users;
 
 namespace Healthy.Storage.Handlers.EventHandlers
 {
@@ -28,20 +29,12 @@ namespace Healthy.Storage.Handlers.EventHandlers
                 .Run(async () =>
                 {
                     var user = await _userRepository.GetByUserIdAsync(@event.UserId);
-                    var userReadModel = new UserRM
+                    if (user.HasNoValue)
                     {
-                        UserId = user.Value.UserId,
-                        Email = user.Value.Email,
-                        Name = user.Value.Name,
-                        Provider = user.Value.Provider,
-                        Role = user.Value.Role,
-                        State = user.Value.State,
-                        ExternalUserId = user.Value.ExternalUserId,
-                        AvatarUrl = user.Value.Avatar.Url,
-                        CreatedAt = user.Value.CreatedAt,
-                    };
-
-                    await _userCache.AddAsync(userReadModel);
+                        throw new ServiceException(ErrorCodes.UserNotFound,
+                            $"User from event {@event.GetType().Name} not found");
+                    }
+                    await _userCache.AddAsync(user.Value);
                 })
                 .OnError((ex, logger) => logger.Error(ex, 
                     $"Error occured while handling {@event.GetType().Name} event"))

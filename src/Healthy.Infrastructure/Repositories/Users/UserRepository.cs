@@ -40,7 +40,7 @@ namespace Healthy.Infrastructure.Repositories.Users
         public async Task<Maybe<string>> GetStateAsync(string id)
             => await _database.Users().GetStateAsync(id);
 
-        public async Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsers query)
+        public async Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsersBase query)
         {
             return await _database.Users()
                 .Query(query)
