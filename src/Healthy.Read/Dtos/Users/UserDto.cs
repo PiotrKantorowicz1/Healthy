@@ -1,5 +1,3 @@
-using System;
-
 namespace Healthy.Read.Dtos.Users
 {
     public class UserDto : UserInfoDto

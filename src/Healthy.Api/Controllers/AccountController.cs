@@ -15,21 +15,24 @@ namespace Healthy.Api.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> Get(GetUser query)
+        [AllowAnonymous]
+        public async Task<IActionResult> Get([FromQuery]GetUser query)
             => Single(await QueryAsync(query));
 
         [HttpGet("names/{name}/available")]
-        public async Task<IActionResult> Get(GetNameAvailability query)
+        [AllowAnonymous]
+        public async Task<IActionResult> Get([FromRoute]GetNameAvailability query)
             => Single(await QueryAsync(query));
         
         [HttpGet("state")]
-        public async Task<IActionResult> Get(GetUserState query)
+        [AllowAnonymous]
+        public async Task<IActionResult> Get([FromQuery]GetUserState query)
             => Single(await QueryAsync(query));
         
         [HttpPost("name")]
         public async Task<IActionResult> Post(ChangeUsername command)
         {
-            await DispatchAsync(command.Bind(c => c.UserId, UserId));
+            await DispatchAsync(command);
             return NoContent();
         }      
 
@@ -51,14 +54,14 @@ namespace Healthy.Api.Controllers
         [HttpPost("password")]
         public async Task<IActionResult> Post(ChangePassword command)
         {
-            await DispatchAsync(command.Bind(c => c.UserId, UserId));
+            await DispatchAsync(command);
             return NoContent();
         }
              
         [HttpPost("account")]
         public async Task<IActionResult> Post(DeleteAccount command)
         {
-            await DispatchAsync(command.Bind(c => c.UserId, UserId));
+            await DispatchAsync(command);
             return NoContent();
         }
     }

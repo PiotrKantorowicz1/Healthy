@@ -69,7 +69,7 @@ namespace Healthy.Api.Controllers
             return Ok();
         }
         
-        public async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
+        protected async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
             => await _dispatcher.QueryAsync<TResult>(query);
 
         protected bool IsAdmin

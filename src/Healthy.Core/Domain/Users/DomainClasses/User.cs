@@ -196,7 +196,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
 
         public void MarkAsDeleted()
         {
-            if (State == States.Active)
+            if (State == States.Deleted)
             {
                 throw new DomainException(ErrorCodes.UserAlreadyDeleted,
                     $"User with id: '{UserId}' was already marked as deleted.");

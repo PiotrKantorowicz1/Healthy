@@ -38,7 +38,7 @@ namespace Healthy.Infrastructure.IoC
                     var settings = c.Resolve<MongoDbSettings>();
     
                     return new MongoClient(settings.ConnectionString);
-                }).SingleInstance();
+                }).SingleInstance();                      
 
             builder.Register((c, p) =>
                 {
@@ -68,6 +68,9 @@ namespace Healthy.Infrastructure.IoC
                 .SingleInstance();
 
             builder.RegisterInstance(_configuration.GetSettings<FacebookSettings>())
+                .SingleInstance();
+            
+            builder.RegisterInstance(_configuration.GetSettings<RedisSettings>())
                 .SingleInstance();
 
             builder.RegisterType<FileValidator>().As<IFileValidator>()
@@ -115,6 +118,11 @@ namespace Healthy.Infrastructure.IoC
 
             builder.RegisterType<QueryDispatcher>()
                 .As<IQueryDispatcher>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+            
+            builder.RegisterType<Dispatcher>()
+                .As<IDispatcher>()
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }

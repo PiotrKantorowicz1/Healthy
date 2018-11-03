@@ -3,7 +3,6 @@ using Healthy.Api.Framework.Extensions;
 using Healthy.Write.Services.Users.Abstract;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Dispatchers;
-using Healthy.Read.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

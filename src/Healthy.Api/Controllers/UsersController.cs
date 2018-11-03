@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
+using Healthy.Api.Attributes;
 using Healthy.Api.Framework.Extensions;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Dispatchers;
 using Healthy.Read.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Healthy.Api.Controllers
@@ -14,11 +16,11 @@ namespace Healthy.Api.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> Get(BrowseUsers query)
+        public async Task<IActionResult> Get([FromQuery]BrowseUsers query)
             => Collection(await QueryAsync(query));
         
-        [HttpGet("{name}")]
-        public async Task<IActionResult> Get(GetUserInfoByName query)
+        [HttpGet("name")]
+        public async Task<IActionResult> Get([FromQuery]GetUserInfoByName query)
             => Single(await QueryAsync(query));
 
         [HttpPut("{lockUserId}/lock")]
