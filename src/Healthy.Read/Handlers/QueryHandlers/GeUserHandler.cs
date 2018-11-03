@@ -28,14 +28,14 @@ namespace Healthy.Read.Handlers.QueryHandlers
         {
             UserDto userDto;
             
-            var userFromCache = await _cache.GetAsync<User>($"users:{query.Id}");
+            var userFromCache = await _cache.GetAsync<User>($"users:{query.UserId}");
             if (userFromCache.HasValue)
             {
                 userDto = _userMapper.MapToUserDto(userFromCache.Value);
                 return userDto;
             }
 
-            var userFromDb = await _userService.GetAsync(query.Id);
+            var userFromDb = await _userService.GetAsync(query.UserId);
             userDto = _userMapper.MapToUserDto(userFromDb.Value);
             
             return userDto;

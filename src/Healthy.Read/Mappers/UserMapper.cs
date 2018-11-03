@@ -52,12 +52,10 @@ namespace Healthy.Read.Mappers
                 CreatedAt = entity.CreatedAt,
             };
 
-        public UserStateDto MapToUserStateDto(User user)
+        public UserStateDto MapToUserStateDto(string state)
             => new UserStateDto
             {
-                Id = user.UserId,
-                Email = user.Email,
-                State = user.State
+                State = state
             };
     }
 }

@@ -20,8 +20,8 @@ namespace Healthy.Read.Handlers.QueryHandlers
 
         public async Task<UserStateDto> HandleAsync(GetUserState query)
         {
-            var user = await _userService.GetAsync(query.UserId);
-            var userStateDto = _userMapper.MapToUserStateDto(user.Value);
+            var state = await _userService.GetStateAsync(query.UserId);
+            var userStateDto = _userMapper.MapToUserStateDto(state.Value);
             return userStateDto;
         }
     }

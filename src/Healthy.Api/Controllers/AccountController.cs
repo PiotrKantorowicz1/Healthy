@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Healthy.Api.Framework.Extensions;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Dispatchers;
+using Healthy.Read.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,18 @@ namespace Healthy.Api.Controllers
         public AccountController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
+
+        [HttpGet("")]
+        public async Task<IActionResult> Get(GetUser query)
+            => Single(await QueryAsync(query));
+
+        [HttpGet("names/{name}/available")]
+        public async Task<IActionResult> Get(GetNameAvailability query)
+            => Single(await QueryAsync(query));
+        
+        [HttpGet("state")]
+        public async Task<IActionResult> Get(GetUserState query)
+            => Single(await QueryAsync(query));
         
         [HttpPost("name")]
         public async Task<IActionResult> Post(ChangeUsername command)

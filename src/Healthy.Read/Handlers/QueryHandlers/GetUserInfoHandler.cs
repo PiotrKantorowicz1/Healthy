@@ -21,7 +21,7 @@ namespace Healthy.Read.Handlers.QueryHandlers
 
         public async Task<UserInfoDto> HandleAsync(GetUserInfo query)
         {
-            var userInfo = await _userService.GetAsync(query.Id);
+            var userInfo = await _userService.GetAsync(query.UserId);
             var userInfoDto = _userMapper.MapToUserInfoDto(userInfo.Value);
             
             return userInfoDto;
