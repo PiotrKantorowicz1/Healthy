@@ -9,5 +9,6 @@ namespace Healthy.Read.Mappers
         UserInfoDto MapToUserInfoDto(User entity);
         AvailableResourceDto MapToAvailableResourceDto(bool availableResource);
         UserSessionDto MapToUserSessionDto(UserSession entity);
+        UserStateDto MapToUserStateDto(User user);
     }
 }

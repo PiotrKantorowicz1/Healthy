@@ -7,7 +7,7 @@ using Healthy.Read.Queries;
 
 namespace Healthy.Read.Handlers.QueryHandlers
 {
-    public sealed class GetUserInfoByNameHandler : IQueryHandler<GetUserInfo, UserInfoDto>
+    public sealed class GetUserInfoByNameHandler : IQueryHandler<GetUserInfoByName, UserInfoDto>
     {
         private readonly IUserService _userService;
         private readonly IUserMapper _userMapper;
@@ -19,7 +19,7 @@ namespace Healthy.Read.Handlers.QueryHandlers
             _userMapper = userMapper;
         }
 
-        public async Task<UserInfoDto> HandleAsync(GetUserInfo query)
+        public async Task<UserInfoDto> HandleAsync(GetUserInfoByName query)
         {
             var userInfo = await _userService.GetAsync(query.Name);
             var userInfoDto = _userMapper.MapToUserInfoDto(userInfo.Value);

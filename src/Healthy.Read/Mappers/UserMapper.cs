@@ -51,5 +51,13 @@ namespace Healthy.Read.Mappers
                 UpdatedAt = entity.UpdatedAt,
                 CreatedAt = entity.CreatedAt,
             };
+
+        public UserStateDto MapToUserStateDto(User user)
+            => new UserStateDto
+            {
+                Id = user.UserId,
+                Email = user.Email,
+                State = user.State
+            };
     }
 }

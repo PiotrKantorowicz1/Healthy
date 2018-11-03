@@ -5,7 +5,6 @@ using Healthy.Read.Dtos.Users;
 namespace Healthy.Read.Queries
 {
     public class GetUserByName : GetUserByNameBase, IQuery<UserDto>
-    {
-        
+    {       
     }
 }

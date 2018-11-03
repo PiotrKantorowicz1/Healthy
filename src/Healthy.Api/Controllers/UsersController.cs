@@ -11,7 +11,7 @@ namespace Healthy.Api.Controllers
         public UsersController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
-        
+               
         [HttpPut("{lockUserId}/lock")]
         public async Task<IActionResult> Put(string lockUserId, LockAccount command)
         {
