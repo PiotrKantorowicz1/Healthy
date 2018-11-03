@@ -9,7 +9,7 @@ namespace Healthy.Api.Controllers
 {
     public class AccountController : BaseController
     {
-        public AccountController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public AccountController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
         

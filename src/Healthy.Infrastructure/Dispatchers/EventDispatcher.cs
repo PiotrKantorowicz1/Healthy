@@ -15,7 +15,7 @@ namespace Healthy.Infrastructure.Dispatchers
             _context = context;
         }
 
-        public async Task DispatchAsync(params IEvent[] events)
+        public async Task DispatchAsync<TEvent>(params TEvent[] events) where TEvent : IEvent
         {
             foreach (var @event in events)
             {
@@ -25,7 +25,7 @@ namespace Healthy.Infrastructure.Dispatchers
             }
         }
 
-        private async Task DispatchAsync(Type handlerType, IEvent @event)
+        private async Task DispatchAsync<TEvent>(Type handlerType, TEvent @event) where TEvent : IEvent
         {
             if (_context.TryResolve(handlerType, out var handler))
             {

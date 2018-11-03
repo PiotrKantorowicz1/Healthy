@@ -12,9 +12,9 @@ namespace Healthy.Api.Controllers
     {
         private readonly IAuthenticationService _authenticationService;
 
-        public AuthenticationController(ICommandDispatcher commandDispatcher,
+        public AuthenticationController(IDispatcher dispatcher,
             IAuthenticationService authenticationService) 
-            : base(commandDispatcher)
+            : base(dispatcher)
         {
             _authenticationService = authenticationService;
         }

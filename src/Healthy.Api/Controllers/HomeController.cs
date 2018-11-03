@@ -7,7 +7,7 @@ namespace Healthy.Api.Controllers
     [Route("")]
     public class HomeController : BaseController
     {
-        public HomeController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public HomeController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
 

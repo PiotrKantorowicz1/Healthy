@@ -5,6 +5,6 @@ namespace Healthy.Infrastructure.Dispatchers
 {
     public interface IEventDispatcher
     {
-        Task DispatchAsync(params IEvent[] events);
+        Task DispatchAsync<TEvent>(params TEvent[] events) where TEvent : IEvent;
     }
 }

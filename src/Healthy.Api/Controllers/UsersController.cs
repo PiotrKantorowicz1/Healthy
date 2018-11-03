@@ -8,7 +8,7 @@ namespace Healthy.Api.Controllers
 {
     public class UsersController : BaseController
     {
-        public UsersController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public UsersController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
         

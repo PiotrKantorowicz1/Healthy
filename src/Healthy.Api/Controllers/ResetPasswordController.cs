@@ -7,7 +7,7 @@ namespace Healthy.Api.Controllers
 {
     public class ResetPasswordController : BaseController
     {
-        public ResetPasswordController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public ResetPasswordController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
         

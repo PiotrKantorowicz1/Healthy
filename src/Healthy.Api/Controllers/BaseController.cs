@@ -18,11 +18,11 @@ namespace Healthy.Api.Controllers
         private static readonly string DefaultCulture = "en-us";
         private static readonly string PageLink = "page";
 
-        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IDispatcher _dispatcher;
 
-        public BaseController(ICommandDispatcher commandDispatcher)
+        public BaseController(IDispatcher dispatcher)
         {
-            _commandDispatcher = commandDispatcher;
+            _dispatcher = dispatcher;
         }
 
         protected IActionResult Single<T>(T model, Func<T, bool> criteria = null)
@@ -64,10 +64,13 @@ namespace Healthy.Api.Controllers
         protected async Task<IActionResult> DispatchAsync<T>(T command,
             Guid? resourceId = null, string resource = "") where T : ICommand
         {
-            await _commandDispatcher.DispatchAsync(command);
+            await _dispatcher.DispatchAsync(command);
 
             return Ok();
         }
+        
+        public async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
+            => await _dispatcher.QueryAsync<TResult>(query);
 
         protected bool IsAdmin
             => User.IsInRole("admin");
