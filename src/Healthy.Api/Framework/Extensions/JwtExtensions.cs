@@ -6,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Healthy.Infrastructure.Security;
-using Healthy.Application.Services.Users.Abstract;
-using Healthy.Application.Services.Users;
+using Healthy.Write.Services.Users.Abstract;
+using Healthy.Write.Services.Users;
 using Healthy.Api.Framework.Middlewares;
 
 namespace Healthy.Api.Framework.Extensions

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Healthy.Application.Services.Users.Abstract;
+using Healthy.Write.Services.Users.Abstract;
 using Healthy.Infrastructure.Handlers;
 using Healthy.Read.Dtos.Users;
 using Healthy.Read.Mappers;

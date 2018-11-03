@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Healthy.Infrastructure.Mongo;
 using Healthy.Infrastructure.IoC;
-using Healthy.Application.IoC;
+using Healthy.Write.IoC;
 
 namespace Healthy.Api
 {
@@ -50,7 +50,7 @@ namespace Healthy.Api
             builder.Populate(services);        
             builder.RegisterInstance(Configuration.GetSettings<MongoDbSettings>()).SingleInstance();
             builder.RegisterModule(new InfrastructureModule(Configuration));
-            builder.RegisterModule<ApplicationModule>();
+            builder.RegisterModule<WriteModule>();
 
             Container = builder.Build();
 

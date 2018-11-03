@@ -5,10 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Healthy.Write\Healthy.Write.csproj" />
+    <ProjectReference Include="..\Healthy.Contracts\Healthy.Contracts.csproj" />
     <ProjectReference Include="..\Healthy.Core\Healthy.Core.csproj" />
     <ProjectReference Include="..\Healthy.Infrastructure\Healthy.Infrastructure.csproj" />
-    <ProjectReference Include="..\Healthy.EventStore\Healthy.EventStore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

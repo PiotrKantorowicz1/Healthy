@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Healthy.Application.Services.Users.Abstract;
+using Healthy.Write.Services.Users.Abstract;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Infrastructure.Handlers;
 using Healthy.Infrastructure.Redis;
