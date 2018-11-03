@@ -4,7 +4,7 @@ using Healthy.Read.Dtos.Users;
 
 namespace Healthy.Read.Queries
 {
-    public class GetUser : GetUserBase, IQuery<PagedResult<UserDto>>
+    public class GetUser : GetUserBase, IQuery<UserDto>
     {
         
     }
