@@ -11,8 +11,4 @@
     <ProjectReference Include="..\Healthy.EventStore\Healthy.EventStore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="IoC" />
-  </ItemGroup>
-
 </Project>

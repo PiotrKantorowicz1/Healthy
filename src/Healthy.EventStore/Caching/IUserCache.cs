@@ -3,9 +3,9 @@ using Healthy.Core.Domain.Users.DomainClasses;
 
 namespace Healthy.EventStore.Caching
 {
-    public interface IUserCache
+    public interface IUserCache : ICacheMarker
     {
         Task AddAsync(User user);
-        Task DeleteAsync(string userId);                  
+        Task DeleteAsync(string userId);
     }
 }
