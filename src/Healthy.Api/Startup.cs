@@ -3,6 +3,7 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Healthy.Api.Framework.Extensions;
+using Healthy.EventStore.IoC;
 using Healthy.Infrastructure.Settings;
 using Healthy.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -11,7 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Healthy.Infrastructure.Mongo;
 using Healthy.Infrastructure.IoC;
-using Healthy.Application.IoC;
+using Healthy.Read.IoC;
+using Healthy.Services.IoC;
 
 namespace Healthy.Api
 {
@@ -50,7 +52,9 @@ namespace Healthy.Api
             builder.Populate(services);        
             builder.RegisterInstance(Configuration.GetSettings<MongoDbSettings>()).SingleInstance();
             builder.RegisterModule(new InfrastructureModule(Configuration));
-            builder.RegisterModule<ApplicationModule>();
+            builder.RegisterModule<WriteModule>();
+            builder.RegisterModule<ReadModule>();
+            builder.RegisterModule<EventStoreModule>();
 
             Container = builder.Build();
 

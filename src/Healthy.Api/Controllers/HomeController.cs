@@ -1,5 +1,4 @@
-using System.Threading.Tasks;
-using Healthy.Application.Dispatchers;
+using Healthy.Infrastructure.Dispatchers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +7,9 @@ namespace Healthy.Api.Controllers
     [Route("")]
     public class HomeController : BaseController
     {
-        public HomeController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public HomeController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
-
 
         [HttpGet]
         [AllowAnonymous]

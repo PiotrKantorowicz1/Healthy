@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Healthy.Services\Healthy.Services.csproj" />
+    <ProjectReference Include="..\Healthy.Core\Healthy.Core.csproj" />
+    <ProjectReference Include="..\Healthy.Infrastructure\Healthy.Infrastructure.csproj" />
+    <ProjectReference Include="..\Healthy.EventStore\Healthy.EventStore.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -4,7 +4,7 @@ using Healthy.Core.Domain.BaseClasses;
 
 namespace Healthy.Core.Domain.Users.DomainClasses
 {
-        public class Avatar : ValueObject<Avatar>
+    public class Avatar : ValueObject<Avatar>
     {
         public string Name { get; protected set; }
         public string Url { get; protected set; }
@@ -20,10 +20,12 @@ namespace Healthy.Core.Domain.Users.DomainClasses
             {
                 throw new ArgumentException("Avatar name can not be empty.", nameof(name));
             }
+
             if (url.Empty())
             {
                 throw new ArgumentException("Avatar Url can not be empty.", nameof(url));
             }
+
             Name = name;
             Url = url;
         }

@@ -12,6 +12,16 @@ namespace Healthy.Core.Domain.BaseClasses
         public Guid Id { get; protected set; }
         public int Version { get; protected set; }
 
+        protected AggregateRoot()
+        {
+                
+        }
+
+        public AggregateRoot(Guid id)
+        {
+            Id = id;
+        }
+
         public void Replay(IEnumerable<IEvent> events)
         {
             foreach (var @event in events)
@@ -20,13 +30,15 @@ namespace Healthy.Core.Domain.BaseClasses
             }
         }
 
+        protected void AddEvent(IEvent @event) => _events.Add(@event);
+
         protected void ApplyChange<T>(T @event, bool @new = true) where T : IEvent
         {
             _eventHandlers[@event.GetType()](@event);
             Version++;
             if (@new)
             {
-                _events.Add(@event);
+                AddEvent(@event);
             }
         }
 

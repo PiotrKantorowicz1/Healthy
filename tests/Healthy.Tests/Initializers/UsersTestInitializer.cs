@@ -1,6 +1,5 @@
 using System;
 using Healthy.Core.Domain.Users.DomainClasses;
-using Microsoft.AspNetCore.Identity;
 
 namespace Healthy.Tests.Initializers
 {

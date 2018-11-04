@@ -9,7 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Healthy.Application\Healthy.Application.csproj" />
+    <ProjectReference Include="..\Healthy.Services\Healthy.Services.csproj" />
+    <ProjectReference Include="..\Healthy.Read\Healthy.Read.csproj" />
+    <ProjectReference Include="..\Healthy.EventStore\Healthy.EventStore.csproj" />
   </ItemGroup>
 
 </Project>

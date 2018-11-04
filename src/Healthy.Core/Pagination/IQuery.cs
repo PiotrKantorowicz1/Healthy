@@ -4,4 +4,8 @@ namespace Healthy.Core.Pagination
     public interface IQuery
     {
     }
+    
+    public interface IQuery<T> : IQuery
+    {
+    }
 }

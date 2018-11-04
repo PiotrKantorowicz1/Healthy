@@ -1,15 +1,9 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Healthy.Api.Framework.Extensions;
-using Healthy.Application.Dispatchers;
-using Healthy.Application.Services.Users.Abstract;
+using Healthy.Services.Services.Users.Abstract;
 using Healthy.Contracts.Commands.Users;
-using Healthy.Core.Domain.Users.DomainClasses;
-using Healthy.Core.Types;
-using Healthy.Infrastructure.Security;
+using Healthy.Infrastructure.Dispatchers;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Healthy.Api.Controllers
@@ -18,9 +12,9 @@ namespace Healthy.Api.Controllers
     {
         private readonly IAuthenticationService _authenticationService;
 
-        public AuthenticationController(ICommandDispatcher commandDispatcher,
+        public AuthenticationController(IDispatcher dispatcher,
             IAuthenticationService authenticationService) 
-            : base(commandDispatcher)
+            : base(dispatcher)
         {
             _authenticationService = authenticationService;
         }
@@ -30,7 +24,7 @@ namespace Healthy.Api.Controllers
 
         [HttpPost("sign-in")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignIn(SignIn command)
+        public async Task<IActionResult> Post(SignIn command)
         {
             await DispatchAsync(command.BindId(c => c.SessionId));
             var session = await _authenticationService.HandleSessionAsync(command.SessionId);
@@ -43,7 +37,7 @@ namespace Healthy.Api.Controllers
         }
 
         [HttpPost("sessions")]
-        public async Task<IActionResult> RefreshSession(RefreshUserSession command)
+        public async Task<IActionResult> Post(RefreshUserSession command)
         {
             await DispatchAsync(command.BindId(c => c.NewSessionId));
             var session = await _authenticationService.HandleSessionAsync(command.NewSessionId);
@@ -56,7 +50,7 @@ namespace Healthy.Api.Controllers
         }
 
         [HttpPost("sign-out")]
-        public async Task<IActionResult> SignOut(SignOut command)
+        public async Task<IActionResult> Post(SignOut command)
         {
             await DispatchAsync(command);
 

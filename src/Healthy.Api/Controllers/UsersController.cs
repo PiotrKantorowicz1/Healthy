@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
+using Healthy.Api.Attributes;
 using Healthy.Api.Framework.Extensions;
-using Healthy.Application.Dispatchers;
 using Healthy.Contracts.Commands.Users;
+using Healthy.Infrastructure.Dispatchers;
+using Healthy.Read.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +11,30 @@ namespace Healthy.Api.Controllers
 {
     public class UsersController : BaseController
     {
-        public UsersController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public UsersController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
 
+        [HttpGet("")]
+        public async Task<IActionResult> Get([FromQuery]BrowseUsers query)
+            => Collection(await QueryAsync(query));
+        
+        [HttpGet("name")]
+        public async Task<IActionResult> Get([FromQuery]GetUserInfoByName query)
+            => Single(await QueryAsync(query));
+
+        [HttpPut("{lockUserId}/lock")]
+        public async Task<IActionResult> Put(string lockUserId, LockAccount command)
+        {
+            await DispatchAsync(command.Bind(c => c.UserId, lockUserId));
+            return NoContent();
+        }
+        
+        [HttpPut("{unlockUserId}/unlock")]
+        public async Task<IActionResult> Put(string unlockUserId, UnlockAccount command)
+        {
+            await DispatchAsync(command.Bind(c => c.UnlockUserId, unlockUserId));
+            return NoContent();
+        }        
     }
 }
