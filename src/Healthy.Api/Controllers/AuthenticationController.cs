@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Healthy.Api.Framework.Extensions;
-using Healthy.Write.Services.Users.Abstract;
+using Healthy.Services.Services.Users.Abstract;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Dispatchers;
 using Microsoft.AspNetCore.Authorization;

@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Healthy.Infrastructure.Mongo;
 using Healthy.Infrastructure.IoC;
 using Healthy.Read.IoC;
-using Healthy.Write.IoC;
+using Healthy.Services.IoC;
 
 namespace Healthy.Api
 {
