@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Healthy.Write.Services.Users.Abstract;
+using Healthy.Services.Services.Users.Abstract;
 using Healthy.Core.Pagination;
 using Healthy.Infrastructure.Handlers;
 using Healthy.Read.Dtos.Users;
