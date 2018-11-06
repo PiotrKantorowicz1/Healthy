@@ -1,11 +1,9 @@
 ﻿using Healthy.Infrastructure.Handlers;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Extensions;
-using Healthy.Infrastructure.Dispatchers;
 using Healthy.Services.Services.Users.Abstract;
 
 namespace Healthy.Services.Handlers.Users

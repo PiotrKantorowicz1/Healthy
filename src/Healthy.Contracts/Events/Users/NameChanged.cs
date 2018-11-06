@@ -1,12 +1,15 @@
-using Healthy.Contracts.Events;
+using System;
 
 namespace Healthy.Contracts.Events.Users
 {
     public class NameChanged : IEvent
     {
-        public NameChanged()
+        public Guid Id => Guid.NewGuid();
+        public string Name { get; }
+        
+        public NameChanged(string name)
         {
-
+            Name = name;
         }
     }
 }

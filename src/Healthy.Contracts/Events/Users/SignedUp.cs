@@ -1,7 +1,10 @@
+using System;
+
 namespace Healthy.Contracts.Events.Users
 {
     public class SignedUp : IEvent
     {
+        public Guid Id => Guid.NewGuid();
         public string UserId { get; }
         public string Provider { get; }
         public string Role { get; }

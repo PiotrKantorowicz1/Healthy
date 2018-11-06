@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../Healthy.Infrastructure/Healthy.Infrastructure.csproj" />
+    <ProjectReference Include="..\Healthy.EventStore\Healthy.EventStore.csproj" />
   </ItemGroup>
 
 </Project>

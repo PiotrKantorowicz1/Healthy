@@ -25,11 +25,12 @@ namespace Healthy.Core.Domain.Users.DomainClasses
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
 
-        protected User()
+        public User()
         {
+            Handles<NameChanged>(Apply);
         }
 
-        public User(string userId, string email, string role, string provider)
+        public User(string userId, string email, string role, string provider) : this()
         {
             SetUserId(userId);
             SetEmail(email);
@@ -118,6 +119,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
 
             Name = name.ToLowerInvariant();
             UpdatedAt = DateTime.UtcNow;
+            ApplyChange(new NameChanged(name));
         }
 
         public void SetRole(string role)
@@ -232,5 +234,10 @@ namespace Healthy.Core.Domain.Users.DomainClasses
 
         public bool ValidatePassword(string password, IPasswordHasher<User> passwordHasher)
             => passwordHasher.VerifyHashedPassword(this, PasswordHash, password) != PasswordVerificationResult.Failed;
+
+        private void Apply(NameChanged @event)
+        {            
+            Name = @event.Name;
+        }
     }
 }

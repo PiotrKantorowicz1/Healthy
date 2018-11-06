@@ -52,7 +52,7 @@ namespace Healthy.Api
             builder.Populate(services);        
             builder.RegisterInstance(Configuration.GetSettings<MongoDbSettings>()).SingleInstance();
             builder.RegisterModule(new InfrastructureModule(Configuration));
-            builder.RegisterModule<WriteModule>();
+            builder.RegisterModule<ServicesModule>();
             builder.RegisterModule<ReadModule>();
             builder.RegisterModule<EventStoreModule>();
 

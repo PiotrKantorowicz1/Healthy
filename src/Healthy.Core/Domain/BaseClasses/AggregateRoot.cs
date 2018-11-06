@@ -13,13 +13,7 @@ namespace Healthy.Core.Domain.BaseClasses
         public int Version { get; protected set; }
 
         protected AggregateRoot()
-        {
-                
-        }
-
-        public AggregateRoot(Guid id)
-        {
-            Id = id;
+        {       
         }
 
         public void Replay(IEnumerable<IEvent> events)

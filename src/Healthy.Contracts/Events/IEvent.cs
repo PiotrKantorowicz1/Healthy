@@ -1,7 +1,9 @@
+using System;
+
 namespace Healthy.Contracts.Events
 {
-    //Marker interface
     public interface IEvent
     {
+        Guid Id { get; }
     }
 }

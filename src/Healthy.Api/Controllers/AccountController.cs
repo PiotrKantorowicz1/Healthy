@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Healthy.Api.Framework.Extensions;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Infrastructure.Dispatchers;
 using Healthy.Read.Queries;
