@@ -2,12 +2,12 @@ using System;
 
 namespace Healthy.Contracts.Events.Users
 {
-    public class PasswordChanged : IEvent
+    public class AccountDeleted : IEvent
     {
         public Guid Id => Guid.NewGuid();
         public string UserId { get; }
         
-        public PasswordChanged(string userId)
+        public AccountDeleted(string userId)
         {
             UserId = userId;
         }

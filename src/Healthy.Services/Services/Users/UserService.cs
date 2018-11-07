@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Healthy.Core;
@@ -57,7 +58,7 @@ namespace Healthy.Services.Services.Users
         public async Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsersBase query)
             => await _userRepository.BrowseAsync(query);
 
-        public async Task SignUpAsync(string userId, string email, string role,
+        public async Task SignUpAsync(Guid id, string userId, string email, string role,
             string provider, string password = null, string externalUserId = null,
             bool activate = true, string name = null)
         {
@@ -162,6 +163,8 @@ namespace Healthy.Services.Services.Users
             }
             user.Lock();
             await _userRepository.UpdateAsync(user);
+            _eventStore.Store(user);     
+            user.ClearEvents();
         }
 
         public async Task UnlockAsync(string userId)
@@ -169,6 +172,8 @@ namespace Healthy.Services.Services.Users
             var user = await _userRepository.GetOrFailAsync(userId);
             user.Unlock();
             await _userRepository.UpdateAsync(user);
+            _eventStore.Store(user);
+            user.ClearEvents();
         }
 
         public async Task DeleteAsync(string userId, bool soft)

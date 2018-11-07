@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Pagination;
@@ -16,7 +17,7 @@ namespace Healthy.Services.Services.Users.Abstract
         Task<Maybe<string>> GetStateAsync(string userId);
         Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsersBase query);
 
-        Task SignUpAsync(string userId, string email, string role,
+        Task SignUpAsync(Guid id, string userId, string email, string role,
             string provider, string password = null,
             string externalUserId = null,
             bool activate = true, string name = null);

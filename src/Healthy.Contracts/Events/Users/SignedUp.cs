@@ -9,7 +9,7 @@ namespace Healthy.Contracts.Events.Users
         public string Provider { get; }
         public string Role { get; }
         public string State { get; }
-        
+
         public SignedUp(string userId, string provider, 
             string role, string state)
         {

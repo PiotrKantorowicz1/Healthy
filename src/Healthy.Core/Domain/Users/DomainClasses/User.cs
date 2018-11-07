@@ -28,6 +28,11 @@ namespace Healthy.Core.Domain.Users.DomainClasses
         public User()
         {
             Handles<NameChanged>(Apply);
+            Handles<AccountActivated>(Apply);
+            Handles<AccountLocked>(Apply);
+            Handles<AccountUnlocked>(Apply);
+            Handles<PasswordChanged>(Apply);
+            Handles<AccountDeleted>(Apply);
         }
 
         public User(string userId, string email, string role, string provider) : this()
@@ -119,7 +124,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
 
             Name = name.ToLowerInvariant();
             UpdatedAt = DateTime.UtcNow;
-            ApplyChange(new NameChanged(name));
+            ApplyChange(new NameChanged(UserId, name, State));
         }
 
         public void SetRole(string role)
@@ -158,6 +163,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
 
             State = States.Locked;
             UpdatedAt = DateTime.UtcNow;
+            ApplyChange(new AccountLocked(UserId));
         }
 
         public void Unlock()
@@ -170,6 +176,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
 
             State = States.Active;
             UpdatedAt = DateTime.UtcNow;
+            ApplyChange(new AccountUnlocked(UserId));
         }
 
         public void Activate()
@@ -236,8 +243,36 @@ namespace Healthy.Core.Domain.Users.DomainClasses
             => passwordHasher.VerifyHashedPassword(this, PasswordHash, password) != PasswordVerificationResult.Failed;
 
         private void Apply(NameChanged @event)
-        {            
-            Name = @event.Name;
+        {
+            UserId = @event.UserId;
+            Name = @event.NewName;
+            State = @event.State;
+        }
+
+        private void Apply(AccountActivated @event)
+        {
+            UserId = @event.UserId;
+            Email = @event.Email;
+        }
+
+        private void Apply(AccountLocked @event)
+        {
+            UserId = @event.UserId;
+        }
+
+        private void Apply(AccountUnlocked @event)
+        {
+            UserId = @event.UserId;
+        }
+
+        private void Apply(PasswordChanged @event)
+        {
+            UserId = @event.UserId;
+        }
+
+        private void Apply(AccountDeleted @event)
+        {
+            UserId = @event.UserId;
         }
     }
 }

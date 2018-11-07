@@ -26,7 +26,7 @@ namespace Healthy.Services.Handlers.Users
             await _handler
                 .Run(async () =>
                 {
-                    await _userService.SignUpAsync(userId, command.Email,
+                    await _userService.SignUpAsync(command.Id, userId, command.Email,
                         command.Role.Empty() ? Roles.User : command.Role, Providers.Healthy,
                         password: command.Password, name: command.Name,
                         activate: command.State == "active");

@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Healthy.Contracts.Events;
 using Healthy.Core.Domain.BaseClasses;
+using Healthy.Core.Domain.Events.DomainClasses;
+using Healthy.Core.Domain.Events.Repositories;
 
 namespace Healthy.EventStore.EventsStore
 {
     public class EventStore : IEventStore
     {
         private readonly List<EventInfo> _events = new List<EventInfo>();
+        private readonly IEventRepository _eventRepository;
 
-        public EventStore()
+        public EventStore(IEventRepository eventRepository)
         {
+            _eventRepository = eventRepository;
         }
 
         public T Load<T>(Guid aggregateId, int? version = null) where T : AggregateRoot, new()
@@ -21,11 +24,12 @@ namespace Healthy.EventStore.EventsStore
                 .Where(e => e.AggregateId == aggregateId && e.Version <= version)
                 .OrderBy(x => x.Version)
                 .Select(e => e.Data).ToList();
-            
+
             if (!events.Any())
             {
                 return null;
             }
+
             var aggregate = new T();
             aggregate.Replay(events);
 
@@ -33,7 +37,8 @@ namespace Healthy.EventStore.EventsStore
         }
 
         public void Store<T>(T aggregate) where T : AggregateRoot
-            => _events.AddRange(aggregate.Events
+        {
+            _events.AddRange(aggregate.Events
                 .Select(e => new EventInfo
                 {
                     Id = e.Id,
@@ -44,14 +49,10 @@ namespace Healthy.EventStore.EventsStore
                     Data = e
                 }));
 
-        private class EventInfo
-        {
-            public Guid Id { get; set; }
-            public Guid AggregateId { get; set; }
-            public long Timestamp { get; set; }
-            public int Version { get; set; }
-            public string Name { get; set; }
-            public IEvent Data { get; set; }
-        }        
+            foreach (var @event in _events)
+            {
+                _eventRepository.AddAsync(@event);
+            }
+        }
     }
 }
