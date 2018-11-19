@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Healthy.Core.Domain.BaseClasses;
 using Healthy.Core.Domain.Events.DomainClasses;
 using Healthy.Core.Domain.Events.Repositories;
@@ -20,8 +21,7 @@ namespace Healthy.EventStore.EventsStore
         public T Load<T>(Guid aggregateId, int? version = null) where T : AggregateRoot, new()
         {
             version = version ?? int.MaxValue;
-            var events = _events
-                .Where(e => e.AggregateId == aggregateId && e.Version <= version)
+            var events = _events.Where(e => e.AggregateId == aggregateId && e.Version <= version)
                 .OrderBy(x => x.Version)
                 .Select(e => e.Data).ToList();
 
@@ -36,6 +36,15 @@ namespace Healthy.EventStore.EventsStore
             return aggregate;
         }
 
+        public async Task<IEnumerable<EventInfo>> Load(Guid aggregateId, int? version = null)
+        {
+            version = version ?? int.MaxValue;
+            var events = await _eventRepository.BrowseAsync(x => x.AggregateId == aggregateId
+                                                                 && x.Version <= version);
+
+            return events.Value;
+        }
+        
         public void Store<T>(T aggregate) where T : AggregateRoot
         {
             _events.AddRange(aggregate.Events

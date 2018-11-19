@@ -1,11 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Healthy.Core.Domain.Events.DomainClasses;
 using Healthy.Core.Domain.Events.Repositories;
-using Healthy.Core.Pagination;
-using Healthy.Core.Queries.Events;
 using Healthy.Core.Types;
-using Healthy.Infrastructure.Mongo;
 using Healthy.Infrastructure.Repositories.Events.Queries;
 using MongoDB.Driver;
 
@@ -20,13 +19,13 @@ namespace Healthy.Infrastructure.Repositories.Events
             _database = database;
         }
         
-        public async Task<Maybe<PagedResult<EventInfo>>> BrowseAsync(BrowseEvents query)
+        public async Task<Maybe<IEnumerable<EventInfo>>> BrowseAsync(Expression<Func<EventInfo, bool>> predicate)
         {
             return await _database.Events()
-                .Query(query)
-                .PaginateAsync(query);
+                .Query(predicate)               
+                .ToListAsync();
         }
-        
+       
         public async Task AddAsync(EventInfo @event)
             => await _database.Events().InsertOneAsync(@event);
 

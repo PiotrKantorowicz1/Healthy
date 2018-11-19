@@ -2,10 +2,12 @@ using System.Threading.Tasks;
 using Healthy.Infrastructure.Handlers;
 using Healthy.Read.Dtos.Users;
 using Healthy.Read.Mappers;
+using Healthy.Read.Mappers.Users;
 using Healthy.Read.Queries;
+using Healthy.Read.Queries.Users;
 using Healthy.Services.Services.Users.Abstract;
 
-namespace Healthy.Read.Handlers.QueryHandlers
+namespace Healthy.Read.Handlers.QueryHandlers.Users
 {
     public class GetUserStateHandler : IQueryHandler<GetUserState, UserStateDto>
     {
