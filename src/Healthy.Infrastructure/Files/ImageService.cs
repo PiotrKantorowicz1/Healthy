@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using ImageSharp;
+using SixLabors.ImageSharp;
 using Serilog;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace Healthy.Infrastructure.Files
 {
@@ -52,8 +54,8 @@ namespace Healthy.Infrastructure.Files
             var newHeight = (int)(image.Height*ratio);
             using (var stream = new MemoryStream())
             {
-                image.Resize(newWidth, newHeight)
-                     .SaveAsJpeg(stream);
+                image.Mutate(x => x.Resize(newWidth, newHeight));
+                image.SaveAsJpeg(stream);
                 
                 return stream.ToArray();
             }

@@ -1,5 +1,5 @@
 using System;
-using ImageSharp;
+using SixLabors.ImageSharp;
 using Serilog;
 
 namespace Healthy.Infrastructure.Files
