@@ -42,6 +42,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
                 throw new DomainException(ErrorCodes.InvalidSecuredOperation,
                     "Token can not be empty.");
             }
+
             Id = id;
             Type = type;
             User = user;

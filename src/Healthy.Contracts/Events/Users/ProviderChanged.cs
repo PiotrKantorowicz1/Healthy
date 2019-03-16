@@ -1,13 +1,15 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Healthy.Contracts.Events.Users
 {
-    public class AccountDeleted : IEvent
+    public class ProviderChanged
     {
         public Guid Id => Guid.NewGuid();
         public Guid UserId { get; }
-        
-        public AccountDeleted(Guid userId)
+
+        public ProviderChanged(Guid userId)
         {
             UserId = userId;
         }

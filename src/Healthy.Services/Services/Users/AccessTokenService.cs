@@ -28,13 +28,13 @@ namespace Healthy.Services.Services.Users
         public async Task<bool> IsCurrentActiveToken()
             => await IsActiveAsync(GetCurrentAsync());
 
-        public async Task DeactivateCurrentAsync(string userId)
+        public async Task DeactivateCurrentAsync(Guid userId)
             => await DeactivateAsync(userId, GetCurrentAsync());
 
         public async Task<bool> IsActiveAsync(string token)
             => string.IsNullOrWhiteSpace(await _cache.GetStringAsync(GetKey(token)));
 
-        public async Task DeactivateAsync(string userId, string token)
+        public async Task DeactivateAsync(Guid userId, string token)
         {
             await _cache.SetStringAsync(GetKey(token),
                     "deactivated", new DistributedCacheEntryOptions

@@ -33,6 +33,7 @@ namespace Healthy.Core.Domain.BaseClasses
             Version++;
             if (@new)
             {
+
                 AddEvent(@event);
             }
         }

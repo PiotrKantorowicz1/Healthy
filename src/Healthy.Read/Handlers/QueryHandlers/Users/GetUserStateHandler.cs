@@ -21,7 +21,7 @@ namespace Healthy.Read.Handlers.QueryHandlers.Users
         public async Task<UserStateDto> HandleAsync(GetUserState query)
         {
             var state = await _userService.GetStateAsync(query.UserId);
-            var userStateDto = _userMapper.MapToUserStateDto(state.Value);
+            var userStateDto = _userMapper.MapToUserStateDto(state.Value.Name);
             return userStateDto;
         }
     }

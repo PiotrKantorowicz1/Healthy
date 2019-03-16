@@ -1,10 +1,12 @@
+using System;
+
 namespace Healthy.Contracts.Commands.Users
 {
     public class RemoveAvatar : ICommand
     {
-        public string UserId { get; }
+        public Guid UserId { get; }
         
-        public RemoveAvatar(string userId)
+        public RemoveAvatar(Guid userId)
         {
             UserId = userId;
         }

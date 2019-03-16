@@ -5,10 +5,10 @@ namespace Healthy.Contracts.Events.Users
     public class AccountActivated : IEvent
     {
         public Guid Id => Guid.NewGuid();
-        public string UserId { get; }
+        public Guid UserId { get; }
         public string Email { get; }
         
-        public AccountActivated(string email, string userId)
+        public AccountActivated(string email, Guid userId)
         {
             UserId = userId;
             Email = email;

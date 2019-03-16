@@ -11,9 +11,9 @@ namespace Healthy.Read.Mappers.Users
                 UserId = entity.UserId,
                 Email = entity.Email,
                 Name = entity.Name,
-                Provider = entity.Provider,
-                Role = entity.Role,
-                State = entity.State,
+                Provider = entity.Provider.Name,
+                Role = entity.Role.Name,
+                State = entity.State.Name,
                 ExternalUserId = entity.ExternalUserId,
                 AvatarUrl = entity.Avatar.Url,
                 CreatedAt = entity.CreatedAt
@@ -24,8 +24,8 @@ namespace Healthy.Read.Mappers.Users
             {
                 UserId = entity.UserId,
                 Name = entity.Name,
-                Role = entity.Role,
-                State = entity.State,
+                Role = entity.Role.Name,
+                State = entity.State.Name,
                 AvatarUrl = entity.Avatar.Url,
                 CreatedAt = entity.CreatedAt,
             };

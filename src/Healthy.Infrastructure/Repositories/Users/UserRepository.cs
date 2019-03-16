@@ -1,5 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using Healthy.Core.Domain.Users.DomainClasses;
+using Healthy.Core.Domain.Users.Enumerations;
 using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Pagination;
 using Healthy.Core.Queries.Users;
@@ -25,7 +27,7 @@ namespace Healthy.Infrastructure.Repositories.Users
         public async Task<Maybe<User>> GetOwnerAsync()
             => await _database.Users().GetOwnerAsync();
 
-        public async Task<Maybe<User>> GetByUserIdAsync(string userId)
+        public async Task<Maybe<User>> GetByUserIdAsync(Guid userId)
             => await _database.Users().GetByUserIdAsync(userId);
 
         public async Task<Maybe<User>> GetByExternalUserIdAsync(string externalUserId)
@@ -37,7 +39,7 @@ namespace Healthy.Infrastructure.Repositories.Users
         public async Task<Maybe<User>> GetByNameAsync(string name)
             => await _database.Users().GetByNameAsync(name);
 
-        public async Task<Maybe<string>> GetStateAsync(string id)
+        public async Task<Maybe<States>> GetStateAsync(Guid id)
             => await _database.Users().GetStateAsync(id);
 
         public async Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsersBase query)
@@ -53,7 +55,7 @@ namespace Healthy.Infrastructure.Repositories.Users
         public async Task UpdateAsync(User user)
             => await _database.Users().ReplaceOneAsync(x => x.Id == user.Id, user);
 
-        public async Task DeleteAsync(string userId)
+        public async Task DeleteAsync(Guid userId)
             => await _database.Users().DeleteOneAsync(x => x.UserId == userId);
     }
 }

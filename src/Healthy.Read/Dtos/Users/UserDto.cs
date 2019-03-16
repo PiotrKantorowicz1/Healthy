@@ -1,3 +1,5 @@
+using Healthy.Core.Domain.Users.Enumerations;
+
 namespace Healthy.Read.Dtos.Users
 {
     public class UserDto : UserInfoDto

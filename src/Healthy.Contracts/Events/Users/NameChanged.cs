@@ -5,11 +5,11 @@ namespace Healthy.Contracts.Events.Users
     public class NameChanged : IEvent
     {
         public Guid Id => Guid.NewGuid();
-        public string UserId { get; }
+        public Guid UserId { get; }
         public string NewName { get; }
         public string State { get; }
         
-        public NameChanged(string userId, string newName, string state)
+        public NameChanged(Guid userId, string newName, string state)
         {
             UserId = userId;
             NewName = newName;
