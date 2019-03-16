@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Healthy.Core;
@@ -8,6 +9,7 @@ using Healthy.Core.Extensions;
 using Healthy.Core.Pagination;
 using Healthy.Core.Queries.Users;
 using Healthy.Core.Types;
+using Healthy.EventStore.EventsStore;
 using Healthy.Infrastructure.Dispatchers;
 using Healthy.Services.Services.Users.Abstract;
 using Microsoft.AspNetCore.Identity;
@@ -19,17 +21,20 @@ namespace Healthy.Services.Services.Users
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IEventDispatcher _eventDispatcher;
+        private readonly IEventStore _eventStore;
         private readonly IOneTimeSecuredOperationService _securedOperationService;
 
         public UserService(IUserRepository userRepository,
             IPasswordHasher<User> passwordHasher,
             IOneTimeSecuredOperationService securedOperationService, 
-            IEventDispatcher eventDispatcher)
+            IEventDispatcher eventDispatcher, 
+            IEventStore eventStore)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
             _securedOperationService = securedOperationService;
             _eventDispatcher = eventDispatcher;
+            _eventStore = eventStore;
         }
 
         public async Task<bool> IsNameAvailableAsync(string name)
@@ -53,7 +58,7 @@ namespace Healthy.Services.Services.Users
         public async Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsersBase query)
             => await _userRepository.BrowseAsync(query);
 
-        public async Task SignUpAsync(string userId, string email, string role,
+        public async Task SignUpAsync(Guid id, string userId, string email, string role,
             string provider, string password = null, string externalUserId = null,
             bool activate = true, string name = null)
         {
@@ -130,6 +135,8 @@ namespace Healthy.Services.Services.Users
             user.Value.SetName(name);
             user.Value.Activate();
             await _userRepository.UpdateAsync(user.Value);
+            _eventStore.Store(user.Value);
+            user.Value.ClearEvents();
         }
 
         public async Task ActivateAsync(string email, string token)
@@ -156,6 +163,8 @@ namespace Healthy.Services.Services.Users
             }
             user.Lock();
             await _userRepository.UpdateAsync(user);
+            _eventStore.Store(user);     
+            user.ClearEvents();
         }
 
         public async Task UnlockAsync(string userId)
@@ -163,6 +172,8 @@ namespace Healthy.Services.Services.Users
             var user = await _userRepository.GetOrFailAsync(userId);
             user.Unlock();
             await _userRepository.UpdateAsync(user);
+            _eventStore.Store(user);
+            user.ClearEvents();
         }
 
         public async Task DeleteAsync(string userId, bool soft)

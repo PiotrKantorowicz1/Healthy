@@ -1,11 +1,9 @@
 ﻿using Healthy.Infrastructure.Handlers;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Healthy.Contracts.Commands.Users;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Extensions;
-using Healthy.Infrastructure.Dispatchers;
 using Healthy.Services.Services.Users.Abstract;
 
 namespace Healthy.Services.Handlers.Users
@@ -28,7 +26,7 @@ namespace Healthy.Services.Handlers.Users
             await _handler
                 .Run(async () =>
                 {
-                    await _userService.SignUpAsync(userId, command.Email,
+                    await _userService.SignUpAsync(command.Id, userId, command.Email,
                         command.Role.Empty() ? Roles.User : command.Role, Providers.Healthy,
                         password: command.Password, name: command.Name,
                         activate: command.State == "active");

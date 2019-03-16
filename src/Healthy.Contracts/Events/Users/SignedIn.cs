@@ -2,21 +2,21 @@ using System;
 
 namespace Healthy.Contracts.Events.Users
 {
-    public class SignedUp : IEvent
+    public class SignedIn : IEvent
     {
         public Guid Id => Guid.NewGuid();
         public string UserId { get; }
+        public string Email { get; }
+        public string Name { get; }
         public string Provider { get; }
-        public string Role { get; }
-        public string State { get; }
-
-        public SignedUp(string userId, string provider, 
-            string role, string state)
+        
+        public SignedIn(string userId, string email, 
+            string name, string provider)
         {
             UserId = userId;
+            Email = email;
+            Name = name;
             Provider = provider;
-            Role = role;
-            State = state;
         }
     }
 }
