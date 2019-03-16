@@ -1,8 +1,8 @@
 language: csharp
-dist: trusty
-sudo: required
 mono: none
-dotnet: 2.1.301
+sudo: required
+dist: xenial
+dotnet: 2.2
 branches:
   only:
     - master
@@ -10,11 +10,11 @@ branches:
 before_script:
   - chmod -R a+x scripts
 script:
-  - ./scripts/linux/build.sh
-  - ./scripts/linux/tests.sh
+  - ./cli-linux/build.sh
+  - ./cli-linux/tests.sh
 after_success:
-  - ./scripts/linux/publish.sh
-  - ./scripts/linux/docker-publish.sh
+  - ./cli-linux/publish.sh
+  - ./cli-linux/docker-publish.sh
 notifications:
   email:
     on_success: never
