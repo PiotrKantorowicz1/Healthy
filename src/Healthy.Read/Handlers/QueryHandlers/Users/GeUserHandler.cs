@@ -4,9 +4,7 @@ using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Infrastructure.Handlers;
 using Healthy.Infrastructure.Redis;
 using Healthy.Read.Dtos.Users;
-using Healthy.Read.Mappers;
 using Healthy.Read.Mappers.Users;
-using Healthy.Read.Queries;
 using Healthy.Read.Queries.Users;
 
 namespace Healthy.Read.Handlers.QueryHandlers.Users

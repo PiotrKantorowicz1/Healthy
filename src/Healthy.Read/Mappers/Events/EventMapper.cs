@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Healthy.Core.Domain.Events.DomainClasses;
 using Healthy.Read.Dtos.Events;
 

@@ -4,9 +4,7 @@ using Healthy.Services.Services.Users.Abstract;
 using Healthy.Core.Pagination;
 using Healthy.Infrastructure.Handlers;
 using Healthy.Read.Dtos.Users;
-using Healthy.Read.Mappers;
 using Healthy.Read.Mappers.Users;
-using Healthy.Read.Queries;
 using Healthy.Read.Queries.Users;
 
 namespace Healthy.Read.Handlers.QueryHandlers.Users
