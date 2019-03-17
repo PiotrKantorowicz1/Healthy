@@ -18,9 +18,9 @@ namespace Healthy.Services.Services.Users.Abstract
         Task SignInViaFacebookAsync(Guid sessionId, string accessToken,
             string ipAddress = null, string userAgent = null);
 
-        Task SignOutAsync(Guid sessionId, string userId);
+        Task SignOutAsync(Guid sessionId, Guid userId);
 
-        Task CreateSessionAsync(Guid sessionId, string userId,
+        Task CreateSessionAsync(Guid sessionId, Guid userId,
             string ipAddress = null, string userAgent = null);
 
         Task RefreshSessionAsync(Guid sessionId, Guid newSessionId, 

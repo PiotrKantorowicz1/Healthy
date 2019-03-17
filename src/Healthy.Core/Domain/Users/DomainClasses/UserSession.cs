@@ -4,9 +4,9 @@ using Healthy.Core.Domain.BaseClasses;
 
 namespace Healthy.Core.Domain.Users.DomainClasses
 {
-    public class UserSession : AggregateRoot, ITimestampable
+    public class UserSession : AggregateRoot, IEditable, ITimestampable
     {
-        public string UserId { get; protected set; }
+        public Guid UserId { get; protected set; }
         public string Key { get; protected set; }
         public string UserAgent { get; protected set; }
         public string IpAddress { get; protected set; }
@@ -20,11 +20,11 @@ namespace Healthy.Core.Domain.Users.DomainClasses
         {
         }
 
-        public UserSession(Guid id, string userId) : this(id, userId, null)
+        public UserSession(Guid id, Guid userId) : this(id, userId, null)
         {
         }
 
-        public UserSession(Guid id, string userId, string key,
+        public UserSession(Guid id, Guid userId, string key,
             string ipAddress = null, string userAgent = null,
             Guid? parentId = null)
         {

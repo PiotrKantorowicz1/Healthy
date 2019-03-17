@@ -9,6 +9,5 @@ namespace Healthy.Read.Queries.Events
     public class BrowseEvents : BrowseEventsBase, IQuery<IEnumerable<EventInfoDto>>
     {
         public Guid Id { get; set; }
-        public int Version { get; set; }
     }
 }

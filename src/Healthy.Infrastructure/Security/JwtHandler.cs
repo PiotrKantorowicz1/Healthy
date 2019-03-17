@@ -43,10 +43,12 @@ namespace Healthy.Infrastructure.Security
             };
         }
 
-        public JsonWebToken CreateToken(string userId, string role = null, string state = "active",
+        public JsonWebToken CreateToken(Guid userId, string role = null, string state = "active",
             IDictionary<string, string> claims = null)
         {
-            if (string.IsNullOrWhiteSpace(userId))
+            var idAsString = userId.ToString("N");
+
+            if (string.IsNullOrWhiteSpace(idAsString))
             {
                 throw new ArgumentException("User id claim can not be empty.", nameof(userId));
             }
@@ -54,8 +56,8 @@ namespace Healthy.Infrastructure.Security
             var now = DateTime.UtcNow;
             var jwtClaims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, userId),
-                new Claim(JwtRegisteredClaimNames.UniqueName, userId),
+                new Claim(JwtRegisteredClaimNames.Sub, idAsString),
+                new Claim(JwtRegisteredClaimNames.UniqueName, idAsString),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
                 new Claim(StateClaim, state)

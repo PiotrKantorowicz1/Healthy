@@ -1,5 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using Healthy.Core.Domain.Users.DomainClasses;
+using Healthy.Core.Domain.Users.Enumerations;
 using Healthy.Core.Extensions;
 using Healthy.Core.Queries.Users;
 using Healthy.Infrastructure.Mongo;
@@ -19,9 +21,9 @@ namespace Healthy.Infrastructure.Repositories.Users.Queries
         public static async Task<User> GetOwnerAsync(this IMongoCollection<User> users)
             => await users.AsQueryable().FirstOrDefaultAsync(x => x.Role == Roles.Owner);
 
-        public static async Task<User> GetByUserIdAsync(this IMongoCollection<User> users, string userId)
+        public static async Task<User> GetByUserIdAsync(this IMongoCollection<User> users, Guid userId)
         {
-            if (userId.Empty())
+            if (userId == Guid.Empty)
                 return null;
 
             return await users.AsQueryable().FirstOrDefaultAsync(x => x.UserId == userId);
@@ -42,7 +44,7 @@ namespace Healthy.Infrastructure.Repositories.Users.Queries
             if (provider.Empty())
                 return null;
 
-            return await users.AsQueryable().FirstOrDefaultAsync(x => x.Email == email && x.Provider == provider);
+            return await users.AsQueryable().FirstOrDefaultAsync(x => x.Email == email && x.Provider.Name == provider);
         }
 
         public static async Task<User> GetByNameAsync(this IMongoCollection<User> users, string name)
@@ -53,9 +55,9 @@ namespace Healthy.Infrastructure.Repositories.Users.Queries
             return await users.AsQueryable().FirstOrDefaultAsync(x => x.Name == name);
         }
 
-        public static async Task<string> GetStateAsync(this IMongoCollection<User> users, string id)
+        public static async Task<States> GetStateAsync(this IMongoCollection<User> users, Guid id)
         {
-            if (id.Empty())
+            if (id == Guid.Empty)
                 return null;
 
             return await users.AsQueryable().Where(x => x.UserId == id)

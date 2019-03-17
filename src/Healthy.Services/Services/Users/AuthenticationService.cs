@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Healthy.Core;
 using Healthy.Core.Domain.Users.DomainClasses;
+using Healthy.Core.Domain.Users.Enumerations;
 using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Domain.Users.Services;
 using Healthy.Core.Exceptions;
@@ -56,7 +57,7 @@ namespace Healthy.Services.Services.Users
             var user = await _userService.GetAsync(session.Value.UserId);
             var claims = await _claimsProvider.GetAsync(user.Value.UserId);
             var token = _jwtHandler.CreateToken(user.Value.UserId,
-                user.Value.Role, state: user.Value.State, claims: claims);
+                user.Value.Role.Name, state: user.Value.State.Name, claims: claims);
 
             return new JwtSession
             {
@@ -71,7 +72,7 @@ namespace Healthy.Services.Services.Users
         public async Task SignInAsync(Guid sessionId, string email, string password,
             string ipAddress = null, string userAgent = null)
         {
-            var user = await _userRepository.GetByEmailAsync(email, Providers.Healthy);
+            var user = await _userRepository.GetByEmailAsync(email, ProviderType.Healthy.Name);
             if (user.HasNoValue)
             {
                 throw new ServiceException(ErrorCodes.UserNotFound,
@@ -114,7 +115,7 @@ namespace Healthy.Services.Services.Users
             await CreateSessionAsync(sessionId, user.Value);
         }
 
-        public async Task SignOutAsync(Guid sessionId, string userId)
+        public async Task SignOutAsync(Guid sessionId, Guid userId)
         {
             var user = await _userRepository.GetByUserIdAsync(userId);
             if (user.HasNoValue)
@@ -133,7 +134,7 @@ namespace Healthy.Services.Services.Users
             await _userSessionRepository.UpdateAsync(session.Value);
         }
 
-        public async Task CreateSessionAsync(Guid sessionId, string userId,
+        public async Task CreateSessionAsync(Guid sessionId, Guid userId,
             string ipAddress = null,
             string userAgent = null)
         {

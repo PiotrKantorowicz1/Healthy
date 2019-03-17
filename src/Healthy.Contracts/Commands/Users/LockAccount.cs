@@ -1,11 +1,13 @@
+using System;
+
 namespace Healthy.Contracts.Commands.Users
 {
     public class LockAccount : ICommand
     {
-        public string UserId { get; }
-        public string LockUserId { get; }
+        public Guid UserId { get; }
+        public Guid LockUserId { get; }
         
-        public LockAccount(string userId, string lockUserId)
+        public LockAccount(Guid userId, Guid lockUserId)
         {
             UserId = userId;
             LockUserId = lockUserId;

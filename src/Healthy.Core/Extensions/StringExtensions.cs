@@ -11,6 +11,9 @@ namespace Healthy.Core.Extensions
             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
             RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
+        private static readonly Regex NameRegex = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$",
+            RegexOptions.Compiled);
+
         public static bool Empty(this string target) => string.IsNullOrWhiteSpace(target);
 
         public static bool NotEmpty(this string target) => !target.Empty();
@@ -61,5 +64,7 @@ namespace Healthy.Core.Extensions
             => values.Aggregate((x, y) => $"{x.Trim()}\n{y.Trim()}");
 
         public static bool IsEmail(this string value) => value.NotEmpty() && EmailRegex.IsMatch(value);
+
+        public static bool IsName(this string value) => value.NotEmpty() && NameRegex.IsMatch(value);
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Healthy.Core.Domain.BaseClasses;
-using Healthy.Core.Domain.Shared.DomainClasses;
+using Healthy.Core.Domain.Shared.ValueObjects;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Types;
 
@@ -33,13 +33,9 @@ namespace Healthy.Core.Domain.Workouts.DomainClasses
 
         public void SetDay(Day day)
         {
-            if (day == null)
-            {
-                throw new DomainException(ErrorCodes.InvalidDay,
+            Day = day ?? throw new DomainException(ErrorCodes.InvalidDay,
                     "day can not be null");
-            }
 
-            Day = day;
             UpdatedAt = DateTime.UtcNow;
         }
 

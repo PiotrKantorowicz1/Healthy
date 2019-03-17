@@ -14,6 +14,7 @@ namespace Healthy.Core.Domain.BaseClasses
 
         protected AggregateRoot()
         {       
+              
             Id = Guid.NewGuid();
         }
 
@@ -33,6 +34,7 @@ namespace Healthy.Core.Domain.BaseClasses
             Version++;
             if (@new)
             {
+
                 AddEvent(@event);
             }
         }

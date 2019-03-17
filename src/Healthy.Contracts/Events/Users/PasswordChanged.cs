@@ -5,9 +5,9 @@ namespace Healthy.Contracts.Events.Users
     public class PasswordChanged : IEvent
     {
         public Guid Id => Guid.NewGuid();
-        public string UserId { get; }
+        public Guid UserId { get; }
         
-        public PasswordChanged(string userId)
+        public PasswordChanged(Guid userId)
         {
             UserId = userId;
         }

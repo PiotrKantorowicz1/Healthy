@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 
 namespace Healthy.Contracts.Events.Users
 {
-    public class AccountDeleted : IEvent
+    public class RoleChanged
     {
         public Guid Id => Guid.NewGuid();
         public Guid UserId { get; }
-        
-        public AccountDeleted(Guid userId)
+
+        public RoleChanged(Guid userId)
         {
             UserId = userId;
         }

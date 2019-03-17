@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Healthy.Core.Domain.BaseClasses;
-using Healthy.Core.Domain.Shared.DomainClasses;
+using Healthy.Core.Domain.Shared.ValueObjects;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Types;
 
@@ -37,13 +37,9 @@ namespace Healthy.Core.Domain.Diets.DomainClasses
 
         public void SetInterval(Interval interval)
         {
-            if (interval == null)
-            {
-                throw new DomainException(ErrorCodes.IntervalNotProvided,
+            Interval = interval ?? throw new DomainException(ErrorCodes.IntervalNotProvided,
                     "Interval can not be null.");
-            }
 
-            Interval = interval;
             UpdatedAt = DateTime.UtcNow;
         }
 
