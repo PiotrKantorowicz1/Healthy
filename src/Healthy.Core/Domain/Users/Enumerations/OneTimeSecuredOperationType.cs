@@ -6,6 +6,7 @@ namespace Healthy.Core.Domain.Users.Enumerations
     {
         public static OneTimeSecuredOperationType ResetPassword = new ResetPasswordOperation();
         public static OneTimeSecuredOperationType ActivateAccount = new ActivateAccountOperation();
+        public static OneTimeSecuredOperationType LoginWith2Factor = new LoginWith2FactorOperation();
 
         public OneTimeSecuredOperationType(int id, string name) 
             : base(id, name)
@@ -20,6 +21,11 @@ namespace Healthy.Core.Domain.Users.Enumerations
         private class ActivateAccountOperation : OneTimeSecuredOperationType
         {
             public ActivateAccountOperation() : base(2, "activate_account") { }
+        }
+
+        private class LoginWith2FactorOperation : OneTimeSecuredOperationType
+        {
+            public LoginWith2FactorOperation() : base(3, "login_with_two_factor") { }
         }
     }
 }

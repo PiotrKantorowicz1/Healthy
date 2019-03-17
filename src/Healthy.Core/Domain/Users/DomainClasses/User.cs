@@ -1,5 +1,4 @@
 using System;
-using Healthy.Contracts.Events.Users;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
 using Healthy.Core.Domain.BaseClasses;
@@ -8,7 +7,7 @@ using Healthy.Core.Domain.Users.Enumerations;
 
 namespace Healthy.Core.Domain.Users.DomainClasses
 {
-    public class User : AggregateRoot, ITimestampable
+    public class User : AggregateRoot, IEditable, ITimestampable
     {
         public Avatar Avatar { get; protected set; }
         public Guid UserId { get; protected set; }
@@ -19,6 +18,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
         public Roles Role { get; protected set; }
         public States State { get; protected set; }
         public string ExternalUserId { get; protected set; }
+        public bool TwoFactorAuthentication { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
 
@@ -34,12 +34,11 @@ namespace Healthy.Core.Domain.Users.DomainClasses
             SetProvider(provider);
             SetRole(role);
             State = States.Incomplete;
+            TwoFactorAuthentication = false;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             UserId = userId;
             Name = $"user-{Id:N}";
-
-            AddEvent(new SignedUp(userId, provider, role));
         }
 
         public void SetUserId(Guid userId)
@@ -184,6 +183,18 @@ namespace Healthy.Core.Domain.Users.DomainClasses
             }
 
             State = States.Active;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void EnableTwoFactorAuthentication()
+        {
+            TwoFactorAuthentication = true;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void DisableTwoFactorAuthentication()
+        {
+            TwoFactorAuthentication = false;
             UpdatedAt = DateTime.UtcNow;
         }
 

@@ -2,7 +2,6 @@
 using System;
 using System.Threading.Tasks;
 using Healthy.Contracts.Commands.Users;
-using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Extensions;
 using Healthy.Services.Services.Users.Abstract;
 using Healthy.Core.Domain.Users.Enumerations;

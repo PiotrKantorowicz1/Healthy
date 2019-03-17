@@ -4,7 +4,7 @@ using Healthy.Core.Domain.BaseClasses;
 
 namespace Healthy.Core.Domain.Users.DomainClasses
 {
-    public class UserSession : AggregateRoot, ITimestampable
+    public class UserSession : AggregateRoot, IEditable, ITimestampable
     {
         public Guid UserId { get; protected set; }
         public string Key { get; protected set; }
