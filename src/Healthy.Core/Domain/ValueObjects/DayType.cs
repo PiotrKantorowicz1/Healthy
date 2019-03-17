@@ -1,4 +1,4 @@
-namespace Healthy.Core.Domain.Shared.DomainClasses
+namespace Healthy.Core.Domain.Shared.ValueObjects
 {
     public class DayType
     {

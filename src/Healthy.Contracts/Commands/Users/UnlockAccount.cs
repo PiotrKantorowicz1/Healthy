@@ -1,11 +1,13 @@
+using System;
+
 namespace Healthy.Contracts.Commands.Users
 {
     public class UnlockAccount : ICommand
     {
-        public string UserId { get; }
-        public string UnlockUserId { get; }
+        public Guid UserId { get; }
+        public Guid UnlockUserId { get; }
         
-        public UnlockAccount(string userId, string unlockUserId)
+        public UnlockAccount(Guid userId, Guid unlockUserId)
         {
             UserId = userId;
             UnlockUserId = unlockUserId;

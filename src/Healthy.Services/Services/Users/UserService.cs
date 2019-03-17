@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Healthy.Core;
 using Healthy.Core.Domain.Users.DomainClasses;
+using Healthy.Core.Domain.Users.Enumerations;
 using Healthy.Core.Domain.Users.Repositories;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
@@ -40,7 +41,7 @@ namespace Healthy.Services.Services.Users
         public async Task<bool> IsNameAvailableAsync(string name)
             => await _userRepository.ExistsAsync(name.ToLowerInvariant()) == false;
 
-        public async Task<Maybe<User>> GetAsync(string userId)
+        public async Task<Maybe<User>> GetAsync(Guid userId)
             => await _userRepository.GetByUserIdAsync(userId);
 
         public async Task<Maybe<User>> GetByNameAsync(string name)
@@ -52,13 +53,13 @@ namespace Healthy.Services.Services.Users
         public async Task<Maybe<User>> GetByEmailAsync(string email, string provider)
             => await _userRepository.GetByEmailAsync(email, provider);
 
-        public async Task<Maybe<string>> GetStateAsync(string userId)
+        public async Task<Maybe<States>> GetStateAsync(Guid userId)
             => await _userRepository.GetStateAsync(userId);
 
         public async Task<Maybe<PagedResult<User>>> BrowseAsync(BrowseUsersBase query)
             => await _userRepository.BrowseAsync(query);
 
-        public async Task SignUpAsync(Guid id, string userId, string email, string role,
+        public async Task SignUpAsync(Guid id, Guid userId, string email, string role,
             string provider, string password = null, string externalUserId = null,
             bool activate = true, string name = null)
         {
@@ -80,18 +81,13 @@ namespace Healthy.Services.Services.Users
                 throw new ServiceException(ErrorCodes.NameInUse,
                     $"User with name: {name} already exists!");
             }
-            if (provider == Providers.Healthy && password.Empty())
+            if (provider == ProviderType.Healthy.Name && password.Empty())
             {
                 throw new ServiceException(ErrorCodes.InvalidPassword,
                     "Password can not be empty!");
 
             }
-            if (!Roles.IsValid(role))
-            {
-                throw new ServiceException(ErrorCodes.InvalidRole, 
-                    $"Can not create a new account for user id: '{userId}', invalid role: '{role}'.");
-            }
-            if (role == Roles.Owner)
+            if (role == Roles.Owner.Name)
             {
                 var owner = await _userRepository.GetOwnerAsync();
                 if (owner.HasValue)
@@ -105,7 +101,7 @@ namespace Healthy.Services.Services.Users
                 user.Value.SetPassword(password, _passwordHasher);
             if (name.NotEmpty())
             {
-                user.Value.SetName(name);
+                user.Value.SetName(userId, name, user.Value.State.Name);
                 if (activate)
                     user.Value.Activate();
                 else
@@ -119,7 +115,7 @@ namespace Healthy.Services.Services.Users
             await _eventDispatcher.DispatchAsync(user.Value.Events.ToArray());
         }
 
-        public async Task ChangeNameAsync(string userId, string name)
+        public async Task ChangeNameAsync(Guid userId, string name)
         {
             var user = await GetAsync(userId);
             if (user.HasNoValue)
@@ -132,7 +128,7 @@ namespace Healthy.Services.Services.Users
                 throw new ServiceException(ErrorCodes.NameInUse,
                     $"User with name: '{name}' already exists.");
             }
-            user.Value.SetName(name);
+            user.Value.SetName(userId, name, user.Value.State.Name);
             user.Value.Activate();
             await _userRepository.UpdateAsync(user.Value);
             _eventStore.Store(user.Value);
@@ -141,9 +137,9 @@ namespace Healthy.Services.Services.Users
 
         public async Task ActivateAsync(string email, string token)
         {
-            await _securedOperationService.ConsumeAsync(OneTimeSecuredOperations.ActivateAccount,
+            await _securedOperationService.ConsumeAsync(OneTimeSecuredOperationType.ActivateAccount.Name,
                 email, token);
-            var user = await _userRepository.GetByEmailAsync(email, Providers.Healthy);
+            var user = await _userRepository.GetByEmailAsync(email, ProviderType.Healthy.Name);
             if (user.HasNoValue)
             {
                 throw new ServiceException(ErrorCodes.UserNotFound,
@@ -153,7 +149,7 @@ namespace Healthy.Services.Services.Users
             await _userRepository.UpdateAsync(user.Value);
         }
 
-        public async Task LockAsync(string userId)
+        public async Task LockAsync(Guid userId)
         {
             var user = await _userRepository.GetOrFailAsync(userId);
             if (user.Role == Roles.Owner)
@@ -167,7 +163,7 @@ namespace Healthy.Services.Services.Users
             user.ClearEvents();
         }
 
-        public async Task UnlockAsync(string userId)
+        public async Task UnlockAsync(Guid userId)
         {
             var user = await _userRepository.GetOrFailAsync(userId);
             user.Unlock();
@@ -176,7 +172,7 @@ namespace Healthy.Services.Services.Users
             user.ClearEvents();
         }
 
-        public async Task DeleteAsync(string userId, bool soft)
+        public async Task DeleteAsync(Guid userId, bool soft)
         {
             var user = await _userRepository.GetOrFailAsync(userId);
             if(soft)

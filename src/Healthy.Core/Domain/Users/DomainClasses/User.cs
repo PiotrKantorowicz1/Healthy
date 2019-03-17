@@ -1,58 +1,49 @@
 using System;
-using System.Text.RegularExpressions;
-using Healthy.Contracts.Events.Users;
 using Healthy.Core.Exceptions;
 using Healthy.Core.Extensions;
 using Healthy.Core.Domain.BaseClasses;
 using Microsoft.AspNetCore.Identity;
+using Healthy.Core.Domain.Users.Enumerations;
 
 namespace Healthy.Core.Domain.Users.DomainClasses
 {
-    public class User : AggregateRoot, ITimestampable
+    public class User : AggregateRoot, IEditable, ITimestampable
     {
-        private static readonly Regex NameRegex = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$",
-            RegexOptions.Compiled);
-
         public Avatar Avatar { get; protected set; }
-        public string UserId { get; protected set; }
+        public Guid UserId { get; protected set; }
         public string Email { get; protected set; }
         public string Name { get; protected set; }
         public string PasswordHash { get; protected set; }
-        public string Provider { get; protected set; }
-        public string Role { get; protected set; }
-        public string State { get; protected set; }
+        public ProviderType Provider { get; protected set; }
+        public Roles Role { get; protected set; }
+        public States State { get; protected set; }
         public string ExternalUserId { get; protected set; }
+        public bool TwoFactorAuthentication { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
 
         public User()
         {
-            Handles<NameChanged>(Apply);
-            Handles<AccountActivated>(Apply);
-            Handles<AccountLocked>(Apply);
-            Handles<AccountUnlocked>(Apply);
-            Handles<PasswordChanged>(Apply);
-            Handles<AccountDeleted>(Apply);
         }
 
-        public User(string userId, string email, string role, string provider) : this()
+        public User(Guid userId, string email, string role, string provider) : this()
         {
             SetUserId(userId);
             SetEmail(email);
             Avatar = Avatar.Empty;
-            Provider = provider;
-            Role = role;
+            SetProvider(provider);
+            SetRole(role);
             State = States.Incomplete;
+            TwoFactorAuthentication = false;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             UserId = userId;
             Name = $"user-{Id:N}";
-            AddEvent(new SignedUp(userId, provider, role, States.Incomplete));
         }
 
-        public void SetUserId(string userId)
+        public void SetUserId(Guid userId)
         {
-            if (userId.Empty())
+            if (userId == Guid.Empty)
                 throw new ArgumentException("User id can not be empty.", nameof(userId));
 
             UserId = userId;
@@ -89,7 +80,7 @@ namespace Healthy.Core.Domain.Users.DomainClasses
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetName(string name)
+        public void SetName(Guid userId, string name, string state)
         {
             if (State != States.Incomplete)
             {
@@ -117,22 +108,28 @@ namespace Healthy.Core.Domain.Users.DomainClasses
                 throw new ArgumentException("User name is too long.", nameof(name));
             }
 
-            if (NameRegex.IsMatch(name) == false)
+            if (name.IsName())
             {
                 throw new ArgumentException("User name doesn't meet the required criteria.", nameof(name));
             }
 
             Name = name.ToLowerInvariant();
             UpdatedAt = DateTime.UtcNow;
-            ApplyChange(new NameChanged(UserId, name, State));
         }
 
         public void SetRole(string role)
         {
-            if (Role == role)
-                return;
+            var roleType = Enumeration.FromDisplayName<Roles>(role);
 
-            Role = role;
+            Role = roleType;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetProvider(string provider)
+        {
+            var providerType = Enumeration.FromDisplayName<ProviderType>(provider);
+
+            Provider = providerType;
             UpdatedAt = DateTime.UtcNow;
         }
 
@@ -163,7 +160,6 @@ namespace Healthy.Core.Domain.Users.DomainClasses
 
             State = States.Locked;
             UpdatedAt = DateTime.UtcNow;
-            ApplyChange(new AccountLocked(UserId));
         }
 
         public void Unlock()
@@ -176,7 +172,6 @@ namespace Healthy.Core.Domain.Users.DomainClasses
 
             State = States.Active;
             UpdatedAt = DateTime.UtcNow;
-            ApplyChange(new AccountUnlocked(UserId));
         }
 
         public void Activate()
@@ -188,6 +183,18 @@ namespace Healthy.Core.Domain.Users.DomainClasses
             }
 
             State = States.Active;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void EnableTwoFactorAuthentication()
+        {
+            TwoFactorAuthentication = true;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void DisableTwoFactorAuthentication()
+        {
+            TwoFactorAuthentication = false;
             UpdatedAt = DateTime.UtcNow;
         }
 
@@ -241,38 +248,5 @@ namespace Healthy.Core.Domain.Users.DomainClasses
 
         public bool ValidatePassword(string password, IPasswordHasher<User> passwordHasher)
             => passwordHasher.VerifyHashedPassword(this, PasswordHash, password) != PasswordVerificationResult.Failed;
-
-        private void Apply(NameChanged @event)
-        {
-            UserId = @event.UserId;
-            Name = @event.NewName;
-            State = @event.State;
-        }
-
-        private void Apply(AccountActivated @event)
-        {
-            UserId = @event.UserId;
-            Email = @event.Email;
-        }
-
-        private void Apply(AccountLocked @event)
-        {
-            UserId = @event.UserId;
-        }
-
-        private void Apply(AccountUnlocked @event)
-        {
-            UserId = @event.UserId;
-        }
-
-        private void Apply(PasswordChanged @event)
-        {
-            UserId = @event.UserId;
-        }
-
-        private void Apply(AccountDeleted @event)
-        {
-            UserId = @event.UserId;
-        }
     }
 }

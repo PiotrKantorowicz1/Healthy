@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Infrastructure.Redis;
@@ -16,10 +17,10 @@ namespace Healthy.EventStore.Caching
         public async Task AddAsync(User user)
             => await _cache.AddAsync(GetCacheKey(user.UserId), user);
         
-        public async Task DeleteAsync(string userId)
+        public async Task DeleteAsync(Guid userId)
             => await _cache.DeleteAsync(GetCacheKey(userId));
 
-        private static string GetCacheKey(string userId)
+        private static string GetCacheKey(Guid userId)
             => $"users:{userId}";
     }
 }

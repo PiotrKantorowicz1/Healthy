@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Healthy.Core;
 using Healthy.Core.Domain.Users.DomainClasses;
@@ -28,7 +29,7 @@ namespace Healthy.Services.Services.Users
             _fileValidator = fileValidator;
         }
 
-        public async Task<string> GetUrlAsync(string userId)
+        public async Task<string> GetUrlAsync(Guid userId)
         {
             var user = await _userRepository.GetByUserIdAsync(userId);
             if (user.HasNoValue)
@@ -40,7 +41,7 @@ namespace Healthy.Services.Services.Users
             return user.Value.Avatar?.Url ?? string.Empty;
         }
 
-        public async Task AddOrUpdateAsync(string userId, File avatar)
+        public async Task AddOrUpdateAsync(Guid userId, File avatar)
         {
             if (avatar == null)
             {
@@ -62,14 +63,14 @@ namespace Healthy.Services.Services.Users
             await _userRepository.UpdateAsync(user.Value);
         }
 
-        public async Task RemoveAsync(string userId)
+        public async Task RemoveAsync(Guid userId)
         {
             var user = await _userRepository.GetByUserIdAsync(userId);
             await RemoveAsync(user, userId);
             await _userRepository.UpdateAsync(user.Value);
         }
 
-        private async Task RemoveAsync(Maybe<User> user, string userId)
+        private async Task RemoveAsync(Maybe<User> user, Guid userId)
         {
             if (user.HasNoValue)
             {

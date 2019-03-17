@@ -2,9 +2,9 @@
 using System;
 using System.Threading.Tasks;
 using Healthy.Contracts.Commands.Users;
-using Healthy.Core.Domain.Users.DomainClasses;
 using Healthy.Core.Extensions;
 using Healthy.Services.Services.Users.Abstract;
+using Healthy.Core.Domain.Users.Enumerations;
 
 namespace Healthy.Services.Handlers.Users
 {
@@ -22,14 +22,14 @@ namespace Healthy.Services.Handlers.Users
 
         public async Task HandleAsync(SignUp command)
         {
-            var userId = Guid.NewGuid().ToString("N");
+            var userId = Guid.NewGuid();
             await _handler
                 .Run(async () =>
                 {
                     await _userService.SignUpAsync(command.Id, userId, command.Email,
-                        command.Role.Empty() ? Roles.User : command.Role, Providers.Healthy,
-                        password: command.Password, name: command.Name,
-                        activate: command.State == "active");
+                        command.Role.Empty() ? Roles.User.Name : command.Role, 
+                        ProviderType.Healthy.Name, password: command.Password, 
+                        name: command.Name, activate: command.State == "active");
                     
                 })
                 .OnError((ex, logger) =>

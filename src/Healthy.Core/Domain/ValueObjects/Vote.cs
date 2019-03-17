@@ -2,7 +2,7 @@ using System;
 using Healthy.Core.Domain.BaseClasses;
 using Healthy.Core.Extensions;
 
-namespace Healthy.Core.Domain.Shared.DomainClasses
+namespace Healthy.Core.Domain.Shared.ValueObjects
 {
     public class Vote : ValueObject<Vote>
     {

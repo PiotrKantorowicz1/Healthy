@@ -5,9 +5,9 @@ namespace Healthy.Contracts.Commands.Users
     public class SignOut : ICommand
     {
         public Guid SessionId { get; }      
-        public string UserId { get; }
+        public Guid UserId { get; }
         
-        public SignOut(Guid sessionId, string userId)
+        public SignOut(Guid sessionId, Guid userId)
         {
             SessionId = sessionId;
             UserId = userId;

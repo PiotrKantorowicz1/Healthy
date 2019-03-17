@@ -1,11 +1,13 @@
+using System;
+
 namespace Healthy.Contracts.Commands.Users
 {
     public class DeleteAccount : ICommand
     {
-        public string UserId { get; }
+        public Guid UserId { get; }
         public bool Soft { get; }
         
-        public DeleteAccount(string userId, bool soft)
+        public DeleteAccount(Guid userId, bool soft)
         {
             UserId = userId;
             Soft = soft;

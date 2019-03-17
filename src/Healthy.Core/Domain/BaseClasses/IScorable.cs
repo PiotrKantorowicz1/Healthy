@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Healthy.Core.Domain.Shared.DomainClasses;
+using Healthy.Core.Domain.Shared.ValueObjects;
 
 namespace Healthy.Core.Domain.BaseClasses
 {

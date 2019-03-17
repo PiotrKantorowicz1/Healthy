@@ -17,13 +17,31 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Healthy.Api", "src\Healthy.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Healthy.Tests.EndToEnd", "tests\Healthy.Tests.EndToEnd\Healthy.Tests.EndToEnd.csproj", "{4E625557-BC77-402C-84FE-D366FFFB81BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthy.Contracts", "src\Healthy.Contracts\Healthy.Contracts.csproj", "{8DC7AAD6-B70B-4849-AEA6-512C7E44821D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Healthy.Contracts", "src\Healthy.Contracts\Healthy.Contracts.csproj", "{8DC7AAD6-B70B-4849-AEA6-512C7E44821D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthy.Read", "src\Healthy.Read\Healthy.Read.csproj", "{EEF24B30-C4BB-4A47-A167-62C0C1F525C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Healthy.Read", "src\Healthy.Read\Healthy.Read.csproj", "{EEF24B30-C4BB-4A47-A167-62C0C1F525C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthy.EventStore", "src\Healthy.EventStore\Healthy.EventStore.csproj", "{8B4D7F3E-5A44-4472-9316-DA5E5154DE33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Healthy.EventStore", "src\Healthy.EventStore\Healthy.EventStore.csproj", "{8B4D7F3E-5A44-4472-9316-DA5E5154DE33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Healthy.Services", "src\Healthy.Services\Healthy.Services.csproj", "{B5884708-B871-48EC-A243-B06197E67C21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Healthy.Services", "src\Healthy.Services\Healthy.Services.csproj", "{B5884708-B871-48EC-A243-B06197E67C21}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cli-linux", "cli-linux", "{18493296-F78A-41E0-9768-3C1BF95D5F36}"
+	ProjectSection(SolutionItems) = preProject
+		cli-linux\build.sh = cli-linux\build.sh
+		cli-linux\docker-build-local.sh = cli-linux\docker-build-local.sh
+		cli-linux\docker-publish.sh = cli-linux\docker-publish.sh
+		cli-linux\publish.sh = cli-linux\publish.sh
+		cli-linux\start.sh = cli-linux\start.sh
+		cli-linux\tests.sh = cli-linux\tests.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cli-windows", "cli-windows", "{3A43F7CE-005A-4172-9216-A21DD2E80410}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0C00ABA8-0DB0-410C-AFBB-43D342723E22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "readme", "readme", "{5E5BA593-1B11-4103-9EF7-E60F03EFFF21}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{4BA55EB9-8679-4E40-B6D6-F622A9A1353F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
