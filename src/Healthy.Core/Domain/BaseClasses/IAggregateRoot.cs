@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Healthy.Contracts.Events;
 
 namespace Healthy.Core.Domain.BaseClasses
 {

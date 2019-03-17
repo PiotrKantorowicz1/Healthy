@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Healthy.Core;
 using Healthy.Core.Domain.Users.DomainClasses;
@@ -112,7 +111,6 @@ namespace Healthy.Services.Services.Users
                 user.Value.SetExternalUserId(externalUserId);
             }
             await _userRepository.AddAsync(user.Value);
-            await _eventDispatcher.DispatchAsync(user.Value.Events.ToArray());
         }
 
         public async Task ChangeNameAsync(Guid userId, string name)
@@ -131,8 +129,6 @@ namespace Healthy.Services.Services.Users
             user.Value.SetName(userId, name, user.Value.State.Name);
             user.Value.Activate();
             await _userRepository.UpdateAsync(user.Value);
-            _eventStore.Store(user.Value);
-            user.Value.ClearEvents();
         }
 
         public async Task ActivateAsync(string email, string token)
@@ -159,8 +155,6 @@ namespace Healthy.Services.Services.Users
             }
             user.Lock();
             await _userRepository.UpdateAsync(user);
-            _eventStore.Store(user);     
-            user.ClearEvents();
         }
 
         public async Task UnlockAsync(Guid userId)
@@ -168,8 +162,6 @@ namespace Healthy.Services.Services.Users
             var user = await _userRepository.GetOrFailAsync(userId);
             user.Unlock();
             await _userRepository.UpdateAsync(user);
-            _eventStore.Store(user);
-            user.ClearEvents();
         }
 
         public async Task DeleteAsync(Guid userId, bool soft)

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Healthy.EventStore.EventsStore;
 using Healthy.Infrastructure.Handlers;
@@ -22,9 +21,10 @@ namespace Healthy.Read.Handlers.QueryHandlers.Events
 
         public async Task<IEnumerable<EventInfoDto>> HandleAsync(BrowseEvents query)
         {
-            var result = await _eventStore.Load(query.Id, query.Version);
-            var events = result.Select(x => _eventMapper.MapToEventInfoDto(x));
-            return events;
+            //var result = await _eventStore.Load(query.Id, query.Version);
+            //var events = result.Select(x => _eventMapper.MapToEventInfoDto(x));
+            //return events;
+            return null;
         }
     }
 }
