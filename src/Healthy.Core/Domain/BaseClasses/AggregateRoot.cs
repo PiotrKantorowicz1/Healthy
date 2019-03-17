@@ -14,6 +14,7 @@ namespace Healthy.Core.Domain.BaseClasses
 
         protected AggregateRoot()
         {       
+              
             Id = Guid.NewGuid();
         }
 
