@@ -1,50 +1,86 @@
 using System;
 using System.Collections.Generic;
-using Healthy.Contracts.Events;
+using MediatR;
 
 namespace Healthy.Core.Domain.BaseClasses
 {
     public class AggregateRoot : IAggregateRoot
     {
-        private readonly ISet<IEvent> _events = new HashSet<IEvent>();
-        private readonly Dictionary<Type, Action<IEvent>> _eventHandlers = new Dictionary<Type, Action<IEvent>>();
-        public IEnumerable<IEvent> Events => _events;
+        private List<INotification> _domainEvents;
+        public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();
+        int? _requestedHashCode;
+
         public Guid Id { get; protected set; }
-        public int Version { get; protected set; }
 
         protected AggregateRoot()
-        {       
-              
+        {
             Id = Guid.NewGuid();
         }
 
-        public void Replay(IEnumerable<IEvent> events)
+        public void AddDomainEvent(INotification eventItem)
         {
-            foreach (var @event in events)
+            _domainEvents = _domainEvents ?? new List<INotification>();
+            _domainEvents.Add(eventItem);
+        }
+
+        public void RemoveDomainEvent(INotification eventItem)
+        {
+            _domainEvents?.Remove(eventItem);
+        }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents?.Clear();
+        }
+
+        public bool IsTransient()
+        {
+            return this.Id == default(Guid);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is AggregateRoot))
+                return false;
+
+            if (Object.ReferenceEquals(this, obj))
+                return true;
+
+            if (this.GetType() != obj.GetType())
+                return false;
+
+            AggregateRoot item = (AggregateRoot)obj;
+
+            if (item.IsTransient() || this.IsTransient())
+                return false;
+            else
+                return item.Id == this.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            if (!IsTransient())
             {
-                ApplyChange(@event, @new: false);
+                if (!_requestedHashCode.HasValue)
+                    _requestedHashCode = this.Id.GetHashCode() ^ 31; 
+
+                return _requestedHashCode.Value;
             }
+            else
+                return base.GetHashCode();
         }
 
-        protected void AddEvent(IEvent @event) => _events.Add(@event);
-
-        protected void ApplyChange<T>(T @event, bool @new = true) where T : IEvent
+        public static bool operator ==(AggregateRoot left, AggregateRoot right)
         {
-            _eventHandlers[@event.GetType()](@event);
-            Version++;
-            if (@new)
-            {
-
-                AddEvent(@event);
-            }
+            if (Object.Equals(left, null))
+                return (Object.Equals(right, null)) ? true : false;
+            else
+                return left.Equals(right);
         }
 
-        protected void Handles<TEvent>(Action<TEvent> handler) where TEvent : IEvent
+        public static bool operator !=(AggregateRoot left, AggregateRoot right)
         {
-            _eventHandlers.Add(typeof(TEvent), @event => handler((TEvent) @event));
+            return !(left == right);
         }
-
-        public void ClearEvents()
-            => _events.Clear();
     }
 }
